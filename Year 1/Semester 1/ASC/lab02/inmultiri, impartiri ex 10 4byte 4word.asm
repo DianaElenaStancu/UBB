@@ -21,15 +21,15 @@ segment data use32 class=data
 ; our code starts here
 segment code use32 class=code
     start:
-        mov AL, [a]; AL = a
-        mul BYTE [d]; AX = AL*d = a*d
-        
-        mov BX, AX; BX = AX = a*d
-        
-        mov AL, [b]; AL = b 
-        mul BYTE [c]; AX = AL*c = b*c 
-        
-        add BX, AX; BX = BX + AX = a*d + b*c
+        mov AL, [a]; AL = a                    =21
+        mul BYTE [d]; AX = AL*d = a*d          =105
+
+        mov BX, AX; BX = AX = a*d              =105
+
+        mov AL, [b]; AL = b                    =4
+        mul BYTE [c]; AX = AL*c = b*c          =4*10=40
+
+        add BX, AX; BX = BX + AX = a*d + b*c   =105+40=145
     
         ; exit(0)
         push    dword 0      ; push the parameter for exit onto the stack

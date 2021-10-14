@@ -22,16 +22,15 @@ segment data use32 class=data
 segment code use32 class=code
     start:
         
-        mov AL, [a]; AL = a 
-        add AL, [d]; AL = a+d
-        
-        add AL, [d]; AL = a+d+d
-        sub AL, [c]; AL = (a+d+d)-c 
-        
-        mov AH, [b]; AH = b
-        add AH, [b]; AH = b+b
-        
-        add AL, AH; AL = AL+AH = (a+d+d)-c+(b+b)
+        mov AL, [a]; AL = a                                     =21
+        add AL, [d]; AL = a+d                                   =21+5=26
+        add AL, [d]; AL = a+d+d                                 =26+5=31
+        sub AL, [c]; AL = (a+d+d)-c                             =31-10=21
+
+        mov AH, [b]; AH = b                                     =4
+        add AH, [b]; AH = b+b                                   =4+4=8
+
+        add AL, AH; AL = AL+AH = (a+d+d)-c+(b+b)                =21+8=29
     
         ; exit(0)
         push    dword 0      ; push the parameter for exit onto the stack

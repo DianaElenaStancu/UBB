@@ -22,30 +22,30 @@ segment code use32 class=code
     start:
          
         ;b-a+2
-        mov AH, [b]; AH = b
-        sub AH, [a]; AH = b-a
-        add AH, 2; AH = b-a+2
-        
+        mov AH, [b]; AH = b                         =25
+        sub AH, [a]; AH = b-a                       =25-16=9
+        add AH, 2; AH = b-a+2                       =9+2=11
+
         ;20*(b-a+2)
         mov AL, 20; AH = 20
-        mul AH; AX = AH*AL = 20*AL = 20*(b-a+2)
-        
-        mov BX, AX; BX = AX = 20*(b-a+2)
-        
+        mul AH; AX = AH*AL = 20*AL = 20*(b-a+2)     =20*11=220
+
+        mov BX, AX; BX = AX = 20*(b-a+2)            =220
+
         ;10*c
-        mov AL, 10; AL = c
-        mul BYTE [c]; AX = AL*c = 10*c 
-        
+        mov AL, 10; AL = c                          =13
+        mul BYTE [c]; AX = AL*c = 10*c              =130
+
         ;20*(b-a+2)-10*c
-        sub BX, AX; BX = BX-AX = 20*(b-a+2)-10*c
-        
-        mov AX, BX; DX = BX = 20*(b-a+2)-10*c
-        
+        sub BX, AX; BX = BX-AX = 20*(b-a+2)-10*c    =90
+
+        mov AX, BX; DX = BX = 20*(b-a+2)-10*c       =90
+
         ;3*[20*(b-a+2)-10*c]/5
         mov BL, 5; BL = 5
-        div BL; AL = AL/5 = [20*(b-a+2)-10*c]/5; AH = [20*(b-a+2)-10*c]%5  (AL = CATUL, AH = REST)
+        div BL; AL = AL/5 = [20*(b-a+2)-10*c]/5; AH = [20*(b-a+2)-10*c]%5  (AL = CATUL, AH = REST); AL = 18, AH = 0
         mov BL, 3; BL = 3
-        mul BL; AX = AL*BL = [20*(b-a+2)-10*c]/5*3
+        mul BL; AX = AL*BL = [20*(b-a+2)-10*c]/5*3  =54
         
         
         ; exit(0)

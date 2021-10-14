@@ -21,25 +21,25 @@ segment data use32 class=data
 ; our code starts here
 segment code use32 class=code
     start:
-        mov AH, [a]; AL = a
-        add AH, [b]; AL = a+b 
-        add AH, 2; AL = a+b+2
+        mov AH, [a]; AL = a                                 =11
+        add AH, [b]; AL = a+b                               =11+7=18
+        add AH, 2; AL = a+b+2                               =18+2=20
 
         mov AL, 3; AH = 3
-        mul AH; AX = AL*AH = 3*(a+b+2)
-        
-        mov BX, AX; BX = AX = 3*(a+b+2)
-        
-        mov AH, [c]; AH = c 
-        add AH, 2; AH = c+2
-        
+        mul AH; AX = AL*AH = 3*(a+b+2)                      =3*20=60
+
+        mov BX, AX; BX = AX = 3*(a+b+2)                     =60
+
+        mov AH, [c]; AH = c                                 =5
+        add AH, 2; AH = c+2                                 =5+2=7
+
         mov AL, 5;AL = 5
-        mul AH; AX = AL*AH = 5*(c+2)
-        
-        sub BX, AX; BX = BX-AX = 3*(a+b+2)-5*(c+2)
-        
-        mov AX, [d]; AX = d
-        sub AX, BX; AX = AX-BX = d-[3*(a+b+2)-5*(c+2)]
+        mul AH; AX = AL*AH = 5*(c+2)                        =5*7=35
+
+        sub BX, AX; BX = BX-AX = 3*(a+b+2)-5*(c+2)          =60-35=25
+
+        mov AX, [d]; AX = d                                 =100
+        sub AX, BX; AX = AX-BX = d-[3*(a+b+2)-5*(c+2)]      =100-25=75
         
     
         ; exit(0)

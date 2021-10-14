@@ -25,35 +25,35 @@ segment data use32 class=data
 ; our code starts here
 segment code use32 class=code
     start:
-        mov AX, [f]; AX = f 
-        mul WORD [g]; DX:AX ← AX * g = f*g 
-        
+        mov AX, [f]; AX = f                                                 =25
+        mul WORD [g]; DX:AX ← AX * g = f*g                                  =25*78=1950
+
         push DX;se pune pe stiva partea high din double word-ul DX:AX
         push AX;se pune pe stiva partea low din double word-ul DX:AX
-        pop EBX;EBX = DX:AX = f*g
-        
-        mov AL, [a]; AL = a
-        mul BYTE [b]; AX = AL*b = a*b 
-        mul WORD [e]; DX:AX ← AX * e = a*b*e
-        
+        pop EBX;EBX = DX:AX = f*g                                           =1950
+
+        mov AL, [a]; AL = a                                                 =5
+        mul BYTE [b]; AX = AL*b = a*b                                       =5*2=10
+        mul WORD [e]; DX:AX ← AX * e = a*b*e                                =10*50=500
+
         push DX;se pune pe stiva partea high din double word-ul DX:AX
         push AX;se pune pe stiva partea low din double word-ul DX:AX
-        pop ECX;ECX = DX:AX = a*b*e
-        
-        sub EBX, ECX; EBX = EBX-ECX = f*g-a*b*e
-        
-        mov AL, [c]; AL = c
-        mul BYTE [d]; AX = AL*d = c*d
-        add AX, [h]; AX = AX + h = c*d+h
-       
-        mov CX, AX; CX = AX = c*d+h
-        mov EAX, EBX; EAX = (f*g-a*b*e)
-        
+        pop ECX;ECX = DX:AX = a*b*e                                         =500
+
+        sub EBX, ECX; EBX = EBX-ECX = f*g-a*b*e                             =1950-500=1450
+
+        mov AL, [c]; AL = c                                                 =9
+        mul BYTE [d]; AX = AL*d = c*d                                       =9*2=18
+        add AX, [h]; AX = AX + h = c*d+h                                    =18+32=50
+
+        mov CX, AX; CX = AX = c*d+h                                         =50
+        mov EAX, EBX; EAX = (f*g-a*b*e)                                     =1450
+
         ;push EAX;
         ;pop AX;
         ;pop DX;
-        
-        div CX; EAX ← DX:AX / CX, DX = DX:AX%CX, AX = DX:AX/CX
+
+        div CX; EAX ← DX:AX / CX, DX = DX:AX%CX, AX = DX:AX/CX             ;AX = 29, DX = 0
         
         ; exit(0)
         push    dword 0      ; push the parameter for exit onto the stack

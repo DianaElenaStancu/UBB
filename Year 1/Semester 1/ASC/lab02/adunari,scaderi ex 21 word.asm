@@ -22,18 +22,18 @@ segment code use32 class=code
     start:
         
         ;a-c+d-7+b
-        mov AX, [a]; AX = a 
-        sub AX, [c]; AX = AX-c = a-c
-        add AX, [d]; AX = AX+d = a-c+d
-        sub AX, 7; AX = AX-7 = a-c+d-7
-        add AX, [b]; AX = AX+b = a-c+d-7+b
-        
+        mov AX, [a]; AX = a                     =17
+        sub AX, [c]; AX = AX-c = a-c            =17-10=7
+        add AX, [d]; AX = AX+d = a-c+d          =7+8=15
+        sub AX, 7; AX = AX-7 = a-c+d-7          =15-7=8
+        add AX, [b]; AX = AX+b = a-c+d-7+b      =8+22=30
+
         ;(2+d)
         mov BX, 2; BX = 2
-        add BX, [d]; BX = BX+d = 2+d
-        
+        add BX, [d]; BX = BX+d = 2+d            =2+8=10
+
         ;a-c+d-7+b-(2+d)
-        sub AX, BX; AX = AX-BX = a-c+d-7+b-(2+d) 
+        sub AX, BX; AX = AX-BX = a-c+d-7+b-(2+d) =30-10=20
     
         ; exit(0)
         push    dword 0      ; push the parameter for exit onto the stack
