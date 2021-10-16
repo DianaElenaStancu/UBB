@@ -49,9 +49,9 @@ segment code use32 class=code
         mov CX, AX; CX = AX = c*d+h                                         =50
         mov EAX, EBX; EAX = (f*g-a*b*e)                                     =1450
 
-        ;push EAX;
-        ;pop AX;
-        ;pop DX;
+        push EAX;
+        pop AX;
+        pop DX;
 
         div CX; EAX ← DX:AX / CX, DX = DX:AX%CX, AX = DX:AX/CX             ;AX = 29, DX = 0
         

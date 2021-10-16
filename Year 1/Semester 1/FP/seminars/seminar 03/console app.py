@@ -1,13 +1,26 @@
 """
+Se cere dezvoltarea unei aplicatii care gestioneaza produsele dintr-un magazin de dulciuri (intr-o lista).
+ Fiecare produs are o denumire (string), numar de unitati in stoc (int) si pret pe unitate (float).
 
+Aplicatia are interfata de tip consola, si ofera urmatoarele functionalitati:
+
+1. Adaugare produs (denumire, unitati_stoc, pret)
+2. Stergerea tuturor produselor care nu sunt in stoc (unitati_stoc=0)
+3. Afisarea produselor  care contin in denumire un string dat.
+4. Undo ultima operatie
+5. Inchiderea aplicatiei
+
+Se va adauga o optiune pentru printarea listei curente (sau se va printa dupa fiecare operatie).
+Se cere folosirea procesului de dezvoltare incrementala bazata pe
+ functionalitati si dezvoltarea dirijata de teste.
 """
 from termcolor import colored
 
 #functii care lucreaza cu entitatea produs sau lista
 def generate_products():
-    return [['jelly beans', 12, 9.5], ['ciocolata', 16, 18.25], ['licorice', 1, 65], ['bomboane', 0, 15], ['vata de zahar', 0, 11], ['dropsuri', 100, 1.25], ['jeleuri haribo', 18, 5.7]]
-
-
+    return [['jelly beans', 12, 9.5], ['ciocolata', 16, 10.25], ['licorice', 1, 65],
+            ['bomboane Halloween', 0, 13], ['vata de zahar', 0, 11], ['dropsuri', 100, 1.25],
+            ['jeleuri haribo', 18, 5.7]]
 
 def get_name(product):
     return product[0]
@@ -26,7 +39,7 @@ def create_product(denumire, unitati_stoc, pret):
     :param unitati_stoc: numarul de unitati
     :type unitati_stoc: int
     :param pret: pretul dat
-    :type pret
+    :type pret: int
     :return: produsul cu atributele date
     :rtype: list (len(lst) = 3, lst[0] = denumire, lst[1] = unitati stoc, lst[2] = pret)
     """
@@ -49,8 +62,8 @@ def remove_from_list_stock_zero(product_list):
     Eliminam din lista produsele care nu sunt in stoc
     :param product_list: lista de produse
     :type product_list: list (of lists)
-    :return:
-    :rtype:
+    :return: lista din care au fost eliminate produsele cu stoc 0
+    :rtype: list (of lists)
     """
     new_list = [product for product in product_list if get_stock(product) != 0]
     return new_list
@@ -62,44 +75,46 @@ def filter_by_name(product_list, my_substring):
     :type product_list: list (of lists)
     :param my_substring: substringul dat
     :type my_substring: string
-    :return: lisat cu produsele care contin denumire un substring dat
+    :return: lista cu produsele care contin denumire un substring dat
     :rtype: list (of lists)
     """
     filtered_list = []
-    for el in product_list:
-        if get_name(el).find(my_substring) != -1: #-1 daca nu il gaseste, indexul daca il gaseste
-            filtered_list.append(el)
+    if my_substring != '':
+        for el in product_list:
+            if get_name(el).find(my_substring) != -1: #-1 daca nu il gaseste, indexul daca il gaseste
+                filtered_list.append(el)
     return filtered_list
 
 #functii care au legatura cu interfata utilizator
 def print_menu():
     print("1. Adaugare produs (denumire, stoc, pret)")
-    print("2. Stergerea tuturor produselor care nu sunt in sotc(unitati, stoc = 0")
+    print("2. Stergerea tuturor produselor care nu sunt in sotc(unitati_stoc = 0")
     print("3. Afisarea produselor care contin in denumire un string dat")
     print("4. Undo ultima operatie")
     print("P. Afisare listei curente de produse")
     print("5. Inchiderea aplicatiei")
 
 def print_product_list(product_list):
-    for i, product in product_list:
+    for i, product in enumerate(product_list):
         print(i, 'denumire: ', colored(get_name(product), 'blue'), 'Unitati stoc: ',colored(get_stock(product),'blue'), 'Pret: ', colored(get_price(product),'blue') )
 
 def add_product_ui(product_list):
     denumire = input("Denumirea produsului:")
     unitati = int(input("Numarul de unitati in stoc:"))
     pret = float(input("Pretul pe unitate:"))
+
     p1 = create_product(denumire, unitati, pret)
     add_product_to_list(product_list, p1)
 
 def delete_product_ui(product_list):
     #citire valoare
-    #ne-ar mai trebui un paramentru la remove daca am citi o valoare de la tastatura
+    #ne-ar mai trebui un parametru la remove daca am citi o valoare de la tastatura
     product_list = remove_from_list_stock_zero(product_list)
     return product_list
 
 def filter_by_name_ui(product_list):
     subs = input("Substringul este: ")
-    filtered_list = filter_by_name((product_list, subs))
+    filtered_list = filter_by_name(product_list, subs)
     print_product_list(filtered_list)
 
 def start():
@@ -109,7 +124,6 @@ def start():
         print_menu()
         option = input("Optiunea este:")
         if option == '1':
-            #functionalitatea de adaugare
             add_product_ui(crt_product_list)
             print(colored('Adaugarea s-a efectuat cu succes', 'green'))
         elif option == '2':
@@ -186,12 +200,15 @@ def test_filter_by_name():
     assert(len(filtered_list3) == 1)
     assert(get_name((filtered_list3[0])) == 'ciocolata')
 
-    filtered_list4 = filter_by_name(test_list2, 'cris')
+    filtered_list4 = filter_by_name(test_list2, 'acadea')
     assert(len(filtered_list4) == 0)
+
+    filtered_list5 = filter_by_name(test_list2, '')
+    assert (len(filtered_list5) == 0)
 
 
 test_create()
 test_add_product_to_list()
 test_remove_from_list_stock_zero()
 test_filter_by_name()
-#start()
+start()
