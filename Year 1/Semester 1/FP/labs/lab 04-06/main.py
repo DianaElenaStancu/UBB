@@ -92,6 +92,124 @@ def add_pocket_to_list(lst, pocket):
     """
     lst.append(pocket)
 
+def remove_pocket_with_destination(lst, destination):
+    """
+    Sterge toate pachetele care au o anumita destinatie
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :param destination: destinatia data de utilizator
+    :type destination: string
+    :return lst: lista de pachete de calatorii modificata
+    :rtype lst: list (of lists)
+    """
+    new_list = [pocket for pocket in lst if get_destination(pocket).lower() != destination.lower()]
+    return new_list
+
+def remove_pocket_with_smaller_duration(lst, duration):
+    """
+    Sterge toate pachetele care au durata de zile mai mica decat cea data
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :param duration: durata in zile introdusa de utilizator
+    :type duration: int
+    :return lst: lista de pachete de calatorii modificata
+    :rtype lst: lista
+    """
+    new_list = []
+    for pocket in lst:
+        if (get_finish_date(pocket) - get_start_date(pocket)).days >= duration:
+            new_list.append(pocket)
+    return new_list
+
+def remove_pocket_with_greater_price(lst, price):
+    """
+    Sterge toate pachetele care au pretul mai mare decat o suma data
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :param price: suma introdusa de utilizator
+    :type price: int
+    :return lst: lista de pachete de calatorii modificata
+    :rtype lst: list (of lists)
+    """
+    new_list = [pocket for pocket in lst if get_price(pocket) <= price]
+    return new_list
+
+def fits_in_the_period(given_start_date, given_finish_date, pocket_start_date, pocket_finish_date):
+    """
+    Functia determina daca intervalul calendaristic [given_start_date, given_finish_date]
+    este inclus in intervalul [pocket_start_date, pocket_finish_date]
+    (e.g. 10/08/2018 - 24/08/2018 -
+        un pachet valid este cel a cărui dată de început este aceeași sau după de data de început citită și data de
+         sfârșit este înainte sau aceeași cu data de sfârșit introdusă de la tastatură)
+    :param given_start_date: data de inceput a intervallui calendaristic introdus de utilizator
+    :param given_finish_date:data de sfarsit a intervallui calendaristic introdus de utilizator
+    :param pocket_start_date: data de inceput a intervalului calendaristic din pachet
+    :param pocket_finish_date:data de sfarsit a intervalului calendaristic din pachet
+    :return: adevarat daca [given_start_date, given_finish_date] este
+    inclus in/egal cu [pocket_start_date, pocket_finish_date], fals in caz contrar
+    """
+    if given_start_date >= pocket_start_date and given_finish_date <= pocket_finish_date:
+        return True
+    return False
+
+def nr_pockets_with_given_destination(lst, destination):
+    """
+    Returneaza numarul de pachete care au o destinatie data
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :param destination: destinatia introdusa de utilizator
+    :type destination: string
+    :return nr_pockets: numarul de pachete cu destinatia data
+    :rtype: int
+    """
+    nr_pockets = 0
+    for pocket in lst:
+        if get_destination(pocket).lower() == destination.lower():
+            nr_pockets += 1
+    return nr_pockets
+
+def average_price_of_pockets_with_given_destination(lst, destination):
+    """
+    Returneaza media de pret a ofertelor de calatorie cu destinatia data
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :param destination: destinatia calatoriei
+    :type destination: string
+    :return avg_price: pretul mediu
+    :rtype avg_price: float
+    """
+    nr_pockets = 0
+    sum_price = 0
+    for pocket in lst:
+        if get_destination(pocket).lower() == destination.lower():
+            nr_pockets += 1
+            sum_price += get_price(pocket)
+    if nr_pockets != 0:
+        return sum_price/nr_pockets
+    return 0
+
+def sort_by_price(pocket):
+    return get_price(pocket)
+
+def ordered_pockets_by_price_with_given_destination(lst, start_date, finish_date):
+    """
+    Returneaza lista de pachete de calatorie incadrate in intervalul start_date - finish_date in ordinea pretului
+    :param lst: lista de pachete de calatorie
+    :type lst: list(of lists)
+    :param start_date: data de inceput a calatoriei
+    :type start_date: date
+    :param finish_date:data de sfarsit a calatoriei
+    :type finish_date: date
+    :return new_list: lista de pachete de calatorie incadrate in intervalul start_date - finish_date in ordinea pretului
+    :rtype new_list: list (of lists)
+    """
+    new_list = []
+    for pocket in lst:
+        if fits_in_the_period(start_date, finish_date, get_start_date(pocket), get_finish_date(pocket)):
+            new_list.append(pocket)
+    new_list.sort(key=sort_by_price)
+    return new_list
+
 #INTERFACE FUNCTIONS
 def exception():
     print(colored('\n**********************************', 'red'))
@@ -100,9 +218,23 @@ def exception():
 
 def print_menu():
     print(colored('\n**********************************', 'yellow'))
-    print('P Afișează lista de pachete de călătorie')
+    print(colored('Adăugare', 'magenta'))
     print('1. Adaugă pachet de călătorie')
     print('2. Modifică pachet de călătorie')
+    print(colored('Stergere', 'magenta'))
+    print('3. Șterge pachetele de călătorie disponibile pentru o destinație dată')
+    print('4. Șterge pachetele de călătorie care au o durată mai scurtă decât un număr de zile dat')
+    print('5. Șterge pachetele de călătorie care au prețul mai mare decât o sumă dată')
+    print(colored('Cautare', 'magenta'))
+    print('6. Tipăreste pachetele de călătorie care presupun un sejur într-un interval dat')
+    print('7. Tipăreste pachetele de călătorie cu o destinație dată și cu preț mai mic decât o sumă dată')
+    print('8. Tipăreste pachetele de călătorie cu o anumită dată de sfârșit')
+    print(colored('Rapoarte', 'magenta'))
+    print('9. Tipăreste numărul de oferte pentru o destinație dată.')
+    print('10. Tipăreste pachetele disponibile într-o anumită perioadă citită de la tastatură în ordinea crescătoare a prețului.')
+    print('11. Tipăreste media de preț pentru o destinație dată.')
+    print(colored('Alte functionalitati', 'magenta'))
+    print('P Afișează lista de pachete de călătorie')
     print('X Închide aplicația')
     print(colored('**********************************\n', 'yellow'))
 
@@ -114,9 +246,12 @@ def print_pocket_list(lst):
     print(colored('\n**********************************', 'yellow'))
     print("Lista pachetelor de calatorie este formata din: ")
     lst_len = len(lst)
-    for nr in range(0, lst_len):
-        print_pocket(nr, lst)
-    print(colored('\n**********************************', 'yellow'))
+    if(lst_len == 0):
+            print("Lista este goala")
+    else:
+        for nr in range(0, lst_len):
+            print_pocket(nr, lst)
+    print(colored('**********************************\n', 'yellow'))
 
 def read_date():
     """
@@ -152,7 +287,11 @@ def read_destination():
         :return: destinatia calatoriei
         :rtype: string
     """
-    destination = input(colored("Destinatia calatoriei: ", 'yellow'))
+    try:
+        destination = input(colored("Destinatia calatoriei: ", 'yellow'))
+    except ValueError:
+        exception()
+        return read_destination()
     return destination
 
 def read_pocket_number(lst):
@@ -171,15 +310,32 @@ def read_pocket_number(lst):
         return read_pocket_number(lst)
     return pocket_number
 
+def read_duration():
+    """
+    Citeste numarul de zile introdus de utilizator
+    :return duration: numarul de zile
+    :rtype: int
+    """
+    try:
+        duration = int(input(colored("Durata in zile: ", 'yellow')))
+    except ValueError:
+        exception()
+        return read_duration()
+    return duration
+
 def add_pocket_ui(lst):
     print(colored("Data la care incepe calatoria: ", 'yellow'))
     start_date = read_date()
     print(colored("Data la care se sfarseste calatoria: ", 'yellow'))
     finish_date = read_date()
-    if not valid_period(start_date, finish_date):
+
+    while not valid_period(start_date, finish_date):
         exception()
-        add_pocket_ui(lst)
-        return
+        print(colored("Data la care incepe calatoria: ", 'yellow'))
+        start_date = read_date()
+        print(colored("Data la care se sfarseste calatoria: ", 'yellow'))
+        finish_date = read_date()
+
     destination = read_destination()
     price = read_price()
     pocket = [start_date, finish_date, destination, price]
@@ -220,8 +376,150 @@ def change_pocket_ui(lst):
             print(colored("Trebuie sa modifici intervalul calatoriei pentru ca nu este valid", 'red'))
             finished = False
 
+def remove_pocket_with_destination_ui(lst):
+    """
+    :param lst: lista de pachete de calatorii
+    :type lst: list (of lists)
+    :return lst: lista modificata
+    :rtype lst: list (of lists)
+    """
+    destination = read_destination()
+    lst = remove_pocket_with_destination(lst, destination)
+    return lst
 
+def remove_pocket_with_smaller_duration_ui(lst):
+    """
+    :param lst: lista de pachete de calatorii
+    :type lst: list (of lists)
+    :return lst: lista modificata
+    :rtype lst: list (of lists)
+    """
+    duration = read_duration()
+    lst = remove_pocket_with_smaller_duration(lst, duration)
+    return lst
 
+def remove_pocket_with_greater_price_ui(lst):
+    """
+        :param lst: lista de pachete de calatorii
+        :type lst: list (of lists)
+        :return lst: lista modificata
+        :rtype lst: list (of lists)
+        """
+    price = read_price()
+    lst = remove_pocket_with_greater_price(lst, price)
+    return lst
+
+def print_pockets_with_given_period_ui(lst):
+    """
+    Citeste data de inceput si data de sfarsit a intervalului intordus de utilizator
+    si afiseaza elementele din lista care au sejurul in intervalul dat
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :return:-
+    """
+    print("Data de inceput a sejurului:")
+    start_date = read_date()
+    print("Data de sfarsit a sejurului:")
+    finish_date = read_date()
+    while(not valid_period(start_date, finish_date)):
+        exception()
+        print("Data de inceput a sejurului:")
+        start_date = read_date()
+        print("Data de sfarsit a sejurului:")
+        finish_date = read_date()
+
+    exist_pocket = 0
+    print(colored('\n**********************************', 'yellow'))
+    for pocket_nr in range(0, len(lst)):
+        if fits_in_the_period(start_date, finish_date, get_start_date(lst[pocket_nr]), get_finish_date(lst[pocket_nr])) == True:
+            exist_pocket = 1
+            print_pocket(pocket_nr, lst)
+    if not exist_pocket:
+        print("Nu exista pachete :(")
+    print(colored('**********************************\n', 'yellow'))
+
+def print_pockets_with_given_destination_lower_price_ui(lst):
+    """
+    Citeste destinatia si pretul introduse de utilizator
+    si afiseaza pachetele de calatorie care au destinatia data si pretul mai mic decat cel dat
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :return: -
+    """
+    destination = read_destination()
+    price = read_price()
+    exist_pocket = 0
+    print(colored('\n**********************************', 'yellow'))
+    for pocket_nr in range(0, len(lst)):
+        if get_destination(lst[pocket_nr]) == destination and get_price(lst[pocket_nr]) < price:
+            print_pocket(pocket_nr, lst)
+            exist_pocket = 1
+    if not exist_pocket:
+        print("Nu exista pachete :(")
+    print(colored('**********************************\n', 'yellow'))
+
+def print_pockets_with_given_finish_date(lst):
+    """
+    Citeste data calendaristica de sfarsit a sejurului
+    si afiseaza pachetele de calatorie care se termina in acea data
+    :param lst: lista de pachete
+    :type lst: list (of lists)
+    :return: -
+    """
+    print("Data de sfarsit: ")
+    finish_date = read_date()
+    exist_pocket = 0
+    print(colored('\n**********************************', 'yellow'))
+    for pocket_nr in range(0, len(lst)):
+        if get_finish_date(lst[pocket_nr]) == finish_date:
+            print_pocket(pocket_nr, lst)
+            exist_pocket = 1
+    if not exist_pocket:
+        print("Nu exista pachete :(")
+    print(colored('**********************************\n', 'yellow'))
+
+def print_number_of_pockets_with_destination(lst):
+    """
+    Citeste destinatia si afiseaza numarul de pachete care au destinatia data
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :return:-;
+    """
+    destination = read_destination()
+    nr_pockets = nr_pockets_with_given_destination(lst, destination)
+    print("Numarul pachetelor care au destinatia", destination, "este", nr_pockets)
+
+def print_average_price_of_pockets_with_given_destination(lst):
+    """
+    Citeste destinatia de la tastatura si afiseaza pretul mediu al ofertelor cu destinatia data
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :return:-
+    """
+    destination = read_destination()
+    average_price = average_price_of_pockets_with_given_destination(lst, destination)
+    print("Pretul mediu al pachetelor de calatorie cu destinatia data este:", average_price)
+
+def print_pockets_in_order_with_given_period(lst):
+    """
+    Afiseaza lista de pachete de calatorie disponibile într-o anumită perioadă in ordinea crescatoare a pretului
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :return: -
+    """
+    print("Data de inceput a sejurului:")
+    start_date = read_date()
+    print("Data de sfarsit a sejurului:")
+    finish_date = read_date()
+    while not valid_period(start_date, finish_date):
+        exception()
+        print("Data de inceput a sejurului:")
+        start_date = read_date()
+        print("Data de sfarsit a sejurului:")
+        finish_date = read_date()
+    new_list = ordered_pockets_by_price_with_given_destination(lst, start_date, finish_date)
+    for pocket_number in range(0, len(new_list)):
+        print_pocket(pocket_number, new_list)
 
 #START FUNCTION
 def start():
@@ -236,6 +534,33 @@ def start():
         elif option == '2':
             change_pocket_ui(crt_pocket_list)
             print(colored('Modificarea pachetului a fost efectuata cu succes', 'yellow'))
+        elif option  == '3':
+            crt_pocket_list = remove_pocket_with_destination_ui(crt_pocket_list)
+            print(colored(
+                'Ștergerea tuturor pachetelor de călătorie disponibile pentru o destinație dată efectuata cu succes',
+                'yellow'))
+        elif option == '4':
+            crt_pocket_list = remove_pocket_with_smaller_duration_ui(crt_pocket_list)
+            print(colored(
+                'Ștergerea tuturor pachetelor de călătorie care au o durată mai scurtă decât un număr de zile dat',
+                'yellow'))
+        elif option  == '5':
+            crt_pocket_list = remove_pocket_with_greater_price_ui(crt_pocket_list)
+            print(colored(
+                'Ștergerea tuturor pachetelor de călătorie care au prețul mai mare decât o sumă dată',
+                'yellow'))
+        elif option == '6':
+            print_pockets_with_given_period_ui(crt_pocket_list)
+        elif option == '7':
+            print_pockets_with_given_destination_lower_price_ui(crt_pocket_list)
+        elif option == '8':
+            print_pockets_with_given_finish_date(crt_pocket_list)
+        elif option == '9':
+            print_number_of_pockets_with_destination(crt_pocket_list)
+        elif option == '10':
+            print_pockets_in_order_with_given_period(crt_pocket_list)
+        elif option == '11':
+            print_average_price_of_pockets_with_given_destination(crt_pocket_list)
         elif option.lower() == 'p':
             print_pocket_list(crt_pocket_list)
         elif option.lower() == 'x':
@@ -305,8 +630,109 @@ def test_valid_period():
     assert (valid_period(date(2022, 10, 12), date(2020, 10, 20)) == False)
     print("test_valid_period passed")
 
+def test_remove_pocket_with_destination():
+    test_list1 = generate_pockets()
+    init_len = len(test_list1)
+    destination_test = 'Paris'
+    test_list1 = remove_pocket_with_destination(test_list1, destination_test)
+
+    assert(len(test_list1) == init_len - 2)
+    assert(len([pocket for pocket in test_list1 if get_destination(pocket) == destination_test]) == 0)
+    init_len = len(test_list1)
+
+    test_list1 = remove_pocket_with_destination(test_list1, destination_test)
+    assert(len(test_list1) == init_len)
+
+    destination_test = 'Brasov'
+    test_list1 = remove_pocket_with_destination(test_list1, destination_test)
+    assert(len(test_list1) == init_len)
+
+    test_list2 = []
+    test_list2 = remove_pocket_with_destination(test_list2, destination_test)
+    assert (len(test_list2) == 0)
+
+    destination_test = ''
+    test_list1 = remove_pocket_with_destination(test_list1, destination_test)
+    assert (len(test_list1) == init_len)
+    test_list2 = remove_pocket_with_destination(test_list2, destination_test)
+    assert (len(test_list2) == 0)
+
+    print("test_remove_pocket_with_destination passed")
+
+def test_remove_pocket_with_smaller_duration():
+    test_list1 = generate_pockets()
+    duration = 7
+    init_len = len(test_list1)
+    test_list1 = remove_pocket_with_smaller_duration(test_list1, duration)
+    assert(len(test_list1) == init_len - 2)
+    duration = 30
+    test_list1 = remove_pocket_with_smaller_duration(test_list1, duration)
+    assert(len(test_list1) == 1)
+    duration = 31
+    test_list1 = remove_pocket_with_smaller_duration(test_list1, duration)
+    assert (len(test_list1) == 1)
+    duration = 32
+    test_list1 = remove_pocket_with_smaller_duration(test_list1, duration)
+    assert (len(test_list1) == 0)
+    test_list1 = remove_pocket_with_smaller_duration(test_list1, duration)
+    assert (len(test_list1) == 0)
+    print("test_remove_pocket_with_smaller_duration passed")
+
+def test_remove_pocket_with_greater_price():
+    test_list = generate_pockets()
+    init_len = len(test_list)
+    price = 1500
+    test_list = remove_pocket_with_greater_price(test_list, price)
+    assert(len(test_list) == init_len - 1)
+    price = 1000
+    test_list = remove_pocket_with_greater_price(test_list, price)
+    assert (len(test_list) == init_len - 4)
+    price = 0
+    test_list = remove_pocket_with_greater_price(test_list, price)
+    assert (len(test_list) == 0)
+    print("test_remove_pocket_with_greater_price passed")
+
+def test_fits_in_the_period():
+    assert(fits_in_the_period(date(2021, 10, 10), date(2021, 10, 20), date(2021, 10, 13), date(2021, 10, 30)) == False)
+    assert (fits_in_the_period(date(2021, 10, 10), date(2021, 10, 20), date(2021, 10, 10), date(2021, 10, 20)) == True)
+    assert (fits_in_the_period(date(2021, 10, 10), date(2021, 10, 20), date(2021, 9, 1), date(2021, 11, 1)) == True)
+    assert (fits_in_the_period(date(2021, 10, 10), date(2021, 10, 20), date(2021, 9, 1), date(2021, 10, 9)) == False)
+    assert (fits_in_the_period(date(2021, 10, 10), date(2021, 10, 20), date(2021, 10, 14), date(2021, 10, 19)) == False)
+    print("test_fits_in_the_period passed")
+
+def test_nr_pockets_with_given_destination():
+    test_list = generate_pockets()
+    assert(nr_pockets_with_given_destination(test_list, 'paris') == 2)
+    assert (nr_pockets_with_given_destination(test_list, 'tenerife') == 1)
+    assert (nr_pockets_with_given_destination(test_list, 'viena') == 1)
+    assert (nr_pockets_with_given_destination(test_list, 'praga') == 0)
+    test_list = []
+    assert (nr_pockets_with_given_destination(test_list, 'kiev') == 0)
+    print("test_nr_pockets_with_given_destination passed")
+
+def test_average_price_of_pockets_with_given_destination():
+    test_list = generate_pockets()
+    assert(average_price_of_pockets_with_given_destination(test_list, 'paris') == 1200)
+    assert(average_price_of_pockets_with_given_destination(test_list, 'viena') == 500)
+    assert(average_price_of_pockets_with_given_destination(test_list, 'london') == 0)
+    test_list.append([date(2021, 11, 20), date(2021,11,30), 'Paris', 229])
+    assert (average_price_of_pockets_with_given_destination(test_list, 'paris') == 2629/3)
+    print("test_average_price_of_pockets_with_given_destination")
+
+def test_ordered_pockets_by_price_with_given_destination():
+    test_list = generate_pockets()
+    test_list.append([date(2021, 11, 3), date(2021, 11, 10), 'Tenerife', 2400])
+    assert(ordered_pockets_by_price_with_given_destination(test_list, date(2021, 11, 3), date(2021, 11, 10)) == [[date(2021, 11, 3), date(2021, 11, 10), 'Tenerife', 1200], [date(2021, 11, 3), date(2021, 11, 10), 'Tenerife', 2400]])
+    assert (ordered_pockets_by_price_with_given_destination(test_list, date(2024, 11, 3), date(2024, 11, 10)) == [])
+    print("test_ordered_pockets_by_price_with_given_destination passed")
 
 test_create_pocket()
 test_add_pocket_to_list()
 test_valid_period()
+test_remove_pocket_with_destination()
+test_remove_pocket_with_smaller_duration()
+test_fits_in_the_period()
+test_nr_pockets_with_given_destination()
+test_average_price_of_pockets_with_given_destination()
+test_ordered_pockets_by_price_with_given_destination()
 start()
