@@ -35,6 +35,7 @@ Aplicația va permite:
 from termcolor import colored
 from datetime import date
 
+#FUNCTIONS THAT SOLVE THE REQUIREMENTS
 def generate_pockets():
     return [[date(2021, 11, 3), date(2021, 11, 10), 'Tenerife', 1200], [date(2021, 11, 20), date(2021,11,30), 'Paris', 1500],
             [date(2022, 8, 10), date(2022, 8, 17), 'Dubai', 1600], [date(2022, 3, 3), date(2022, 3, 8), 'Paris', 900],
@@ -55,6 +56,17 @@ def create_pocket(start_date, finish_date, destination, price):
     :rtype: list (len(lst) = 4, lst[0] = start_date, lst[1] = finish_date, lst[2] = destination, lst[3] = price)
     """
     return [start_date, finish_date, destination, price]
+
+def add_pocket_to_list(lst, pocket):
+    """
+    Adauga la lista de pachete un nou pachet de calatorie
+    :param lst: lista de pachete de calatorie
+    :type lst: list (of lists)
+    :param pocket: pachetul de calatorie introdus de utilizator
+    :type pocket: list
+    :return: -; modifica lista prin adaugarea noului element
+    """
+    lst.append(pocket)
 
 def get_start_date(pocket):
     return pocket[0]
@@ -80,17 +92,6 @@ def valid_period(start_date, finish_date):
     if (finish_date-start_date).days > 0:
         return True
     return False
-
-def add_pocket_to_list(lst, pocket):
-    """
-    Adauga la lista de pachete un nou pachet de calatorie
-    :param lst: lista de pachete de calatorie
-    :type lst: list (of lists)
-    :param pocket: pachetul de calatorie introdus de utilizator
-    :type pocket: list
-    :return: -; modifica lista prin adaugarea noului element
-    """
-    lst.append(pocket)
 
 def remove_pocket_with_destination(lst, destination):
     """
@@ -210,7 +211,7 @@ def ordered_pockets_by_price_with_given_destination(lst, start_date, finish_date
     new_list.sort(key=sort_by_price)
     return new_list
 
-#INTERFACE FUNCTIONS
+#UI FUNCTIONS
 def exception():
     print(colored('\n**********************************', 'red'))
     print(colored('INPUT INVALID', 'red'))
@@ -287,9 +288,8 @@ def read_destination():
         :return: destinatia calatoriei
         :rtype: string
     """
-    try:
-        destination = input(colored("Destinatia calatoriei: ", 'yellow'))
-    except ValueError:
+    destination = input(colored("Destinatia calatoriei: ", 'yellow'))
+    if destination == '':
         exception()
         return read_destination()
     return destination
@@ -340,6 +340,7 @@ def add_pocket_ui(lst):
     price = read_price()
     pocket = [start_date, finish_date, destination, price]
     add_pocket_to_list(lst, pocket)
+    print(colored('Adaugarea pachetului a fost efectuata cu succes', 'yellow'))
 
 def print_change_pocket_menu():
     print(colored('\n**********************************', 'yellow'))
@@ -375,6 +376,7 @@ def change_pocket_ui(lst):
         if not valid_period(get_start_date(lst[pocket_number]), get_finish_date(lst[pocket_number])):
             print(colored("Trebuie sa modifici intervalul calatoriei pentru ca nu este valid", 'red'))
             finished = False
+    print(colored('Modificarea pachetului a fost efectuata cu succes', 'yellow'))
 
 def remove_pocket_with_destination_ui(lst):
     """
@@ -518,8 +520,11 @@ def print_pockets_in_order_with_given_period(lst):
         print("Data de sfarsit a sejurului:")
         finish_date = read_date()
     new_list = ordered_pockets_by_price_with_given_destination(lst, start_date, finish_date)
-    for pocket_number in range(0, len(new_list)):
-        print_pocket(pocket_number, new_list)
+    if len(new_list) == 0:
+        print("Nu exista pachete :(")
+    else:
+        for pocket_number in range(0, len(new_list)):
+            print_pocket(pocket_number, new_list)
 
 #START FUNCTION
 def start():
@@ -530,10 +535,8 @@ def start():
         option = input(colored('Optiunea este: ', 'yellow'))
         if option == '1':
             add_pocket_ui(crt_pocket_list)
-            print(colored('Adaugarea pachetului a fost efectuata cu succes', 'yellow'))
         elif option == '2':
             change_pocket_ui(crt_pocket_list)
-            print(colored('Modificarea pachetului a fost efectuata cu succes', 'yellow'))
         elif option  == '3':
             crt_pocket_list = remove_pocket_with_destination_ui(crt_pocket_list)
             print(colored(
@@ -726,13 +729,16 @@ def test_ordered_pockets_by_price_with_given_destination():
     assert (ordered_pockets_by_price_with_given_destination(test_list, date(2024, 11, 3), date(2024, 11, 10)) == [])
     print("test_ordered_pockets_by_price_with_given_destination passed")
 
-test_create_pocket()
-test_add_pocket_to_list()
-test_valid_period()
-test_remove_pocket_with_destination()
-test_remove_pocket_with_smaller_duration()
-test_fits_in_the_period()
-test_nr_pockets_with_given_destination()
-test_average_price_of_pockets_with_given_destination()
-test_ordered_pockets_by_price_with_given_destination()
+def run_tests():
+    test_create_pocket()
+    test_add_pocket_to_list()
+    test_valid_period()
+    test_remove_pocket_with_destination()
+    test_remove_pocket_with_smaller_duration()
+    test_fits_in_the_period()
+    test_nr_pockets_with_given_destination()
+    test_average_price_of_pockets_with_given_destination()
+    test_ordered_pockets_by_price_with_given_destination()
+
+run_tests()
 start()
