@@ -4,8 +4,8 @@ Here is my work for university: assignments, labs, seminars, optional activities
 
 ## Structure
 
-### 1.Year 1
+### Year 1
   
 ##### Semester 1:
-    - Programming Fundamentals (FP)
-    - Computer System Arhitecture (ASC)
+    - Programming Fundamentals (FP) - Python
+    - Computer Systems Arhitecture (ASC) - Assembly language
