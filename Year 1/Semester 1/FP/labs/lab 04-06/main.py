@@ -211,6 +211,34 @@ def ordered_pockets_by_price_with_given_destination(lst, start_date, finish_date
     new_list.sort(key=sort_by_price)
     return new_list
 
+def remove_pocket_with_greater_price_and_different_destination(lst, price, destination):
+    """
+    Functia creeaza o noua lista cu ofertele care au un preț mai mic decât cel dat sau
+    aceeasi destinatie  de cea citită de la tastatură.
+    :param lst: lista de pachete de calatorie
+    :param price:  pretul calatoriei
+    :param destination: destinatia calatoriei
+    :return new_list: noua lista
+    """
+    new_list = []
+    for pocket in lst:
+        if get_price(pocket) <= price or get_destination(pocket) == destination:
+            new_list.append(pocket)
+    return new_list
+
+def remove_pocket_with_same_month(lst, month):
+    """
+    Functia creeaza o noua lista de pachete de calatorie care are ofertele cu sejurul intr-o luna data eliminate
+    :param lst: lista de pachete de calatorie
+    :param month: luna data de utilizator
+    :return new_list: noua lista
+    """
+    new_list = []
+    for pocket in lst:
+        if get_start_date(pocket).month != month and get_finish_date(pocket).month != month:
+            new_list.append(pocket)
+    return new_list
+
 #UI FUNCTIONS
 def exception():
     print(colored('\n**********************************', 'red'))
@@ -234,6 +262,11 @@ def print_menu():
     print('9. Tipăreste numărul de oferte pentru o destinație dată.')
     print('10. Tipăreste pachetele disponibile într-o anumită perioadă citită de la tastatură în ordinea crescătoare a prețului.')
     print('11. Tipăreste media de preț pentru o destinație dată.')
+    print(colored('Filtrare', 'magenta'))
+    print('12. Eliminarea ofertelor care au un preț mai mare decât cel dat și o destinație diferită de cea citită de la tastatură.')
+    print('13. Eliminarea ofertelor în care sejurul presupune zile dintr-o anumită lună.')
+    print(colored('Undo', 'magenta'))
+    print('14. Refacerea ultimei operații.')
     print(colored('Alte functionalitati', 'magenta'))
     print('P Afișează lista de pachete de călătorie')
     print('X Închide aplicația')
@@ -322,6 +355,21 @@ def read_duration():
         exception()
         return read_duration()
     return duration
+
+def read_month():
+    """
+    Citeste o luna din an
+    :return:
+    """
+    try:
+        month = int(input(colored("Luna din an: ", 'yellow')))
+        if month < 1 or month > 12:
+            exception()
+            return read_month()
+    except ValueError:
+        exception()
+        return read_duration()
+    return month
 
 def add_pocket_ui(lst):
     print(colored("Data la care incepe calatoria: ", 'yellow'))
@@ -526,6 +574,28 @@ def print_pockets_in_order_with_given_period(lst):
         for pocket_number in range(0, len(new_list)):
             print_pocket(pocket_number, new_list)
 
+def remove_pocket_with_greater_price_and_different_destination_ui(lst):
+    """
+    Functia citeste pretul si destinatia oferita de utilizator si returneaza lista cu ofertele
+    care au un preț mai mare decât cel dat și o destinație diferită de cea citită de la tastatură eliminate.
+    :param lst: lista de oferte
+    :return new_list: lista de oferte modificata
+    """
+    price = read_price()
+    destination = read_destination()
+    new_list = remove_pocket_with_greater_price_and_different_destination(lst, price, destination)
+    return new_list
+
+def remove_pocket_with_same_month_ui(lst):
+    """
+    Functia citeste luna si afiseaza lista de pachete care au ofertele cu sejurul in luna data eliminate
+    :param lst: lista de pachete
+    :return new_list: lista modificata
+    """
+    month = read_month()
+    new_list = remove_pocket_with_same_month(lst, month)
+    return new_list
+
 #START FUNCTION
 def start():
     crt_pocket_list = generate_pockets()
@@ -564,6 +634,16 @@ def start():
             print_pockets_in_order_with_given_period(crt_pocket_list)
         elif option == '11':
             print_average_price_of_pockets_with_given_destination(crt_pocket_list)
+        elif option == '12':
+            crt_pocket_list = remove_pocket_with_greater_price_and_different_destination_ui(crt_pocket_list)
+            print(colored(
+                'Eliminarea a fost efectuata cu succes',
+                'yellow'))
+        elif option == '13':
+            crt_pocket_list = remove_pocket_with_same_month_ui(crt_pocket_list)
+            print(colored(
+                'Eliminarea a fost efectuata cu succes',
+                'yellow'))
         elif option.lower() == 'p':
             print_pocket_list(crt_pocket_list)
         elif option.lower() == 'x':
@@ -689,7 +769,7 @@ def test_remove_pocket_with_greater_price():
     assert(len(test_list) == init_len - 1)
     price = 1000
     test_list = remove_pocket_with_greater_price(test_list, price)
-    assert (len(test_list) == init_len - 4)
+    assert (len(test_list) == init_len - 3)
     price = 0
     test_list = remove_pocket_with_greater_price(test_list, price)
     assert (len(test_list) == 0)
@@ -729,7 +809,58 @@ def test_ordered_pockets_by_price_with_given_destination():
     assert (ordered_pockets_by_price_with_given_destination(test_list, date(2024, 11, 3), date(2024, 11, 10)) == [])
     print("test_ordered_pockets_by_price_with_given_destination passed")
 
-def run_tests():
+def test_remove_pocket_with_greater_price_and_different_destination():
+    test_list = generate_pockets()
+    destination = 'Paris'
+    price = 200
+    test_list = remove_pocket_with_greater_price_and_different_destination(test_list, price, destination)
+    assert(2 == len(test_list))
+
+    test_list = generate_pockets()
+    destination = 'Viena'
+    price = 1200
+    test_list = remove_pocket_with_greater_price_and_different_destination(test_list, price, destination)
+    assert (4 == len(test_list))
+
+    test_list = generate_pockets()
+    destination = 'Bucuresti'
+    price = 100
+    test_list = remove_pocket_with_greater_price_and_different_destination(test_list, price, destination)
+    assert (0 == len(test_list))
+    print("test_remove_pocket_with_greater_price_and_different_destination passed")
+
+def test_remove_pocket_with_same_month():
+    test_list = generate_pockets()
+    month = 11
+    test_list = remove_pocket_with_same_month(test_list, month)
+    assert(len(test_list) == 4)
+
+    month = 2
+    test_list = remove_pocket_with_same_month(test_list, month)
+    assert (len(test_list) == 3)
+
+    month = 12
+    test_list = remove_pocket_with_same_month(test_list, month)
+    assert (len(test_list) == 3)
+
+    month = 8
+    test_list = remove_pocket_with_same_month(test_list, month)
+    assert (len(test_list) == 2)
+
+    month = 3
+    test_list = remove_pocket_with_same_month(test_list, month)
+    assert (len(test_list) == 1)
+
+    month = 4
+    test_list = remove_pocket_with_same_month(test_list, month)
+    assert (len(test_list) == 0)
+
+    month = 4
+    test_list = remove_pocket_with_same_month(test_list, month)
+    assert (len(test_list) == 0)
+    print("test_remove_pocket_with_same_month passed")
+
+"""def run_tests():
     test_create_pocket()
     test_add_pocket_to_list()
     test_valid_period()
@@ -739,6 +870,8 @@ def run_tests():
     test_nr_pockets_with_given_destination()
     test_average_price_of_pockets_with_given_destination()
     test_ordered_pockets_by_price_with_given_destination()
+    test_remove_pocket_with_greater_price_and_different_destination()
+    test_remove_pocket_with_same_month()
 
-run_tests()
-start()
+run_tests()"""
+#start()

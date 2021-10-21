@@ -31,6 +31,12 @@ def get_stock(product):
 def get_price(product):
     return product[2]
 
+def make_list_copy(lst):
+    cpy = []
+    for el in lst:
+        cpy.append(el[:])
+    return cpy
+
 def create_product(denumire, unitati_stoc, pret):
     """
     Creeaza un produs dulce cu atributele date
@@ -85,6 +91,38 @@ def filter_by_name(product_list, my_substring):
                 filtered_list.append(el)
     return filtered_list
 
+def setup_store(add_predefined):
+    """
+    initializeaza un obiect de tip magazin
+    :param add_predefined: indicator pentru adaugarea dulciurilor predefinite (daca True
+
+    :return:
+    """
+    if add_predefined:
+        product_list = generate_products()
+    else:
+        product_list = []
+    undo_list = []
+    return [product_list, undo_list]
+
+def get_products_list(store):
+    return store[0]
+
+def get_undo_list(store):
+    return store[1]
+
+def add_product_to_store(store, product):
+    #need to save the curretn state of the product list
+    #before modiifying it by adding a product
+    #I save it in the undo list
+    crt_product_list = get_products_list(store)
+    undo_list = get_undo_list(store)
+
+    undo_list.append(make_list_copy(crt_product_list))
+    add_product_to_list(get_products_list(store), product)
+
+
+
 #functii care au legatura cu interfata utilizator
 def print_menu():
     print("1. Adaugare produs (denumire, stoc, pret)")
@@ -104,7 +142,7 @@ def add_product_ui(product_list):
     pret = float(input("Pretul pe unitate:"))
 
     p1 = create_product(denumire, unitati, pret)
-    add_product_to_list(product_list, p1)
+    add_product_to_store(product_list, p1)
 
 def delete_product_ui(product_list):
     #citire valoare
@@ -118,13 +156,13 @@ def filter_by_name_ui(product_list):
     print_product_list(filtered_list)
 
 def start():
-    crt_product_list = generate_products()
+    store = setup_store(True)
     finished = False
     while not finished:
         print_menu()
         option = input("Optiunea este:")
         if option == '1':
-            add_product_ui(crt_product_list)
+            add_product_ui(store)
             print(colored('Adaugarea s-a efectuat cu succes', 'green'))
         elif option == '2':
             crt_product_list = delete_product_ui(crt_product_list)
@@ -206,6 +244,12 @@ def test_filter_by_name():
     filtered_list5 = filter_by_name(test_list2, '')
     assert (len(filtered_list5) == 0)
 
+def test_add_product_to_list():
+    test_store = setup_store(False)
+    p1 = create_product('acadele', 15, 8.5)
+    p2 = create_product('jeleuri', 26, 8.6)
+
+    add_product_to_list(test_list, p1)
 
 test_create()
 test_add_product_to_list()
