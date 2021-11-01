@@ -249,7 +249,7 @@ def test_add_product_to_list():
     p1 = create_product('acadele', 15, 8.5)
     p2 = create_product('jeleuri', 26, 8.6)
 
-    add_product_to_list(test_list, p1)
+    add_product_to_list(test_store, p1)
 
 test_create()
 test_add_product_to_list()
