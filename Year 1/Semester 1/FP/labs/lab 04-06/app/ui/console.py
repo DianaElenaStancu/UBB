@@ -2,6 +2,8 @@ from termcolor import colored
 from datetime import date
 from domain.travel_packages import *
 from utils.list_operations import *
+from domain.history import setup_history, undo, get_pocket_list, add_new_list_to_history
+
 
 #UI FUNCTIONS
 def exception():
@@ -165,9 +167,12 @@ def print_change_pocket_menu():
     print(colored('**********************************\n', 'yellow'))
 
 def change_pocket_ui(lst):
+    if len(lst) == 0:
+        print("Nu sunt pachete de modificat")
+        return
     print_pocket_list(lst)
     pocket_number = read_pocket_number(lst)
-    pocket = lst[pocket_number]
+    pocket = lst[pocket_number-1]
     pocket_number -= 1
     print("Pachetul pe care il vei modifica este: ")
     print_pocket(pocket_number,lst)
@@ -366,28 +371,47 @@ def remove_pocket_with_same_month_ui(lst):
     new_list = remove_pocket_with_same_month(lst, month)
     return new_list
 
+def undo_ui(history):
+    """
+    :param history: lista
+    :type history: list (of lists)
+    :return:
+    """
+    try:
+        undo(history)
+        print(colored('Undo realizat cu succes', 'green'))
+    except ValueError as ve:
+        print(colored(ve, 'red'))
+
 def start():
-    crt_pocket_list = generate_pockets()
+    history = setup_history(True)
+    crt_pocket_list = make_list_copy(get_pocket_list(history))
     finished = False
     while not finished:
+        print(history)
         print_menu()
         option = input(colored('Optiunea este: ', 'yellow'))
         if option == '1':
             add_pocket_ui(crt_pocket_list)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
         elif option == '2':
             change_pocket_ui(crt_pocket_list)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
         elif option  == '3':
             crt_pocket_list = remove_pocket_with_destination_ui(crt_pocket_list)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
             print(colored(
                 'Ștergerea tuturor pachetelor de călătorie disponibile pentru o destinație dată efectuata cu succes',
                 'yellow'))
         elif option == '4':
             crt_pocket_list = remove_pocket_with_smaller_duration_ui(crt_pocket_list)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
             print(colored(
                 'Ștergerea tuturor pachetelor de călătorie care au o durată mai scurtă decât un număr de zile dat',
                 'yellow'))
         elif option  == '5':
             crt_pocket_list = remove_pocket_with_greater_price_ui(crt_pocket_list)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
             print(colored(
                 'Ștergerea tuturor pachetelor de călătorie care au prețul mai mare decât o sumă dată',
                 'yellow'))
@@ -405,14 +429,19 @@ def start():
             print_average_price_of_pockets_with_given_destination(crt_pocket_list)
         elif option == '12':
             crt_pocket_list = remove_pocket_with_greater_price_and_different_destination_ui(crt_pocket_list)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
             print(colored(
                 'Eliminarea a fost efectuata cu succes',
                 'yellow'))
         elif option == '13':
             crt_pocket_list = remove_pocket_with_same_month_ui(crt_pocket_list)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
             print(colored(
                 'Eliminarea a fost efectuata cu succes',
                 'yellow'))
+        elif option == '14':
+            undo_ui(history)
+            crt_pocket_list = make_list_copy(history[-1])
         elif option.lower() == 'p':
             print_pocket_list(crt_pocket_list)
         elif option.lower() == 'x':

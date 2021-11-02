@@ -1,12 +1,4 @@
 from datetime import date
-def generate_pockets():
-    return [
-        {"start_date": date(2021, 11, 3), "finish_date": date(2021, 11, 10), "destination": 'Tenerife', "price": 1200},
-        {"start_date": date(2021, 11, 20), "finish_date": date(2021, 11, 30), "destination": 'Paris', "price": 1500},
-        {"start_date": date(2022, 8, 10), "finish_date": date(2022, 8, 17), "destination": 'Dubai', "price": 1600},
-        {"start_date": date(2022, 3, 3), "finish_date": date(2022, 3, 8), "destination": 'Paris', "price": 900},
-        {"start_date": date(2022, 1, 1), "finish_date": date(2022, 2, 1), "destination": 'Constanta', "price": 1000},
-        {"start_date": date(2022, 4, 8), "finish_date": date(2022, 4, 11), "destination": 'Viena', "price": 500}]
 
 def create_pocket(start_date, finish_date, destination, price):
     """

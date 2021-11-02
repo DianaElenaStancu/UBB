@@ -1,5 +1,6 @@
-from app.utils.list_operations import add_pocket_to_list, valid_period, remove_pocket_with_destination, remove_pocket_with_smaller_duration, remove_pocket_with_greater_price, fits_in_the_period, nr_pockets_with_given_destination, average_price_of_pockets_with_given_destination, ordered_pockets_by_price_with_given_destination, remove_pocket_with_same_month, remove_pocket_with_greater_price_and_different_destination
+from app.utils.list_operations import add_pocket_to_list, valid_period, remove_pocket_with_destination, remove_pocket_with_smaller_duration, remove_pocket_with_greater_price, fits_in_the_period, nr_pockets_with_given_destination, average_price_of_pockets_with_given_destination, ordered_pockets_by_price_with_given_destination, remove_pocket_with_same_month, remove_pocket_with_greater_price_and_different_destination, make_list_copy
 from app.domain.travel_packages import *
+from app.domain.history import generate_pockets
 
 def test_add_pocket_to_list():
     test_list = []
@@ -193,3 +194,10 @@ def test_remove_pocket_with_same_month():
     test_list = remove_pocket_with_same_month(test_list, month)
     assert (len(test_list) == 0)
     print("test_remove_pocket_with_same_month passed")
+
+def test_make_list_copy():
+    lst = generate_pockets()
+    new_lst = make_list_copy(lst)
+    assert(lst == new_lst)
+
+    print("test_make_list_copy passed")

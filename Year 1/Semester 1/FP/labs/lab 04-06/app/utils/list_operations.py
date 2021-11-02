@@ -1,5 +1,6 @@
 from datetime import date
-from app.domain.travel_packages import generate_pockets, get_start_date, get_finish_date, get_destination, get_price
+from app.domain.travel_packages import get_start_date, get_finish_date, get_destination, get_price
+
 def add_pocket_to_list(lst, pocket):
     """
     Adauga la lista de pachete un nou pachet de calatorie
@@ -172,4 +173,18 @@ def remove_pocket_with_same_month(lst, month):
             new_list.append(pocket)
     return new_list
 
-
+def make_list_copy(lst):
+    """
+    Face o copie a listei date
+    :param lst: lista care se copiaza
+    :type lst: list (of lists)
+    :return: o copie a listei
+    :rtype: list (of lists)
+    """
+    cpy = []
+    for el in lst:
+        new_dict = {}
+        for key in el:
+            new_dict[key] = el[key]
+        cpy.append(new_dict)
+    return cpy

@@ -1,7 +1,7 @@
 from termcolor import colored
 
 from domain.product import get_denumire, get_stoc, get_pret, create_product
-from domain.store import add_product_to_store, delete_products_from_store, filter_by_name, setup_store, \
+from domain.history import add_product_to_store, delete_products_from_store, filter_by_name, setup_store, \
     get_products_list, undo
 
 
