@@ -36,6 +36,3 @@ Aplicația va permite:
 from ui.console import start
 
 start()
-
-""""""
-#start()

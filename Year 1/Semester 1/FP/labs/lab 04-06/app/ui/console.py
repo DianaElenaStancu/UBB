@@ -32,7 +32,7 @@ def print_menu():
     print('12. Eliminarea ofertelor care au un preț mai mare decât cel dat și o destinație diferită de cea citită de la tastatură.')
     print('13. Eliminarea ofertelor în care sejurul presupune zile dintr-o anumită lună.')
     print(colored('Undo', 'magenta'))
-    print('14. Refacerea ultimei operații.')
+    print('U Refacerea ultimei operații (UNDO).')
     print(colored('Alte functionalitati', 'magenta'))
     print('P Afișează lista de pachete de călătorie')
     print('X Închide aplicația')
@@ -439,7 +439,7 @@ def start():
             print(colored(
                 'Eliminarea a fost efectuata cu succes',
                 'yellow'))
-        elif option == '14':
+        elif option == 'u':
             undo_ui(history)
             crt_pocket_list = make_list_copy(history[-1])
         elif option.lower() == 'p':
