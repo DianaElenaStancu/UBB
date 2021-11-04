@@ -33,6 +33,7 @@ Aplicația va permite:
         lista) – Nu folosiți funcția deepCopy
 """
 
-from ui.console import start
+from ui.console import start, new_start
 
 start()
+#new_start()

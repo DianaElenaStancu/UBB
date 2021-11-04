@@ -6,6 +6,12 @@ from domain.history import setup_history, undo, get_pocket_list, add_new_list_to
 
 
 #UI FUNCTIONS
+def reread_command():
+    exception()
+    command = input(colored('Introduceti comanda: ', 'yellow'))
+    split_command = command.split()
+    return split_command
+
 def exception():
     print(colored('\n**********************************', 'red'))
     print(colored('INPUT INVALID', 'red'))
@@ -201,7 +207,7 @@ def change_pocket_ui(lst):
             finished = False
     print(colored('Modificarea pachetului a fost efectuata cu succes', 'yellow'))
 
-def remove_pocket_with_destination_ui(lst):
+def remove_pocket_with_destination_ui(lst):#, split_command):
     """
     :param lst: lista de pachete de calatorii
     :type lst: list (of lists)
@@ -209,6 +215,7 @@ def remove_pocket_with_destination_ui(lst):
     :rtype lst: list (of lists)
     """
     destination = read_destination()
+    #destination = split_command[-1]
     lst = remove_pocket_with_destination(lst, destination)
     return lst
 
@@ -263,7 +270,7 @@ def print_pockets_with_given_period_ui(lst):
         print("Nu exista pachete :(")
     print(colored('**********************************\n', 'yellow'))
 
-def print_pockets_with_given_destination_lower_price_ui(lst):
+def print_pockets_with_given_destination_lower_price_ui(lst):#, split_command):
     """
     Citeste destinatia si pretul introduse de utilizator
     si afiseaza pachetele de calatorie care au destinatia data si pretul mai mic decat cel dat
@@ -273,6 +280,13 @@ def print_pockets_with_given_destination_lower_price_ui(lst):
     """
     destination = read_destination()
     price = read_price()
+    """
+    destination = split_command[6]
+    try:
+        price = int(split_command[-1])
+    except ValueError:
+        split_command = reread_command()
+    """
     exist_pocket = 0
     print(colored('\n**********************************', 'yellow'))
     for pocket_nr in range(0, len(lst)):
@@ -303,7 +317,7 @@ def print_pockets_with_given_finish_date(lst):
         print("Nu exista pachete :(")
     print(colored('**********************************\n', 'yellow'))
 
-def print_number_of_pockets_with_destination(lst):
+def print_number_of_pockets_with_destination(lst):#, split_command):
     """
     Citeste destinatia si afiseaza numarul de pachete care au destinatia data
     :param lst: lista de pachete de calatorie
@@ -311,6 +325,7 @@ def print_number_of_pockets_with_destination(lst):
     :return:-;
     """
     destination = read_destination()
+    #destination = split_command[-1]
     nr_pockets = nr_pockets_with_given_destination(lst, destination)
     print("Numarul pachetelor care au destinatia", destination, "este", nr_pockets)
 
@@ -361,13 +376,20 @@ def remove_pocket_with_greater_price_and_different_destination_ui(lst):
     new_list = remove_pocket_with_greater_price_and_different_destination(lst, price, destination)
     return new_list
 
-def remove_pocket_with_same_month_ui(lst):
+def remove_pocket_with_same_month_ui(lst):#, split_command):
     """
     Functia citeste luna si afiseaza lista de pachete care au ofertele cu sejurul in luna data eliminate
     :param lst: lista de pachete
     :return new_list: lista modificata
     """
     month = read_month()
+    """
+    try:
+        month = int(split_command[-1])
+    except ValueError:
+        split_command = reread_command()
+        return remove_pocket_with_same_month_ui(lst, split_command)
+    """
     new_list = remove_pocket_with_same_month(lst, month)
     return new_list
 
@@ -388,7 +410,7 @@ def start():
     crt_pocket_list = make_list_copy(get_pocket_list(history))
     finished = False
     while not finished:
-        print(history)
+        #print(history)
         print_menu()
         option = input(colored('Optiunea este: ', 'yellow'))
         if option == '1':
@@ -445,6 +467,54 @@ def start():
         elif option.lower() == 'p':
             print_pocket_list(crt_pocket_list)
         elif option.lower() == 'x':
+            print(colored('Bye bye!', 'magenta'))
+            finished = True
+        else:
+            exception()
+
+
+def reread_command():
+    exception()
+    command = input(colored('Introduceti comanda: ', 'yellow'))
+    split_command = command.split()
+    return split_command
+
+#new_interface for lab6
+def new_start():
+    history = setup_history(True)
+    crt_pocket_list = make_list_copy(get_pocket_list(history))
+    finished = False
+    while not finished:
+        print_menu()
+        #print(history)
+        command = input(colored('Introduceti comanda: ', 'yellow'))
+        split_command = command.split()
+        #3 sterge pachetul cu destinatia nume_destinatie
+        #7 tipareste pachetele de călătorie cu destinatia nume_destinatie și cu pretul mai mic decât val_pret
+        #9 printeaza numarul de pachete cu destinatia nume_destinatie
+        #13 elimina pachetele din luna nr_luna
+        if split_command[0]  == 'sterge':
+            crt_pocket_list = remove_pocket_with_destination_ui(crt_pocket_list, split_command)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
+            print(colored(
+                'Ștergerea tuturor pachetelor de călătorie disponibile pentru o destinație dată efectuata cu succes',
+                'yellow'))
+        elif split_command[0] == 'tipareste':
+            print_pockets_with_given_destination_lower_price_ui(crt_pocket_list, split_command)
+        elif split_command[0] == 'printeaza':
+            print_number_of_pockets_with_destination(crt_pocket_list, split_command)
+        elif split_command[0] == 'elimina':
+            crt_pocket_list = remove_pocket_with_same_month_ui(crt_pocket_list, split_command)
+            add_new_list_to_history(history, make_list_copy(crt_pocket_list))
+            print(colored(
+                'Eliminarea a fost efectuata cu succes',
+                'yellow'))
+        elif command == 'u':
+            undo_ui(history)
+            crt_pocket_list = make_list_copy(history[-1])
+        elif command.lower() == 'p':
+            print_pocket_list(crt_pocket_list)
+        elif command.lower() == 'x':
             print(colored('Bye bye!', 'magenta'))
             finished = True
         else:
