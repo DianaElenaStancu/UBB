@@ -27,7 +27,7 @@ class Console:
         description = input("Descrierea: ")
         try:
             added_event = self.__event_srv.add_event(date, time, description)
-            print("Persoana: ", colored(added_event, 'yellow'), 'a fost adaugata cu succes.')
+            print("Eveniment: ", colored(added_event, 'yellow'), 'a fost adaugata cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
 
