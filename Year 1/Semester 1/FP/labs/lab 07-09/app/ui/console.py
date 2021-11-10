@@ -1,4 +1,5 @@
 from termcolor import colored
+from app.repository.events_repo import RepositoryException
 
 class Console:
     def __init__(self, PersonSrv, EventSrv):
@@ -46,6 +47,8 @@ class Console:
             print("Evenimentul: ", colored(deleted_event, 'yellow'), 'a fost stearsa cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+        except RepositoryException as ve:
+            print(colored(str(ve), 'orange'))
 
     def __mod_event(self, field):
         """modifica eveniment"""
@@ -108,6 +111,8 @@ class Console:
             print("Persoana: ", colored(deleted_person, 'yellow'), 'a fost stearsa cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+        except RepositoryException as ve:
+            print(colored(str(ve), 'magenta'))
 
     def __mod_person(self, field):
         """modifica persoana"""

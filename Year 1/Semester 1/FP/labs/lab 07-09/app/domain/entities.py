@@ -15,7 +15,6 @@ class Person():
         :type address: str
         """
         Person.numberOfPersons += 1
-
         self.__personID = Person.numberOfPersons
         self.__name = name
         self.__address = address
@@ -37,26 +36,6 @@ class Person():
 
     def __str__(self):
         return "PersonID: " + str(self.__personID) + "; Name: " + self.__name + "; Address: " + self.__address
-
-def test_create_person():
-    p = Person('John', 'Str Zorilor Nr 12')
-    assert (p.getName() == 'John')
-    assert (p.getPersonID() == 1)
-    assert (p.getAddress() == 'Str Zorilor Nr 12')
-
-    p.setName('Tom')
-    assert (p.getName() == 'Tom')
-    assert (p.getPersonID() == 1)
-    assert (p.getAddress() == 'Str Zorilor Nr 12')
-
-    p.setAddress('Str Viorelelor Nr 14')
-    assert (p.getName() == 'Tom')
-    assert (p.getPersonID() == 1)
-    assert (p.getAddress() == 'Str Viorelelor Nr 14')
-
-    p1 = Person('Tom', 'Str Oilor Nr 12')
-    assert(p.getPersonID() == 1)
-    assert(p1.getPersonID() == 2)
 
 
 class Event():
@@ -103,35 +82,8 @@ class Event():
         self.__description = value
 
     def __str__(self):
-        return "EventID: " + str(self.__eventID) + "; Date: " + self.__date + "; Time: " + self.__time + "; Description: " + self.__description
+        return "EventID: " + str(self.__eventID) + "; Date: " + str(self.__date) + "; Time: " + str(self.__time) + "; Description: " + self.__description
 
-def test_create_event():
-    e = Event(date(2020, 11, 30), time(16, 0, 0, 0), "botezul Anei")
-    assert (e.getEventID() == 1)
-    assert (e.getTime() == time(16,0,0,0))
-    assert (e.getDate() == date(2020, 11, 30))
-    assert (e.getDescription() == "botezul Anei")
 
-    e.setDate(date(2021, 11, 30))
-    assert (e.getEventID() == 1)
-    assert (e.getTime() == time(16,0,0,0))
-    assert (e.getDate() == date(2021, 11, 30))
-    assert (e.getDescription() == "botezul Anei")
-
-    e.setTime(time(18,0,0,0))
-    assert (e.getEventID() == 1)
-    assert (e.getTime() == time(18,0,0,0))
-    assert (e.getDate() == date(2021, 11, 30))
-    assert (e.getDescription() == "botezul Anei")
-
-    e.setDescription("nunta lui Marcel si Eva")
-    assert (e.getEventID() == 1)
-    assert (e.getTime() == time(18,0,0,0))
-    assert (e.getDate() == date(2021, 11, 30))
-    assert (e.getDescription() == "nunta lui Marcel si Eva")
-
-    e2 = Event(date(2023, 11, 30), time(19, 0, 0, 0), "majorat Maria")
-    assert (e.getEventID() == 1)
-    assert (e2.getEventID() == 2)
 
 

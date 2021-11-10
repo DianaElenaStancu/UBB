@@ -1,6 +1,6 @@
-from domain.validators import PersonValidator, EventValidator
-from repository.events_repo import EventsRepository, PersonsRepository
-from service.events_service import PersonService, EventService
+from app.domain.validators import PersonValidator, EventValidator
+from app.repository.events_repo import EventsRepository, PersonsRepository
+from app.service.events_service import PersonService, EventService
 from ui.console import Console
 
 PersonValidator = PersonValidator()

@@ -1,42 +1,14 @@
-from domain.entities import Person, Event
-
-class RepositoryException(Exception):
-    pass
-
-class PersonsRepository:
-    def __init__(self):
-        self.__persons = []
-
-    def store(self, person):
-        self.__persons.append(person)
-
-    def search_person_by_id(self, id):
-        for person in self.__persons:
-            if person.getID() == id:
-                return person
-        raise ValueError("Persoana inexistenta\n")
-
-    def delete_person(self, person):
-       self.__persons.remove(person)
-
-    def modify_person_name(self, person, value):
-        pos = self.__persons.index(person)
-        self.__persons[pos].setName(value)
-
-    def modify_person_address(self, person, value):
-        pos = self.__persons.index(person)
-        self.__persons[pos].setAddress(value)
-
-    def get_all_persons(self):
-        return self.__persons
+from app.domain.entities import Person, Event
+from app.repository.events_repo import PersonsRepository, EventsRepository
 
 def test_store_person():
+    Person.numberOfPersons = 0
     repo = PersonsRepository()
     p1 = Person("vasile", "str oilor")
     p2 = Person("mariana", "str lalelelor")
 
-    assert(len(repo.get_all_persons()) == 0)
-
+    persons = repo.get_all_persons()
+    assert(len(persons) == 0)
     repo.store(p1)
     persons = repo.get_all_persons()
     assert(len(persons) == 1)
@@ -55,6 +27,7 @@ def test_store_person():
     assert (persons[1].getAddress() == p2.getAddress())
 
 def test_delete_person():
+    Person.numberOfPersons = 0
     repo = PersonsRepository()
     p1 = Person("vasile", "str oilor")
     p2 = Person("mariana", "str lalelelor")
@@ -85,6 +58,7 @@ def test_delete_person():
     assert (len(persons) == 0)
 
 def test_modify_person_name():
+    Person.numberOfPersons = 0
     repo = PersonsRepository()
     p1 = Person("vasile", "str oilor")
     p2 = Person("mariana", "str lalelelor")
@@ -130,6 +104,7 @@ def test_modify_person_name():
     assert (persons[2].getAddress() == p3.getAddress())
 
 def test_modify_person_address():
+    Person.numberOfPersons = 0
     repo = PersonsRepository()
     p1 = Person("vasile", "str oilor")
     p2 = Person("mariana", "str lalelelor")
@@ -175,38 +150,9 @@ def test_modify_person_address():
     assert(persons[2].getName() == p3.getName())
     assert (persons[2].getAddress() == "str victoriei")
 
-class EventsRepository():
-    def __init__(self):
-        self.__events = []
 
-    def store(self, event):
-        self.__events.append(event)
-
-    def search_event_by_id(self, id):
-        for event in self.__events:
-            if event.getID() == id:
-                return event
-        raise ValueError("Eveniment inexistent\n")
-
-    def delete_event(self, event):
-       self.__events.remove(event)
-
-    def modify_event_date(self, event, value):
-        pos = self.__events.index(event)
-        self.__events[pos].setDate(value)
-
-    def modify_event_time(self, event, value):
-        pos = self.__events.index(event)
-        self.__events[pos].setTime(value)
-
-    def modify_event_description(self, event, value):
-        pos = self.__events.index(event)
-        self.__events[pos].setDescription(value)
-
-    def get_all_events(self):
-        return self.__events
-
-def test_store():
+def test_store_event():
+    Event.numberOfEvents = 0
     repo = EventsRepository()
     e1 = Event("2021-10-10", "16:00", "descriere 1")
     e2 = Event("2022-11-01", "23:00", "descriere 2")
@@ -251,6 +197,7 @@ def test_store():
     assert (events[2].getDescription() == "descriere 3")
 
 def test_delete_event():
+    Event.numberOfEvents = 0
     repo = EventsRepository()
     e1 = Event("2021-10-10", "16:00", "descriere 1")
     e2 = Event("2022-11-01", "23:00", "descriere 2")
@@ -284,6 +231,7 @@ def test_delete_event():
     assert(len(events) == 0)
 
 def test_modify_event_date():
+    Event.numberOfEvents = 0
     repo = EventsRepository()
     e1 = Event("2021-10-10", "16:00", "descriere 1")
     e2 = Event("2022-11-01", "23:00", "descriere 2")
@@ -338,6 +286,7 @@ def test_modify_event_date():
     assert (events[2].getDescription() == "descriere 3")
 
 def test_modify_event_time():
+    Event.numberOfEvents = 0
     repo = EventsRepository()
     e1 = Event("2021-10-10", "16:00", "descriere 1")
     e2 = Event("2022-11-01", "23:00", "descriere 2")
@@ -392,6 +341,7 @@ def test_modify_event_time():
     assert (events[2].getDescription() == "descriere 3")
 
 def test_modify_event_description():
+    Event.numberOfEvents = 0
     repo = EventsRepository()
     e1 = Event("2021-10-10", "16:00", "descriere 1")
     e2 = Event("2022-11-01", "23:00", "descriere 2")
