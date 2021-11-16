@@ -1,4 +1,4 @@
-from app.domain.entities import Person, Event
+from app.domain.entities import Person, Event, Participation
 from datetime import date, time
 
 def test_create_person():
@@ -49,3 +49,20 @@ def test_create_event():
     e2 = Event(date(2023, 11, 30), time(19, 0, 0, 0), "majorat Maria")
     assert (e.getID() == 1)
     assert (e2.getID() == 2)
+
+def test_create_participation():
+    p = Person('John', 'Str Zorilor Nr 12')
+    np = Person('Tom', 'Str Zorilor Nr 12')
+    e = Event(date(2020, 11, 30), time(16, 0, 0, 0), "botezul Anei")
+    ne = Event(date(2021, 10, 31), time(19, 0, 0, 0), "botezul Mariei")
+    i = Participation(p, e)
+    assert (i.getPerson() == p)
+    assert (i.getEvent() == e)
+
+    i.setPerson(np)
+    assert (i.getPerson() == np)
+    assert (i.getEvent() == e)
+
+    i.setEvent(ne)
+    assert (i.getPerson() == np)
+    assert (i.getEvent() == ne)

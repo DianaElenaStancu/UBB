@@ -66,3 +66,6 @@ class EventValidator:
         if len(errors) > 0:
             error_string = '\n'.join(errors)
             raise ValueError(error_string)
+
+class ParticipationValidator:
+    pass

@@ -37,6 +37,8 @@ class Person():
     def __str__(self):
         return "PersonID: " + str(self.__personID) + "; Name: " + self.__name + "; Address: " + self.__address
 
+    def __eq__(self, other):
+        return self.getID() == other.getID()
 
 class Event():
 
@@ -83,6 +85,31 @@ class Event():
 
     def __str__(self):
         return "EventID: " + str(self.__eventID) + "; Date: " + str(self.__date) + "; Time: " + str(self.__time) + "; Description: " + self.__description
+
+    def __eq__(self, other):
+        return self.getID() == other.getID()
+
+class Participation:
+    def __init__(self, person, event):
+        self.__person = person
+        self.__event = event
+
+    def getPerson(self):
+        return self.__person
+
+    def getEvent(self):
+        return self.__event
+
+    def setPerson(self, value):
+        self.__person = value
+
+    def setEvent(self, value):
+        self.__event = value
+
+    def __eq__(self, other):
+        return self.getPerson() == other.getPerson() and self.getEvent() == other.getEvent()
+
+
 
 
 

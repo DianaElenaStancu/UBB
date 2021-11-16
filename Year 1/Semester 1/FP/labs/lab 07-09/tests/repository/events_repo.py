@@ -150,6 +150,44 @@ def test_modify_person_address():
     assert(persons[2].getName() == p3.getName())
     assert (persons[2].getAddress() == "str victoriei")
 
+def test_search_person_by_value():
+    Person.numberOfPersons = 0
+    repo = PersonsRepository()
+    p1 = Person("vasile", "str oilor")
+    p2 = Person("mariana", "str lalelelor")
+    p3 = Person("tom", "str jupiter")
+    p4 = Person("vasile", "str jupiter")
+    repo.store(p1)
+    repo.store(p2)
+    repo.store(p3)
+    repo.store(p4)
+
+    persons = repo.search_person_by_value("id", 1)
+    assert(len(persons) == 1)
+    assert (persons[0].getID() == 1)
+    assert(persons[0].getName() == p1.getName())
+    assert (persons[0].getAddress() == p1.getAddress())
+
+    persons = repo.search_person_by_value("name", "vasile")
+    assert(len(persons) == 2)
+    assert (persons[0].getID() == 1)
+    assert(persons[0].getName() == p1.getName())
+    assert (persons[0].getAddress() == p1.getAddress())
+    assert (persons[1].getID() == 4)
+    assert(persons[1].getName() == p4.getName())
+    assert (persons[1].getAddress() == p4.getAddress())
+
+    try:
+        persons= repo.search_person_by_value("id", 5)
+        assert False
+    except:
+        assert True
+
+    try:
+        persons = repo.search_person_by_value("name", "mariana")
+        assert False
+    except:
+        assert True
 
 def test_store_event():
     Event.numberOfEvents = 0
@@ -394,3 +432,62 @@ def test_modify_event_description():
     assert(events[2].getDate() == "2023-09-23")
     assert (events[2].getTime() == "5:00")
     assert (events[2].getDescription() == "descriere noua 3")
+
+def test_search_event_by_value():
+    Event.numberOfEvents = 0
+    repo = EventsRepository()
+    e1 = Event("2021-10-10", "16:00", "descriere 1")
+    e2 = Event("2022-11-01", "23:00", "descriere 2")
+    e3 = Event("2023-09-23", "5:00", "descriere 3")
+    e4 = Event("2021-10-10", "23:00", "descriere 3")
+    repo.store(e1)
+    repo.store(e2)
+    repo.store(e3)
+    repo.store(e4)
+
+    events = repo.search_event_by_value("id", 1)
+    assert(len(events) == 1)
+    assert(events[0].getID() == 1)
+    assert(events[0].getDate() == "2021-10-10")
+    assert (events[0].getTime() == "16:00")
+    assert (events[0].getDescription() == "descriere 1")
+
+    events = repo.search_event_by_value("date", "2021-10-10")
+    assert(len(events) == 2)
+    assert(events[0].getID() == 1)
+    assert(events[0].getDate() == "2021-10-10")
+    assert (events[0].getTime() == "16:00")
+    assert (events[0].getDescription() == "descriere 1")
+    assert(events[1].getID() == 4)
+    assert(events[1].getDate() == "2021-10-10")
+    assert (events[1].getTime() == "23:00")
+    assert (events[1].getDescription() == "descriere 3")
+
+    events = repo.search_event_by_value("time", "23:00")
+    assert(len(events) == 2)
+    assert(events[0].getID() == 2)
+    assert(events[0].getDate() == "2022-11-01")
+    assert (events[0].getTime() == "23:00")
+    assert (events[0].getDescription() == "descriere 2")
+    assert(events[1].getID() == 4)
+    assert(events[1].getDate() == "2021-10-10")
+    assert (events[1].getTime() == "23:00")
+    assert (events[1].getDescription() == "descriere 3")
+
+    try:
+        repo.search_event_by_value("id", 10)
+        assert False
+    except:
+        assert True
+
+    try:
+        repo.search_event_by_value("date", "10")
+        assert False
+    except:
+        assert True
+
+    try:
+        repo.search_event_by_value("time", "19:23")
+        assert False
+    except:
+        assert True

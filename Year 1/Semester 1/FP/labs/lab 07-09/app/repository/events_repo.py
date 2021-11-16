@@ -9,11 +9,16 @@ class PersonsRepository:
     def store(self, person):
         self.__persons.append(person)
 
-    def search_person_by_id(self, id):
+    def search_person_by_value(self, key, value):
+        persons = []
         for person in self.__persons:
-            if person.getID() == id:
-                return person
-        raise RepositoryException("Persoana inexistenta\n")
+            if person.getID() == value and key == "id" or person.getName() == value and key == "name" or person.getAddress() == value and key == "address":
+                persons.append(person)
+
+        if len(persons) == 0:
+            raise RepositoryException("Persoana inexistenta\n")
+
+        return persons
 
     def delete_person(self, person):
        self.__persons.remove(person)
@@ -36,11 +41,16 @@ class EventsRepository():
     def store(self, event):
         self.__events.append(event)
 
-    def search_event_by_id(self, id):
+    def search_event_by_value(self, key, value):
+        events = []
         for event in self.__events:
-            if event.getID() == id:
-                return event
-        raise ValueError("Eveniment inexistent\n")
+            if key == "id" and event.getID() == value or event.getDate() == value and key == "date" or event.getTime() == value and key == "time":
+                events.append(event)
+
+        if (len(events) == 0):
+            raise RepositoryException("Eveniment inexistent\n")
+
+        return events
 
     def delete_event(self, event):
        self.__events.remove(event)
@@ -59,3 +69,20 @@ class EventsRepository():
 
     def get_all_events(self):
         return self.__events
+
+class ParticipationsRepository:
+    def __init__(self):
+        self.__participations = []
+
+    def get_all_participations(self):
+        return self.__participations
+
+    def store_participation(self, participation):
+        if participation in self.__participations:
+            raise RepositoryException("Participare existenta\n")
+        self.__participations.append(participation)
+
+    def del_participation(self, participation):
+        if participation not in self.__participations:
+            raise RepositoryException("Participare inexistenta\n")
+        self.__participations.remove(participation)

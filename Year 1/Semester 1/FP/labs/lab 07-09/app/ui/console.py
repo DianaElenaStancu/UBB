@@ -1,77 +1,45 @@
 from termcolor import colored
 from app.repository.events_repo import RepositoryException
 
-class Console:
-    def __init__(self, PersonSrv, EventSrv):
+class PersonUI:
+    def __init__(self, PersonSrv):
         self.__person_srv = PersonSrv
-        self.__event_srv = EventSrv
+        self.__comands = {
+            "generate": self.__generate_persons,
+            "add":self.__add_person,
+            "del":self.__del_person,
+            "mod":self.__mod_person,
+            "find":self.__find_person,
+            "show":self.__show_all_persons
+        }
 
-    #event
-    def __show_all_events(self):
-        """
-        afiseaza toate evenimentele disponibile
-        """
-        events = self.__event_srv.get_all_events()
-        if len(events) == 0:
-            print(colored('Nu exista evenimente in lista', 'yellow'))
-        else:
-            print(colored('Lista de evenimente este:', 'yellow'))
-            for event in events:
-                print(colored(event, 'yellow'))
 
-    def __add_event(self):
+    def run(self):
+        back = False
+        while not back:
+            print(colored('-------------------', 'blue'))
+            print(colored('Comenzile disponibile: generate/add/del/mod/find/show/back', 'blue'))
+            print(colored('-------------------', 'blue'))
+            cmd = input("Comanda este: ")
+            cmd = cmd.lower().strip()
+            if cmd in self.__comands:
+                self.__comands[cmd]()
+            elif cmd == "back":
+                back = True
+            else:
+                print(colored("Comanda invalida", 'red'))
+
+    def __generate_persons(self):
         """
-        adauga eveniment
+        genereaza un numar de persoane introdus de utilizator
         """
-        date = input("Data in formatul YYYY-MM-DD: ")
-        time = input("Ora in formatul HH:MM: ")
-        description = input("Descrierea: ")
         try:
-            added_event = self.__event_srv.add_event(date, time, description)
-            print("Eveniment: ", colored(added_event, 'yellow'), 'a fost adaugata cu succes.')
+            nr = int(input("Numarul de persoane pe care vrei sa le genrezi: "))
         except ValueError as ve:
             print(colored(str(ve), 'red'))
 
-    def __del_event(self):
-        """
-        sterge eveniment
-        """
-        try:
-            id = int(input("Id-ul evenimentului pe care vrei sa il stergi: "))
-        except ValueError as ve:
-            print(colored(str(ve), 'red'))
-            return
+        self.__person_srv.generate_persons(nr)
 
-        try:
-            deleted_event = self.__event_srv.delete_event(id)
-            print("Evenimentul: ", colored(deleted_event, 'yellow'), 'a fost stearsa cu succes.')
-        except ValueError as ve:
-            print(colored(str(ve), 'red'))
-        except RepositoryException as ve:
-            print(colored(str(ve), 'orange'))
-
-    def __mod_event(self, field):
-        """modifica eveniment"""
-        try:
-            id = int(input("Id-ul evenimentului pe care vrei sa o modifici: "))
-        except ValueError as ve:
-            print(colored(str(ve), 'red'))
-            return
-
-        if field == 'date':
-            value = input("Data in formatul YYYY-MM-DD: ")
-        elif field == 'time':
-            value = input("Ora in formatul HH:MM: ")
-        else:
-            value = input("Descrierea: ")
-
-        try:
-            modified_event = self.__event_srv.modify_event(id, field, value)
-            print("Evenimentul: ", colored(modified_event, 'yellow'), 'a fost modificat cu succes.')
-        except ValueError as ve:
-            print(colored(str(ve), 'red'))
-
-    #person
     def __show_all_persons(self):
         """
         afiseaza toate produsele disponibile
@@ -114,12 +82,17 @@ class Console:
         except RepositoryException as ve:
             print(colored(str(ve), 'magenta'))
 
-    def __mod_person(self, field):
+    def __mod_person(self):
         """modifica persoana"""
         try:
-            id = int(input("Id-ul persoanei pe care vrei sa o modifici: "))
+            id = int(input("Id-ul persoanei pe care vrei sa o modifici (name/address): "))
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
+
+        field = input("Campul pe care vrei sa il modifici: ")
+        if field != "name" and field != "address":
+            print(colored("Field inexistent", 'red'))
             return
 
         if field == 'name':
@@ -131,37 +104,254 @@ class Console:
             print("Persoana: ", colored(modified_person, 'yellow'), 'a fost modificata cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+        except RepositoryException as ve:
+            print(colored(str(ve), 'magenta'))
+
+    def __find_person(self):
+        """cauta persoana dupa un field dat"""
+
+        field = input("Campul pe care vrei sa il modifici(id/name/address): ")
+
+        if field != "name" and field != "address" and field != "id":
+            print(colored("Field inexistent", 'red'))
+            return
+
+        if field == "id":
+            try:
+                value = int(input("Id-ul persoanei pe care vrei sa o modifici: "))
+            except ValueError as ve:
+                print(colored(str(ve), 'red'))
+                return
+        elif field == "name":
+            value = input("Numele persoanei pe care vrei sa cauti: ")
+        else:
+            value = input("Adresa persoanei pe care vrei sa cauti: ")
+
+        try:
+            searched_persons = self.__person_srv.search_person(field, value)
+            print("Persoanele/Persoana cautate/cautat sunt/este:")
+            for person in searched_persons:
+                print(colored(person, 'yellow'))
+        except RepositoryException as ve:
+            print(colored(str(ve), 'magenta'))
+
+class EventUI:
+    def __init__(self, EventSrv):
+        self.__event_srv = EventSrv
+        self.__comands = {
+            "add": self.__add_event,
+            "del": self.__del_event,
+            "mod": self.__mod_event,
+            "find": self.__find_event,
+            "show": self.__show_all_events
+        }
+
+    def run(self):
+        back = False
+        while not back:
+            print(colored('-------------------', 'blue'))
+            print(colored('Comenzile disponibile: add/del/mod/find/show/back', 'blue'))
+            print(colored('-------------------', 'blue'))
+            cmd = input("Comanda este: ")
+            cmd = cmd.lower().strip()
+            if cmd in self.__comands:
+                self.__comands[cmd]()
+            elif cmd == "back":
+                back = True
+            else:
+                print(colored("Comanda invalida", 'red'))
+
+    def __show_all_events(self):
+        """
+        afiseaza toate evenimentele disponibile
+        """
+        events = self.__event_srv.get_all_events()
+        if len(events) == 0:
+            print(colored('Nu exista evenimente in lista', 'yellow'))
+        else:
+            print(colored('Lista de evenimente este:', 'yellow'))
+            for event in events:
+                print(colored(event, 'yellow'))
+
+    def __add_event(self):
+        """
+        adauga eveniment
+        """
+        date = input("Data in formatul YYYY-MM-DD: ")
+        time = input("Ora in formatul HH:MM: ")
+        description = input("Descrierea: ")
+        try:
+            added_event = self.__event_srv.add_event(date, time, description)
+            print("Eveniment: ", colored(added_event, 'yellow'), 'a fost adaugata cu succes.')
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+
+    def __del_event(self):
+        """
+        sterge eveniment
+        """
+        try:
+            id = int(input("Id-ul evenimentului pe care vrei sa il stergi: "))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+            return
+
+        try:
+            deleted_event = self.__event_srv.delete_event(id)
+            print("Evenimentul: ", colored(deleted_event, 'yellow'), 'a fost stearsa cu succes.')
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+        except RepositoryException as ve:
+            print(colored(str(ve), 'magenta'))
+
+    def __mod_event(self):
+        """modifica eveniment"""
+
+        try:
+            id = int(input("Id-ul evenimentului pe care vrei sa o modifici: "))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+            return
+
+        field = input("Campul pe care vrei sa il modifici (date/time/description): ")
+        if field != "date" and field != "time" and field != "description":
+            print(colored("Field inexistent", 'red'))
+            return
+
+        if field == 'date':
+            value = input("Data in formatul YYYY-MM-DD: ")
+        elif field == 'time':
+            value = input("Ora in formatul HH:MM: ")
+        else:
+            value = input("Descrierea: ")
+
+        try:
+            modified_event = self.__event_srv.modify_event(id, field, value)
+            print("Evenimentul: ", colored(modified_event, 'yellow'), 'a fost modificat cu succes.')
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+
+    def __find_event(self):
+        """cauta evenimentul dupa un field dat"""
+
+        field = input("Campul pe care vrei sa il modifici (id/date/time): ")
+        if field != "id" and field != "date" and field != "time":
+            print(colored("Field inexistent", 'red'))
+            return
+
+        if field == "id":
+            try:
+                value = int(input("Id-ul dupa care doriti sa cautati: "))
+            except ValueError as ve:
+                print(colored(str(ve), 'red'))
+                return
+        elif field == "date":
+            value = input("Data in formatul YYYY-MM-DD: ")
+        else:
+            value = input("Timpul in formatul HH:MM: ")
+        try:
+            searched_events = self.__event_srv.search_event(field, value)
+            print("Evenimentul/evenimentele cautat/cautate este/sunt: ")
+            for event in searched_events:
+                print(colored(event, 'yellow'))
+        except RepositoryException as re:
+            print(colored(str(re), 'magenta'))
+            return
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+            return
+
+class ParticipationUI:
+    def __init__(self, ParticipationSrv):
+        self.__participation_srv = ParticipationSrv
+        self.__comands = {
+            "sign": self.__sign_person_to_event,
+            "unsign": self.__unsign_person_to_event,
+            "show": self.__show_participations
+        }
+    def run(self):
+        back = False
+        while not back:
+            print(colored('-------------------', 'blue'))
+            print(colored('Comenzile disponibile: sign/unsign/show/back', 'blue'))
+            print(colored('-------------------', 'blue'))
+            cmd = input("Comanda este: ")
+            cmd = cmd.lower().strip()
+            if cmd in self.__comands:
+                self.__comands[cmd]()
+            elif cmd == "back":
+                back = True
+            else:
+                print(colored("Comanda invalida", 'red'))
+
+    def __sign_person_to_event(self):
+        """inscriem o persoana la un eveniment"""
+        try:
+            person_id = int(input("Id-ul persoanei pe care vrei sa o inscrii:"))
+            event_id = int(input("Id-ul evenimentul la care vrei sa inscrii persoana: "))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+
+        try:
+            added_participation = self.__participation_srv.add_participation(person_id, event_id)
+            print("Persoana: ", colored(added_participation[0], 'yellow'), 'a fost inscrisa cu succes la evenimentul: ', colored(added_participation[1], 'yellow'))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+        except RepositoryException as ve:
+            print(colored(str(ve), 'magenta'))
+
+    def __unsign_person_to_event(self):
+        """
+        stergem o participare
+        """
+        try:
+            person_id = int(input("Id-ul persoanei pe care vrei sa o inscrii:"))
+            event_id = int(input("Id-ul evenimentul la care vrei sa inscrii persoana: "))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+
+        try:
+            deleted_participation = self.__participation_srv.del_participation(person_id, event_id)
+            print("Persoana: ", colored(deleted_participation[0], 'yellow'), 'a fost inscrisa cu succes la evenimentul: ', colored(deleted_participation[1], 'yellow'))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+        except RepositoryException as ve:
+            print(colored(str(ve), 'magenta'))
+
+    def __show_participations(self):
+        """afisam participarile"""
+        participations = self.__participation_srv.get_all_participations()
+        if len(participations) == 0:
+            print(colored('Nu exista participari in lista', 'yellow'))
+        else:
+            print(colored('Lista de participari este:', 'yellow'))
+            for participation in participations:
+                print("Persoana ",colored(participation.getPerson(), 'yellow'), "este inscrisa la evenimentul ", colored(participation.getEvent(), 'yellow'))
 
 
+class Console:
+    def __init__(self, PersonUI, EventUI, ParticipationUI):
+        self.__person_ui = PersonUI
+        self.__event_ui = EventUI
+        self.__participation_ui = ParticipationUI
+        self.__comands = {
+            "person" : self.__person_ui.run,
+            "event": self.__event_ui.run,
+            "participation": self.__participation_ui.run
+        }
 
     def show_ui(self):
         exit = False
         while not exit:
-            print('Comenzi disponibile pentru persoane: add_person, del_person, mod_person_[name/address], show_persons')
-            print('Comenzi disponibile pentru evenimente: add_event, del_event, mod_event_[date/time/description], show_events')
+            print("Ruleaza comenzi pentru: person/event/participation ")
             print('Alte comenzi: exit')
-            cmd = input('Comanda este: ')
+            cmd = input("Comanda ta este: ")
             cmd = cmd.lower().strip()
-            if cmd == 'add_person':
-                self.__add_person()
-            elif cmd == 'del_person':
-                self.__del_person()
-            elif cmd.find('mod_person_') != -1 and (cmd[11:] == 'name' or cmd[11:] == 'address'):
-                field = cmd[11:]
-                self.__mod_person(field)
-            elif cmd == 'show_persons':
-                self.__show_all_persons()
-            elif cmd == 'add_event':
-                self.__add_event()
-            elif cmd == 'del_event':
-                self.__del_event()
-            elif cmd.find('mod_event_') != -1 and (cmd[10:] == 'date' or cmd[10:] == 'time' or cmd[10:] == 'description'):
-                field = cmd[10:]
-                self.__mod_event(field)
-            elif cmd == 'show_events':
-                self.__show_all_events()
-            elif cmd == 'exit':
-                exit = 1
+            if cmd in self.__comands:
+                self.__comands[cmd]()
+            elif cmd == "exit":
+                exit = True
             else:
-                print(colored('Comanda invalida', 'red'))
-        return
+                print(colored("Comanda este invalida", 'red'))
+
+

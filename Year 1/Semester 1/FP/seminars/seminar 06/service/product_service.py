@@ -7,7 +7,7 @@ class ProductService:
         self.__repo = repo
         self.__validator = validator
 
-    def add_product(self, denumire, stoc, pret):
+    def add_product(self, id, denumire, stoc, pret):
         """
         :raises: Value Error daca produsul e invalid
         :param denumire:
@@ -15,9 +15,12 @@ class ProductService:
         :param pret:
         :return:
         """
-        product = Product(denumire, stoc, pret)
+        product = Product(id, denumire, stoc, pret)
         self.__validator.validate(product)
         self.__repo.store(product)
+
+    def delete_by_id(self):
+        pass
 
     def get_all_products(self):
         return self.__repo.get_all_products()

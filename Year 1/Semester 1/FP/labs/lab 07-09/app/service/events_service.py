@@ -1,6 +1,8 @@
+import names
+from random_address import real_random_address
 from datetime import datetime, date, time
 
-from app.domain.entities import Person, Event
+from app.domain.entities import Person, Event, Participation
 
 class PersonService:
 
@@ -19,8 +21,9 @@ class PersonService:
         :rtype: Person
         :raise: ValueError daca persoana este invalida
         """
+        self.__validator.validate_name(name)
+        self.__validator.validate_address(address)
         person = Person(name, address)
-        self.__validator.validate(person)
         self.__repo.store(person)
         return person
 
@@ -32,7 +35,8 @@ class PersonService:
         :return: persoana stearsa din lista
         :rtype: Person
         """
-        deleted_person = self.__repo.search_person_by_id(id)
+        person_list_with_id = self.__repo.search_person_by_value("id", id)
+        deleted_person = person_list_with_id[0]
         self.__repo.delete_person(deleted_person)
         return deleted_person
 
@@ -48,7 +52,8 @@ class PersonService:
         :return: persoana cu datele modificate
         :rtype: Person
         """
-        modified_person = self.__repo.search_person_by_id(id)
+        person_list = self.__repo.search_person_by_value("id", id)
+        modified_person = person_list[0]
         #modify_func = eval("self.__repo.modify_person_" + field)
         #modify_func(modified_person, value)
         if field == 'name':
@@ -59,8 +64,23 @@ class PersonService:
             self.__repo.modify_person_address(modified_person, value)
         return modified_person
 
+    def search_person(self, field, value):
+        """cauta persoana dupa id"""
+        searched_persons = self.__repo.search_person_by_value(field, value)
+        return searched_persons
+
+    def generate_persons(self, nr):
+        """genereaza nr persoane"""
+        while nr:
+            name = names.get_last_name()
+            address = real_random_address()["address1"]
+            person = Person(name, address)
+            self.__repo.store(person)
+            nr -= 1
+
     def get_all_persons(self):
         return self.__repo.get_all_persons()
+
 
 class EventService:
     def __init__(self, repo, validator):
@@ -97,7 +117,8 @@ class EventService:
         :return: evenimentul sters din lista
         :rtype: Event
         """
-        deleted_event = self.__repo.search_event_by_id(id)
+        event_list = self.__repo.search_event_by_value("id", id)
+        deleted_event = event_list[0]
         self.__repo.delete_event(deleted_event)
         return deleted_event
 
@@ -113,7 +134,8 @@ class EventService:
         :return: persoana cu datele modificate
         :rtype: Person
         """
-        modified_event = self.__repo.search_event_by_id(id)
+        event_list = self.__repo.search_event_by_value("id", id)
+        modified_event = event_list[0]
         #modify_func = eval("self.__repo.modify_person_" + field)
         #modify_func(modified_person, value)
 
@@ -132,5 +154,66 @@ class EventService:
 
         return modified_event
 
+    def search_event(self, field, value):
+        """cauta un eveniment dupa un camp dat"""
+        if field == "id":
+            searched_events = self.__repo.search_event_by_value(field, value)
+        elif field == "date":
+            self.__validator.validate_date(value)
+            format_date = date.fromisoformat(value)
+            searched_events = self.__repo.search_event_by_value(field, format_date)
+        else:
+            self.__validator.validate_time(value)
+            format_time = datetime.strptime(value, "%H:%M")
+            new_time = time(format_time.hour, format_time.minute)
+            searched_events = self.__repo.search_event_by_value(field, new_time)
+        return searched_events
+
     def get_all_events(self):
         return self.__repo.get_all_events()
+
+class ParticipationService:
+    def __init__(self, persons_repo, events_repo, participations_repo):
+        self.__persons_repo = persons_repo
+        self.__events_repo = events_repo
+        self.__participations_repo = participations_repo
+
+    def get_all_participations(self):
+        return self.__participations_repo.get_all_participations()
+
+    def add_participation(self, person_id, event_id):
+        """
+        Persoana cu id-ul person_id participa la evenimentul cu id-ul event_id
+        :param person_id: id-ul persoanei
+        :type person_id: int
+        :param event_id: id-ul evenimentului
+        :type event_id: int
+        :return: persoana si evenimentul
+        :rtype: list of Person and Event
+        """
+        person_list = self.__persons_repo.search_person_by_value("id", person_id)
+        event_list = self.__events_repo.search_event_by_value("id", event_id)
+        person = person_list[0]
+        event = event_list[0]
+        participation = Participation(person, event)
+        self.__participations_repo.store_participation(participation)
+        return [person, event]
+
+    def del_participation(self, person_id, event_id):
+        """
+        Eliminam participarea persoanei cu id-ul person_id la evenimentul cu id-ul event-id
+        :param person_id: id-ul persoanei
+        :type person_id: int
+        :param event_id: id-ul evenimentului
+        :type event_id: int
+        :return: persoana si evenimentul
+        :rtype: list of Person and Event
+        """
+        person_list = self.__persons_repo.search_person_by_value("id", person_id)
+        event_list = self.__events_repo.search_event_by_value("id", event_id)
+        person = person_list[0]
+        event = event_list[0]
+        participation = Participation(person, event)
+        self.__participation_repo.del_participation(participation)
+        return [person, event]
+

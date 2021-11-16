@@ -5,8 +5,6 @@ from app.domain.validators import PersonValidator, EventValidator
 from app.repository.events_repo import PersonsRepository, EventsRepository
 from app.service.events_service import PersonService, EventService
 
-
-
 def test_add_person():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
@@ -135,6 +133,60 @@ def test_modify_person():
         assert False
     except:
         assert True
+
+def test_search_person():
+    Person.numberOfPersons = 0
+    repo = PersonsRepository()
+    val = PersonValidator()
+    srv = PersonService(repo, val)
+    srv.add_person("vasile", "str oilor")
+    srv.add_person("tom", "str jupiter")
+    srv.add_person("cristi", "str vuvuielelor")
+    srv.add_person("vasile", "str vuvuielelor")
+
+    persons = srv.search_person("id", 1)
+    assert (len(persons) == 1)
+    assert (persons[0].getID() == 1)
+    assert (persons[0].getName() == "vasile")
+    assert (persons[0].getAddress() == "str oilor")
+
+    persons = srv.search_person("name", "vasile")
+    assert (len(persons) == 2)
+    assert (persons[0].getID() == 1)
+    assert (persons[0].getName() == "vasile")
+    assert (persons[0].getAddress() == "str oilor")
+    assert (persons[1].getID() == 4)
+    assert (persons[1].getName() == "vasile")
+    assert (persons[1].getAddress() == "str vuvuielelor")
+
+    persons = srv.search_person("address", "str vuvuielelor")
+    assert (len(persons) == 2)
+    assert (persons[0].getID() == 3)
+    assert (persons[0].getName() == "cristi")
+    assert (persons[0].getAddress() == "str vuvuielelor")
+    assert (persons[1].getID() == 4)
+    assert (persons[1].getName() == "vasile")
+    assert (persons[1].getAddress() == "str vuvuielelor")
+
+    try:
+        srv.search_person("id", 10)
+        assert False
+    except:
+        assert True
+
+    try:
+        srv.search_person("name", "")
+        assert False
+    except:
+        assert True
+
+    try:
+        srv.search_person("address", "")
+        assert False
+    except:
+        assert True
+
+
 
 def test_add_event():
     Event.numberOfEvents = 0
@@ -296,3 +348,74 @@ def test_modify_event():
         assert False
     except:
         assert True
+
+def test_search_event():
+    Event.numberOfEvents = 0
+    repo = EventsRepository()
+    val = EventValidator()
+    srv = EventService(repo, val)
+    srv.add_event("2021-10-10", "16:00", "descriere 1")
+    srv.add_event("2022-12-09", "15:00", "descriere 2")
+    srv.add_event("2023-04-14", "21:00", "descriere 3")
+    srv.add_event("2021-10-10", "15:00", "descriere 4")
+    events = srv.search_event("id", 1)
+    assert(len(events) == 1)
+    assert (events[0].getID() == 1)
+    assert (events[0].getDate() == date(2021, 10, 10))
+    assert (events[0].getTime() == time(16, 0, 0))
+    assert (events[0].getDescription() == "descriere 1")
+
+    events = srv.search_event("date", "2021-10-10")
+    assert(len(events) == 2)
+    assert (events[0].getID() == 1)
+    assert (events[0].getDate() == date(2021, 10, 10))
+    assert (events[0].getTime() == time(16, 0, 0))
+    assert (events[0].getDescription() == "descriere 1")
+    assert (events[1].getID() == 4)
+    assert (events[1].getDate() == date(2021, 10, 10))
+    assert (events[1].getTime() == time(15, 0, 0))
+    assert (events[1].getDescription() == "descriere 4")
+
+    events = srv.search_event("time", "15:00")
+    assert(len(events) == 2)
+    assert (events[0].getID() == 2)
+    assert (events[0].getDate() == date(2022,12,9))
+    assert (events[0].getTime() == time(15, 0, 0))
+    assert (events[0].getDescription() == "descriere 2")
+    assert (events[1].getID() == 4)
+    assert (events[1].getDate() == date(2021, 10, 10))
+    assert (events[1].getTime() == time(15, 0, 0))
+    assert (events[1].getDescription() == "descriere 4")
+
+    try:
+        srv.search_event("id", 20)
+        assert False
+    except:
+        assert True
+
+    try:
+        srv.search_event("date", "202-108")
+        assert False
+    except:
+        assert True
+
+    try:
+        srv.search_event("time", 'ddsia')
+        assert False
+    except:
+        assert True
+
+    try:
+        srv.search_event("time", "21:21")
+        assert False
+    except:
+        assert True
+
+    try:
+        srv.search_event("date", "2002-10-10")
+        assert False
+    except:
+        assert True
+
+
+
