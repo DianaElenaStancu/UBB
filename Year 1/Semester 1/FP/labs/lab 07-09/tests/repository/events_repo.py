@@ -1,5 +1,6 @@
-from app.domain.entities import Person, Event
-from app.repository.events_repo import PersonsRepository, EventsRepository
+from app.domain.entities import Person, Event, Participation_v1
+from app.repository.events_repo import PersonsRepository, EventsRepository, ParticipationsRepository
+
 
 def test_store_person():
     Person.numberOfPersons = 0
@@ -488,6 +489,68 @@ def test_search_event_by_value():
 
     try:
         repo.search_event_by_value("time", "19:23")
+        assert False
+    except:
+        assert True
+
+def test_store_participation_v1():
+    repo = ParticipationsRepository()
+    p1 = Participation_v1(1,2)
+    p2 = Participation_v1(3,4)
+    p3 = Participation_v1(1,2)
+
+    participations = repo.get_all_participations()
+    assert(len(participations) == 0)
+
+    repo.store_participation(p1)
+    participations = repo.get_all_participations()
+    assert (len(participations) == 1)
+    assert (participations[0].getPersonID() == 1)
+    assert (participations[0].getEventID() == 2)
+
+    repo.store_participation(p2)
+    participations = repo.get_all_participations()
+    assert (len(participations) == 2)
+    assert (participations[0].getPersonID() == 1)
+    assert (participations[0].getEventID() == 2)
+    assert (participations[1].getPersonID() == 3)
+    assert (participations[1].getEventID() == 4)
+
+    try:
+        repo.store_participation(p3)
+        assert False
+    except:
+        assert True
+
+def test_delete_participation_v1():
+    repo = ParticipationsRepository()
+    p1 = Participation_v1(1,2)
+    p2 = Participation_v1(3,4)
+    p3 = Participation_v1(5,6)
+    repo.store_participation(p1)
+    repo.store_participation(p2)
+    repo.store_participation(p3)
+
+    repo.del_participation(p1)
+    participations = repo.get_all_participations()
+    assert (len(participations) == 2)
+    assert (participations[0].getPersonID() == 3)
+    assert (participations[0].getEventID() == 4)
+    assert (participations[1].getPersonID() == 5)
+    assert (participations[1].getEventID() == 6)
+
+    repo.del_participation(p2)
+    participations = repo.get_all_participations()
+    assert (len(participations) == 1)
+    assert (participations[0].getPersonID() == 5)
+    assert (participations[0].getEventID() == 6)
+
+    repo.del_participation(p3)
+    participations = repo.get_all_participations()
+    assert (len(participations) == 0)
+
+    try:
+        repo.del_participation(p1)
         assert False
     except:
         assert True

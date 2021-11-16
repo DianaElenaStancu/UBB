@@ -109,7 +109,22 @@ class Participation:
     def __eq__(self, other):
         return self.getPerson() == other.getPerson() and self.getEvent() == other.getEvent()
 
+class Participation_v1:
+    def __init__(self, person_id, event_id):
+        self.__person_id = person_id
+        self.__event_id = event_id
 
+    def getPersonID(self):
+        return self.__person_id
+
+    def getEventID(self):
+        return self.__event_id
+
+    def __eq__(self, other):
+        return self.getPersonID() == other.getPersonID() and self.getEventID() == other.getEventID()
+
+    def __str__(self):
+        return "Persoana ID: " + str(self.getPersonID()) + "Evenimentul ID: " + str(self.getEventID())
 
 
 

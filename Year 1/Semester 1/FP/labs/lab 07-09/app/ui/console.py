@@ -13,7 +13,6 @@ class PersonUI:
             "show":self.__show_all_persons
         }
 
-
     def run(self):
         back = False
         while not back:
@@ -34,9 +33,10 @@ class PersonUI:
         genereaza un numar de persoane introdus de utilizator
         """
         try:
-            nr = int(input("Numarul de persoane pe care vrei sa le genrezi: "))
+            nr = int(input("Numarul de persoane pe care vrei sa le generezi: "))
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
 
         self.__person_srv.generate_persons(nr)
 
@@ -63,6 +63,8 @@ class PersonUI:
             print("Persoana: ", colored(added_person, 'yellow'), 'a fost adaugata cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
+
 
     def __del_person(self):
         """
@@ -79,18 +81,20 @@ class PersonUI:
             print("Persoana: ", colored(deleted_person, 'yellow'), 'a fost stearsa cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
         except RepositoryException as ve:
             print(colored(str(ve), 'magenta'))
+            return
 
     def __mod_person(self):
         """modifica persoana"""
         try:
-            id = int(input("Id-ul persoanei pe care vrei sa o modifici (name/address): "))
+            id = int(input("Id-ul persoanei pe care vrei sa o modifici: "))
         except ValueError as ve:
             print(colored(str(ve), 'red'))
             return
 
-        field = input("Campul pe care vrei sa il modifici: ")
+        field = input("Campul pe care vrei sa il modifici (name/address): ")
         if field != "name" and field != "address":
             print(colored("Field inexistent", 'red'))
             return
@@ -104,13 +108,15 @@ class PersonUI:
             print("Persoana: ", colored(modified_person, 'yellow'), 'a fost modificata cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
         except RepositoryException as ve:
             print(colored(str(ve), 'magenta'))
+            return
 
     def __find_person(self):
         """cauta persoana dupa un field dat"""
 
-        field = input("Campul pe care vrei sa il modifici(id/name/address): ")
+        field = input("Campul pe care vrei sa cauti(id/name/address): ")
 
         if field != "name" and field != "address" and field != "id":
             print(colored("Field inexistent", 'red'))
@@ -118,14 +124,14 @@ class PersonUI:
 
         if field == "id":
             try:
-                value = int(input("Id-ul persoanei pe care vrei sa o modifici: "))
+                value = int(input("Id-ul persoanei dupa care vrei sa cauti: "))
             except ValueError as ve:
                 print(colored(str(ve), 'red'))
                 return
         elif field == "name":
-            value = input("Numele persoanei pe care vrei sa cauti: ")
+            value = input("Numele persoanei dupa care vrei sa cauti: ")
         else:
-            value = input("Adresa persoanei pe care vrei sa cauti: ")
+            value = input("Adresa persoanei dupa care vrei sa cauti: ")
 
         try:
             searched_persons = self.__person_srv.search_person(field, value)
@@ -134,11 +140,13 @@ class PersonUI:
                 print(colored(person, 'yellow'))
         except RepositoryException as ve:
             print(colored(str(ve), 'magenta'))
+            return
 
 class EventUI:
     def __init__(self, EventSrv):
         self.__event_srv = EventSrv
         self.__comands = {
+            "generate": self.__generate_event,
             "add": self.__add_event,
             "del": self.__del_event,
             "mod": self.__mod_event,
@@ -150,7 +158,7 @@ class EventUI:
         back = False
         while not back:
             print(colored('-------------------', 'blue'))
-            print(colored('Comenzile disponibile: add/del/mod/find/show/back', 'blue'))
+            print(colored('Comenzile disponibile: generate/add/del/mod/find/show/back', 'blue'))
             print(colored('-------------------', 'blue'))
             cmd = input("Comanda este: ")
             cmd = cmd.lower().strip()
@@ -160,6 +168,16 @@ class EventUI:
                 back = True
             else:
                 print(colored("Comanda invalida", 'red'))
+
+    def __generate_event(self):
+        """genereaza un numar de evenimente"""
+        try:
+            nr = int(input("Numarul de evenimente pe care vrei sa le generezi: "))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+            return
+
+        self.__event_srv.generate_events(nr)
 
     def __show_all_events(self):
         """
@@ -185,6 +203,7 @@ class EventUI:
             print("Eveniment: ", colored(added_event, 'yellow'), 'a fost adaugata cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
 
     def __del_event(self):
         """
@@ -201,8 +220,10 @@ class EventUI:
             print("Evenimentul: ", colored(deleted_event, 'yellow'), 'a fost stearsa cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
         except RepositoryException as ve:
             print(colored(str(ve), 'magenta'))
+            return
 
     def __mod_event(self):
         """modifica eveniment"""
@@ -230,11 +251,15 @@ class EventUI:
             print("Evenimentul: ", colored(modified_event, 'yellow'), 'a fost modificat cu succes.')
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
+        except RepositoryException as re:
+            print(colored(str(re), 'magenta'))
+            return
 
     def __find_event(self):
         """cauta evenimentul dupa un field dat"""
 
-        field = input("Campul pe care vrei sa il modifici (id/date/time): ")
+        field = input("Campul dupa care vrei sa cauti (id/date/time): ")
         if field != "id" and field != "date" and field != "time":
             print(colored("Field inexistent", 'red'))
             return
@@ -291,32 +316,42 @@ class ParticipationUI:
             event_id = int(input("Id-ul evenimentul la care vrei sa inscrii persoana: "))
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
 
         try:
-            added_participation = self.__participation_srv.add_participation(person_id, event_id)
-            print("Persoana: ", colored(added_participation[0], 'yellow'), 'a fost inscrisa cu succes la evenimentul: ', colored(added_participation[1], 'yellow'))
+            self.__participation_srv.add_participation(person_id, event_id)
+            print("Persoana cu id-ul: ", colored(person_id, 'yellow'), 'a fost inscrisa cu succes la evenimentul cu id-ul: ', colored(event_id, 'yellow'))
+            #added_participation = self.__participation_srv.add_participation(person_id, event_id)
+            #print("Persoana: ", colored(added_participation[0], 'yellow'), 'a fost inscrisa cu succes la evenimentul: ', colored(added_participation[1], 'yellow')) #for Participation v0
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
         except RepositoryException as ve:
             print(colored(str(ve), 'magenta'))
+            return
 
     def __unsign_person_to_event(self):
         """
         stergem o participare
         """
         try:
-            person_id = int(input("Id-ul persoanei pe care vrei sa o inscrii:"))
-            event_id = int(input("Id-ul evenimentul la care vrei sa inscrii persoana: "))
+            person_id = int(input("Id-ul persoanei pe care vrei sa o stergi:"))
+            event_id = int(input("Id-ul evenimentul la care vrei sa stergi persoana: "))
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
 
         try:
             deleted_participation = self.__participation_srv.del_participation(person_id, event_id)
-            print("Persoana: ", colored(deleted_participation[0], 'yellow'), 'a fost inscrisa cu succes la evenimentul: ', colored(deleted_participation[1], 'yellow'))
+            #print("Persoana: ", colored(deleted_participation[0], 'yellow'), 'a fost stearga cu succes de la evenimentul: ', colored(deleted_participation[1], 'yellow')) for Participation(v0)
+            print("Persoana cu id-ul: ", colored(person_id, 'yellow'),
+                  'a fost stearga cu succes de la evenimentul cu id-ul: ', colored(event_id, 'yellow'))
         except ValueError as ve:
             print(colored(str(ve), 'red'))
+            return
         except RepositoryException as ve:
             print(colored(str(ve), 'magenta'))
+            return
 
     def __show_participations(self):
         """afisam participarile"""
@@ -326,8 +361,9 @@ class ParticipationUI:
         else:
             print(colored('Lista de participari este:', 'yellow'))
             for participation in participations:
-                print("Persoana ",colored(participation.getPerson(), 'yellow'), "este inscrisa la evenimentul ", colored(participation.getEvent(), 'yellow'))
-
+                print("Persoana cu id-ul ",colored(participation.getPersonID(), 'yellow'), "este inscrisa la evenimentul cu id-ul", colored(participation.getEventID(), 'yellow'))#for Participation(v1)
+                #print("Persoana cu id-ul ", colored(participation.getPerson(), 'yellow'),
+                      #"este inscrisa la evenimentul cu id-ul", colored(participation.getEvent(), 'yellow')) #for Participation(v0)
 
 class Console:
     def __init__(self, PersonUI, EventUI, ParticipationUI):

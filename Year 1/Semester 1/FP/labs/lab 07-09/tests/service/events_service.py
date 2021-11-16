@@ -1,9 +1,10 @@
 from datetime import date, time
 
-from app.domain.entities import Person, Event
+from app.domain.entities import Person, Event, Participation_v1
 from app.domain.validators import PersonValidator, EventValidator
-from app.repository.events_repo import PersonsRepository, EventsRepository
-from app.service.events_service import PersonService, EventService
+from app.repository.events_repo import PersonsRepository, EventsRepository, ParticipationsRepository
+from app.service.events_service import PersonService, EventService, ParticipationService
+
 
 def test_add_person():
     Person.numberOfPersons = 0
@@ -417,5 +418,53 @@ def test_search_event():
     except:
         assert True
 
+def test_add_participation_v1():
+    participations_repo = ParticipationsRepository()
+    persons_repo = PersonsRepository()
+    events_repo = EventsRepository()
+    srv = ParticipationService(persons_repo, events_repo, participations_repo)
+    participations = srv.get_all_participations()
+    assert(len(participations) == 0)
+    srv.add_participation(1, 2)
+    participations = srv.get_all_participations()
+    assert(len(participations) == 1)
+    assert (participations[0].getPersonID() == 1)
+    assert (participations[0].getEventID() == 2)
 
+    srv.add_participation(3, 4)
+    assert(len(participations) == 2)
+    assert (participations[0].getPersonID() == 1)
+    assert (participations[0].getEventID() == 2)
+    assert (participations[1].getPersonID() == 3)
+    assert (participations[1].getEventID() == 4)
+
+    try:
+        srv.add_participation(1, 2)
+        assert False
+    except:
+        assert True
+
+def test_del_participation_v1():
+    participations_repo = ParticipationsRepository()
+    persons_repo = PersonsRepository()
+    events_repo = EventsRepository()
+    srv = ParticipationService(persons_repo, events_repo, participations_repo)
+    srv.add_participation(1, 2)
+    srv.add_participation(3, 4)
+
+    srv.del_participation(1,2)
+    participations = srv.get_all_participations()
+    assert(len(participations) == 1)
+    assert (participations[0].getPersonID() == 3)
+    assert (participations[0].getEventID() == 4)
+
+    srv.del_participation(3,4)
+    participations = srv.get_all_participations()
+    assert(len(participations) == 0)
+
+    try:
+        srv.add_participation(1, 2)
+        assert False
+    except:
+        assert True
 

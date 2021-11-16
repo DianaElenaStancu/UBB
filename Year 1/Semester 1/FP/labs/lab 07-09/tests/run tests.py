@@ -7,6 +7,8 @@ def test_all():
     #domain
     test_create_person()
     test_create_event()
+    test_create_participation()
+    test_create_participation_v1()
     test_validate_event()
     test_validate_person()
     test_validate_event_date()
@@ -26,6 +28,8 @@ def test_all():
     test_modify_event_description()
     test_search_person_by_value()
     test_search_event_by_value()
+    test_store_participation_v1()
+    test_delete_participation_v1
     #srv
     test_add_person()
     test_add_event()
@@ -35,6 +39,8 @@ def test_all():
     test_modify_person()
     test_search_event()
     test_search_person()
+    test_add_participation_v1()
+    test_del_participation_v1()
 
     print("test passed :)")
 

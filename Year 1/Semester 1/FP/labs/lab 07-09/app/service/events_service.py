@@ -1,8 +1,10 @@
 import names
 from random_address import real_random_address
+import random
+from random import randint
 from datetime import datetime, date, time
 
-from app.domain.entities import Person, Event, Participation
+from app.domain.entities import Person, Event, Participation, Participation_v1
 
 class PersonService:
 
@@ -169,6 +171,21 @@ class EventService:
             searched_events = self.__repo.search_event_by_value(field, new_time)
         return searched_events
 
+    def generate_events(self, nr):
+        """genereaza un numar nr de evenimente"""
+        while nr:
+            year = randint(2021, 2100)
+            month = randint(1, 12)
+            day = randint(1, 28)
+            hour = randint(0, 23)
+            minutes = randint(0, 59)
+            date_value = date(year, month, day)
+            time_value = time(hour, minutes, 0)
+            description = random.choice(["nunta", "bal", "majorat", "aniversare", "botez"])
+            event = Event(date_value, time_value, description)
+            self.__repo.store(event)
+            nr -= 1
+
     def get_all_events(self):
         return self.__repo.get_all_events()
 
@@ -191,13 +208,16 @@ class ParticipationService:
         :return: persoana si evenimentul
         :rtype: list of Person and Event
         """
-        person_list = self.__persons_repo.search_person_by_value("id", person_id)
-        event_list = self.__events_repo.search_event_by_value("id", event_id)
-        person = person_list[0]
-        event = event_list[0]
-        participation = Participation(person, event)
+        #for Participation(v0)
+        #person_list = self.__persons_repo.search_person_by_value("id", person_id)
+        #event_list = self.__events_repo.search_event_by_value("id", event_id)
+        #person = person_list[0]
+        #event = event_list[0]
+        participation = Participation_v1(person_id, event_id)
+        self.__persons_repo.search_person_by_value("id", person_id)
+        self.__events_repo.search_event_by_value("id", event_id)
         self.__participations_repo.store_participation(participation)
-        return [person, event]
+        #return [person, event]
 
     def del_participation(self, person_id, event_id):
         """
@@ -209,11 +229,14 @@ class ParticipationService:
         :return: persoana si evenimentul
         :rtype: list of Person and Event
         """
-        person_list = self.__persons_repo.search_person_by_value("id", person_id)
-        event_list = self.__events_repo.search_event_by_value("id", event_id)
-        person = person_list[0]
-        event = event_list[0]
-        participation = Participation(person, event)
-        self.__participation_repo.del_participation(participation)
-        return [person, event]
+        # for Participation(v0)
+        #person_list = self.__persons_repo.search_person_by_value("id", person_id)
+        #event_list = self.__events_repo.search_event_by_value("id", event_id)
+        #person = person_list[0]
+        #event = event_list[0]
+        self.__persons_repo.search_person_by_value("id", person_id)
+        self.__events_repo.search_event_by_value("id", event_id)
+        participation = Participation_v1(person_id, event_id)
+        self.__participations_repo.del_participation(participation)
+        #return [person, event]
 

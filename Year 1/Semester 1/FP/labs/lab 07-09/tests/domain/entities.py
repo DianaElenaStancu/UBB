@@ -1,4 +1,4 @@
-from app.domain.entities import Person, Event, Participation
+from app.domain.entities import Person, Event, Participation, Participation_v1
 from datetime import date, time
 
 def test_create_person():
@@ -66,3 +66,13 @@ def test_create_participation():
     i.setEvent(ne)
     assert (i.getPerson() == np)
     assert (i.getEvent() == ne)
+
+def test_create_participation_v1():
+    person_repo = Person
+    i = Participation_v1(1, 2)
+    assert (i.getPersonID() == 1)
+    assert (i.getEventID() == 2)
+
+    i = Participation_v1(2, 7)
+    assert (i.getPersonID() == 2)
+    assert (i.getEventID() == 7)
