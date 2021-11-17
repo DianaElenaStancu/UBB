@@ -34,7 +34,7 @@ class Person():
     def setAddress(self, value):
         self.__address = value
 
-    def __str__(self):
+    def __repr__(self):
         return "PersonID: " + str(self.__personID) + "; Name: " + self.__name + "; Address: " + self.__address
 
     def __eq__(self, other):
@@ -83,7 +83,7 @@ class Event():
     def setDescription(self, value):
         self.__description = value
 
-    def __str__(self):
+    def __repr__(self):
         return "EventID: " + str(self.__eventID) + "; Date: " + str(self.__date) + "; Time: " + str(self.__time) + "; Description: " + self.__description
 
     def __eq__(self, other):
@@ -123,7 +123,7 @@ class Participation_v1:
     def __eq__(self, other):
         return self.getPersonID() == other.getPersonID() and self.getEventID() == other.getEventID()
 
-    def __str__(self):
+    def __repr__(self):
         return "Persoana ID: " + str(self.getPersonID()) + "Evenimentul ID: " + str(self.getEventID())
 
 

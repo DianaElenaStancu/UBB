@@ -5,6 +5,7 @@ class PersonUI:
     def __init__(self, PersonSrv):
         self.__person_srv = PersonSrv
         self.__comands = {
+            "generate": self.__generate_persons,
             "add":self.__add_person,
             "del":self.__del_person,
             "mod":self.__mod_person,
@@ -16,7 +17,7 @@ class PersonUI:
         back = False
         while not back:
             print(colored('-------------------', 'blue'))
-            print(colored('Comenzile disponibile: add/del/mod/find/show/back', 'blue'))
+            print(colored('Comenzile disponibile: generate/add/del/mod/find/show/back', 'blue'))
             print(colored('-------------------', 'blue'))
             cmd = input("Comanda este: ")
             cmd = cmd.lower().strip()
@@ -27,6 +28,17 @@ class PersonUI:
             else:
                 print(colored("Comanda invalida", 'red'))
 
+    def __generate_persons(self):
+        """
+        genereaza un numar de persoane introdus de utilizator
+        """
+        try:
+            nr = int(input("Numarul de persoane pe care vrei sa le generezi: "))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+            return
+
+        self.__person_srv.generate_persons(nr)
 
     def __show_all_persons(self):
         """
@@ -134,6 +146,7 @@ class EventUI:
     def __init__(self, EventSrv):
         self.__event_srv = EventSrv
         self.__comands = {
+            "generate": self.__generate_event,
             "add": self.__add_event,
             "del": self.__del_event,
             "mod": self.__mod_event,
@@ -145,7 +158,7 @@ class EventUI:
         back = False
         while not back:
             print(colored('-------------------', 'blue'))
-            print(colored('Comenzile disponibile: add/del/mod/find/show/back', 'blue'))
+            print(colored('Comenzile disponibile: generate/add/del/mod/find/show/back', 'blue'))
             print(colored('-------------------', 'blue'))
             cmd = input("Comanda este: ")
             cmd = cmd.lower().strip()
@@ -156,6 +169,16 @@ class EventUI:
             else:
                 print(colored("Comanda invalida", 'red'))
 
+
+    def __generate_event(self):
+        """genereaza un numar de evenimente"""
+        try:
+            nr = int(input("Numarul de evenimente pe care vrei sa le generezi: "))
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+            return
+
+        self.__event_srv.generate_events(nr)
 
     def __show_all_events(self):
         """
@@ -270,13 +293,14 @@ class ParticipationUI:
         self.__comands = {
             "sign": self.__sign_person_to_event,
             "unsign": self.__unsign_person_to_event,
+            "report_by_person": self.__report_by_person,
             "show": self.__show_participations
         }
     def run(self):
         back = False
         while not back:
             print(colored('-------------------', 'blue'))
-            print(colored('Comenzile disponibile: sign/unsign/show/back', 'blue'))
+            print(colored('Comenzile disponibile: sign/unsign/report_by_person/show/back', 'blue'))
             print(colored('-------------------', 'blue'))
             cmd = input("Comanda este: ")
             cmd = cmd.lower().strip()
@@ -331,6 +355,36 @@ class ParticipationUI:
             print(colored(str(ve), 'magenta'))
             return
 
+    def __report_by_person(self):
+        """
+        Lista de evenimente la care participă o persoană ordonat alfabetic după descriere, după dată
+        """
+        try:
+            person_id = int(input("Id-ul persoanei pe care vrei sa o cauti: "))
+            field = input("Field-ul dupa care vrei sa ordonezi alfabetic(date/description): ")
+            if field != "date" and field != "description":
+                print(colored("Field-ul acesta nu exista", 'red'))
+                return
+            participations_list = self.__participation_srv.report_by_person(person_id, field)
+            print(colored('Lista de participari este:', 'yellow'))
+            for participation in participations_list:
+                self.__print_participation(participation)
+        except ValueError as ve:
+            print(colored(str(ve), 'red'))
+            return
+        except RepositoryException as re:
+            print(colored(str(re), 'magenta'))
+            return
+
+    def __print_participation(self, participation):
+        """afisam participarea cu detaliile persoanei si a evenimentului"""
+        event = self.__participation_srv.get_event(participation.getEventID())
+        person = self.__participation_srv.get_person(participation.getPersonID())
+        print("Persoana: ", colored(person, 'yellow'), "este inscrisa la evenimentul",
+              colored(event, 'yellow'))  # for Participation(v1)
+        # print("Persoana cu id-ul ", colored(participation.getPerson(), 'yellow'),
+        # "este inscrisa la evenimentul cu id-ul", colored(participation.getEvent(), 'yellow')) #for Participation(v0)
+
     def __show_participations(self):
         """afisam participarile"""
         participations = self.__participation_srv.get_all_participations()
@@ -339,9 +393,7 @@ class ParticipationUI:
         else:
             print(colored('Lista de participari este:', 'yellow'))
             for participation in participations:
-                print("Persoana cu id-ul ",colored(participation.getPersonID(), 'yellow'), "este inscrisa la evenimentul cu id-ul", colored(participation.getEventID(), 'yellow'))#for Participation(v1)
-                #print("Persoana cu id-ul ", colored(participation.getPerson(), 'yellow'),
-                      #"este inscrisa la evenimentul cu id-ul", colored(participation.getEvent(), 'yellow')) #for Participation(v0)
+                self.__print_participation(participation)
 
 class Console:
     def __init__(self, PersonUI, EventUI, ParticipationUI):

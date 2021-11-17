@@ -1,6 +1,19 @@
 from datetime import datetime, date, time
-
+import string
+import names
+from random_address import real_random_address
+import random
+from random import randint
 from app.domain.entities import Person, Event, Participation, Participation_v1
+
+def random_string(ln=None):
+    """genereaza un string random"""
+    ln = ln if ln is not None else randint(1,20)
+    lit = string.ascii_letters
+    str_list = [random.choice(lit) for _ in range(ln)]
+    random_str = "".join(str_list)
+    return random_str
+
 
 class PersonService:
 
@@ -67,7 +80,16 @@ class PersonService:
         searched_persons = self.__repo.search_person_by_value(field, value)
         return searched_persons
 
-
+    def generate_persons(self, nr):
+        """genereaza nr persoane"""
+        while nr>0:
+            name1 = random_string(randint(1, 20))
+            address1 = random_string(randint(1, 20))
+            name = names.get_last_name()
+            address = real_random_address()["address1"]
+            person = Person(name, address)
+            self.__repo.store(person)
+            nr -= 1
 
     def get_all_persons(self):
         return self.__repo.get_all_persons()
@@ -160,6 +182,20 @@ class EventService:
             searched_events = self.__repo.search_event_by_value(field, new_time)
         return searched_events
 
+    def generate_events(self, nr):
+        """genereaza un numar nr de evenimente"""
+        while nr>0:
+            year = randint(2021, 2100)
+            month = randint(1, 12)
+            day = randint(1, 28)
+            hour = randint(0, 23)
+            minutes = randint(0, 59)
+            date_value = date(year, month, day)
+            time_value = time(hour, minutes, 0)
+            description = random.choice(["nunta", "bal", "majorat", "aniversare", "botez"])
+            event = Event(date_value, time_value, description)
+            self.__repo.store(event)
+            nr -= 1
 
     def get_all_events(self):
         return self.__repo.get_all_events()
@@ -172,6 +208,30 @@ class ParticipationService:
 
     def get_all_participations(self):
         return self.__participations_repo.get_all_participations()
+
+    def get_event(self, id):
+        """
+        returneaza evenimentul cu id-ul dat
+        :param id: id-ul evenimentului
+        :type id: int
+        :return: evenimentul cu id-ul id
+        :rtype: Event
+        """
+        events_list = self.__events_repo.search_event_by_value("id", id)
+        event = events_list[0]
+        return event
+
+    def get_person(self, id):
+        """
+        returneaza persoana cu id-ul dat
+        :param id: id-ul persoanei
+        :type id: int
+        :return: persoana cu id-ul id
+        :rtype: Person
+        """
+        persons_list = self.__persons_repo.search_person_by_value("id", id)
+        person = persons_list[0]
+        return person
 
     def add_participation(self, person_id, event_id):
         """
@@ -214,4 +274,36 @@ class ParticipationService:
         participation = Participation_v1(person_id, event_id)
         self.__participations_repo.del_participation(participation)
         #return [person, event]
+
+    def sort_by_date(self, participation):
+        event_id = participation.getEventID()
+        events_list = self.__events_repo.search_event_by_value("id", event_id)
+        event = events_list[0]
+        return event.getDate()
+
+    def sort_by_description(self, participation):
+        event_id = participation.getEventID()
+        events_list = self.__events_repo.search_event_by_value("id", event_id)
+        event = events_list[0]
+        return event.getDescription()
+
+
+    def report_by_person(self, person_id, field):
+        """
+        Lista de evenimente la care participă o persoană cu id-ul person_id
+        ordonat alfabetic după field-ul field
+        :param person_id: id-ul persoanei
+        :type person_id: int
+        :param field: poate fi date sau description
+        :type field: str
+        :return: Lista de evenimente la care participă o persoană cu id-ul person_id
+        :rtype: list of participations
+        """
+        self.__persons_repo.search_person_by_value("id", person_id)
+        participations_list = self.__participations_repo.search_participation_by_person_id(person_id)
+        if field == "date":
+            participations_list.sort(key=self.sort_by_date)
+        else:
+            participations_list.sort(key=self.sort_by_description)
+        return participations_list
 

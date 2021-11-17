@@ -86,3 +86,15 @@ class ParticipationsRepository:
         if participation not in self.__participations:
             raise RepositoryException("Participare inexistenta\n")
         self.__participations.remove(participation)
+
+    def search_participation_by_person_id(self, person_id):
+        """cauta participarile dupa id-ul persoanei person_id"""
+        participations_list = []
+        for participation in self.__participations:
+            if participation.getPersonID() == person_id:
+                participations_list.append(participation)
+
+        if(len(participations_list) == 0):
+            raise RepositoryException("Nu exista evenimente la care participa persoana cu id-ul dat.")
+
+        return participations_list
