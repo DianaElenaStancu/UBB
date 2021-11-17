@@ -1,7 +1,3 @@
-import names
-from random_address import real_random_address
-import random
-from random import randint
 from datetime import datetime, date, time
 
 from app.domain.entities import Person, Event, Participation, Participation_v1
@@ -71,14 +67,7 @@ class PersonService:
         searched_persons = self.__repo.search_person_by_value(field, value)
         return searched_persons
 
-    def generate_persons(self, nr):
-        """genereaza nr persoane"""
-        while nr:
-            name = names.get_last_name()
-            address = real_random_address()["address1"]
-            person = Person(name, address)
-            self.__repo.store(person)
-            nr -= 1
+
 
     def get_all_persons(self):
         return self.__repo.get_all_persons()
@@ -171,20 +160,6 @@ class EventService:
             searched_events = self.__repo.search_event_by_value(field, new_time)
         return searched_events
 
-    def generate_events(self, nr):
-        """genereaza un numar nr de evenimente"""
-        while nr:
-            year = randint(2021, 2100)
-            month = randint(1, 12)
-            day = randint(1, 28)
-            hour = randint(0, 23)
-            minutes = randint(0, 59)
-            date_value = date(year, month, day)
-            time_value = time(hour, minutes, 0)
-            description = random.choice(["nunta", "bal", "majorat", "aniversare", "botez"])
-            event = Event(date_value, time_value, description)
-            self.__repo.store(event)
-            nr -= 1
 
     def get_all_events(self):
         return self.__repo.get_all_events()

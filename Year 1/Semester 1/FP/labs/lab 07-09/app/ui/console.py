@@ -5,7 +5,6 @@ class PersonUI:
     def __init__(self, PersonSrv):
         self.__person_srv = PersonSrv
         self.__comands = {
-            "generate": self.__generate_persons,
             "add":self.__add_person,
             "del":self.__del_person,
             "mod":self.__mod_person,
@@ -17,7 +16,7 @@ class PersonUI:
         back = False
         while not back:
             print(colored('-------------------', 'blue'))
-            print(colored('Comenzile disponibile: generate/add/del/mod/find/show/back', 'blue'))
+            print(colored('Comenzile disponibile: add/del/mod/find/show/back', 'blue'))
             print(colored('-------------------', 'blue'))
             cmd = input("Comanda este: ")
             cmd = cmd.lower().strip()
@@ -28,17 +27,6 @@ class PersonUI:
             else:
                 print(colored("Comanda invalida", 'red'))
 
-    def __generate_persons(self):
-        """
-        genereaza un numar de persoane introdus de utilizator
-        """
-        try:
-            nr = int(input("Numarul de persoane pe care vrei sa le generezi: "))
-        except ValueError as ve:
-            print(colored(str(ve), 'red'))
-            return
-
-        self.__person_srv.generate_persons(nr)
 
     def __show_all_persons(self):
         """
@@ -146,7 +134,6 @@ class EventUI:
     def __init__(self, EventSrv):
         self.__event_srv = EventSrv
         self.__comands = {
-            "generate": self.__generate_event,
             "add": self.__add_event,
             "del": self.__del_event,
             "mod": self.__mod_event,
@@ -158,7 +145,7 @@ class EventUI:
         back = False
         while not back:
             print(colored('-------------------', 'blue'))
-            print(colored('Comenzile disponibile: generate/add/del/mod/find/show/back', 'blue'))
+            print(colored('Comenzile disponibile: add/del/mod/find/show/back', 'blue'))
             print(colored('-------------------', 'blue'))
             cmd = input("Comanda este: ")
             cmd = cmd.lower().strip()
@@ -169,15 +156,6 @@ class EventUI:
             else:
                 print(colored("Comanda invalida", 'red'))
 
-    def __generate_event(self):
-        """genereaza un numar de evenimente"""
-        try:
-            nr = int(input("Numarul de evenimente pe care vrei sa le generezi: "))
-        except ValueError as ve:
-            print(colored(str(ve), 'red'))
-            return
-
-        self.__event_srv.generate_events(nr)
 
     def __show_all_events(self):
         """
