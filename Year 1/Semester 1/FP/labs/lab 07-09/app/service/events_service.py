@@ -307,3 +307,38 @@ class ParticipationService:
             participations_list.sort(key=self.sort_by_description)
         return participations_list
 
+    def top_persons(self):
+        """
+        Returneaza un top cu persoane in functie de numarul de evenimente la care participa
+        :return: o lista de tuples- perechi cu prima valoare id-ul persoanei
+        si a doua valoare numarul de evenimentele la care participa persoana respectiva
+        """
+        top_list = {}
+        participations = self.__participations_repo.get_all_participations()
+        for participation in participations:
+            person_id = participation.getPersonID()
+            if person_id not in top_list:
+                top_list[person_id] = 1
+            else:
+                top_list[person_id] += 1
+        sorted_top = sorted(top_list.items(), key=lambda x: x[1], reverse = True)
+        return sorted_top
+
+    def top_events(self):
+        """
+        Returneaza primele 20% evenimente cu cei mai mulți participanți (descriere, număr participanți)
+        :return: list of tuples (event_id, description, participants_nr)
+        """
+        top_list = {}
+        participations = self.__participations_repo.get_all_participations()
+        for participation in participations:
+            event_id = participation.getEventID()
+            if event_id not in top_list:
+                event = self.get_event(event_id)
+                event_description = event.getDescription()
+                top_list[event_id] = [1, event_description]
+            else:
+                top_list[event_id][0] += 1
+        sorted_top = sorted(top_list.items(), key=lambda x: x[1][0], reverse = True)
+        ln = len(sorted_top)//5
+        return sorted_top[:ln]

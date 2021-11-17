@@ -294,13 +294,15 @@ class ParticipationUI:
             "sign": self.__sign_person_to_event,
             "unsign": self.__unsign_person_to_event,
             "report_by_person": self.__report_by_person,
+            "top_persons": self.__top_persons,
+            "top_events": self.__top_events,
             "show": self.__show_participations
         }
     def run(self):
         back = False
         while not back:
             print(colored('-------------------', 'blue'))
-            print(colored('Comenzile disponibile: sign/unsign/report_by_person/show/back', 'blue'))
+            print(colored('Comenzile disponibile: sign/unsign/report_by_person/top_persons/top_events/show/back', 'blue'))
             print(colored('-------------------', 'blue'))
             cmd = input("Comanda este: ")
             cmd = cmd.lower().strip()
@@ -375,6 +377,25 @@ class ParticipationUI:
         except RepositoryException as re:
             print(colored(str(re), 'magenta'))
             return
+
+    def __top_persons(self):
+        """
+        Afiseaza persoanele participante la cele mai multe evenimente
+        """
+        top_list = self.__participation_srv.top_persons()
+        print(colored("Topul de persoane in functie de numarul de evenimente la care participa: ", 'yellow'))
+        for person in top_list:
+            print("Persoana cu id-ul", colored(person[0], 'yellow'), "participa la", colored(person[1], 'yellow'), "evenimente.")
+
+    def __top_events(self):
+        """
+        Afiseaza primele 20% evenimente cu cei mai mulți participanți (descriere, număr participanți)
+        lista primita va avea evenimente memorate astfel: (event_id, [participants_nr, 'description'])
+        """
+        top_list = self.__participation_srv.top_events()
+        print(colored("Primele 20% evenimente cu cei mai mulți participanți: ", 'yellow'))
+        for event in top_list:
+            print("Evenimentul cu id-ul", colored(event[0],'yellow'), "cu descrierea:", colored(event[1][1], 'yellow'), "la care sunt", colored(event[1][0], 'yellow'), "participanti")
 
     def __print_participation(self, participation):
         """afisam participarea cu detaliile persoanei si a evenimentului"""
