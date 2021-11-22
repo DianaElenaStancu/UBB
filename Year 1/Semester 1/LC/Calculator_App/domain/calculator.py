@@ -57,23 +57,6 @@ def sum(a, b, baza):
 
     return sum
 
-def test_sum():
-    assert (sum('1', '1', 2) == '10')
-    assert (sum('101101001', '1001111', 2) == '110111000')
-    assert (sum('12210012', '2211', 3) == '12220000')
-    assert (sum('12332132', '213321233', 4) == '232320031')
-    assert (sum('1233213442', '2144334241233', 5) == '2201123010230')
-    assert (sum('33335554', '555', 6) == '33340553')
-    assert (sum('227625', '10000000', 8) == '10227625')
-    assert (sum('12345678', '8888765432100', 9) == '8888777777778')
-    assert (sum('2052', '779', 10) == '2831')
-    assert (sum('454369', 'A5436', 11) == '5497A4')
-    assert (sum('4543B6900', 'A5436', 12) == '4544A0136')
-    assert (sum('99999', 'BBAB450', 13) == 'BC78119')
-    assert (sum('99999', 'BBAB450', 14) == 'BC67009')
-    assert (sum('99999', 'BBAB450', 15) == 'BC55DE9')
-    assert (sum('99999', 'BBAB450', 16) == 'BC44DE9')
-
 #diferenta a doua numere
 def dif(a, b, baza):
     """
@@ -132,23 +115,6 @@ def dif(a, b, baza):
         dif = dif[1:]
     return dif
 
-def test_dif():
-    assert(dif('101000', '1111', 2) == '11001')
-    assert (dif('12221000', '12201200', 3) == '12100')
-    assert (dif('123321010', '23', 4) == '123320321')
-    assert (dif('234432', '20032', 5) == '214400')
-    assert (dif('132455', '5555', 6) == '122500')
-    assert (dif('54321', '3456', 7) == '50532')
-    assert (dif('3000', '677', 8) == '2101')
-    assert (dif('1101', '1101', 9) == '0')
-    assert (dif('12345', '2345', 10) == '10000')
-    assert (dif('AAAA', '9999', 11) == '1111')
-    assert (dif('ABAB', '9889', 12) == '1322')
-    assert (dif('ABC0AB', '567', 13) == 'ABB844')
-    assert (dif('CC000', '199A', 14) == 'CA444')
-    assert (dif('134896A', '722BCD', 15) == 'B25C8C')
-    assert (dif('EEEEE', '98744', 16) == '567AA')
-
 #inmultirea unui numar cu o cifra
 def mul(a, c, baza):
     """
@@ -177,11 +143,11 @@ def mul(a, c, baza):
     if transport > 0:
         produs = dig_to_str[transport] + produs
 
+    #eliminam 0-urile din fata daca sunt
+    while produs[0] == '0' and len(produs) != 1:
+        produs = produs[1:]
+
     return produs
-
-def test_mul():
-    assert(mul('9', '2', 10) == '18')
-
 
 #impartirea unui numar la o cifra
 def div(a, c, baza):
@@ -213,21 +179,5 @@ def div(a, c, baza):
     while cat[0] == '0' and len(cat) != 1:
         cat = cat[1:]
     return [cat, rest]
-
-def test_div():
-    assert (div("1221", "2", 3) == ["222", "0"])
-    assert (div("122130", "3", 4) == ["20310", "0"])
-    assert (div("122130", "4", 5) == ["14131", "1"])
-    assert (div("54321", "3", 6) == ["15304", "1"])
-    assert (div("14131", "3", 7) == ["3510", "1"])
-    assert (div("3510", "7", 8) == ["412", "2"])
-    assert (div("653635840", "5", 9) == ["127842880", "0"])
-    assert (div("99123450", "1", 10) == ["99123450", "0"])
-    assert (div("99AA123450", "9", 11) == ["1112388A30", "0"])
-    assert (div("99AA123B45", "6", 12) == ["17798247A8", "5"])
-    assert (div("17798247A", "8", 13) == ["276103A9", "3"])
-    assert (div("C5D45", "7", 14) == ["1ABC8", "5"])
-    assert (div("1345", "A", 15) == ["1C6", "5"])
-    assert (div("1CD", "E", 16) == ["20", "D"])
 
 
