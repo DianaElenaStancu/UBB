@@ -5,6 +5,8 @@ from random_address import real_random_address
 import random
 from random import randint
 from app.domain.entities import Person, Event, Participation, Participation_v1
+from app.repository.events_repo import RepositoryException
+
 
 def random_string(ln=None):
     """genereaza un string random"""
@@ -317,10 +319,17 @@ class ParticipationService:
         participations = self.__participations_repo.get_all_participations()
         for participation in participations:
             person_id = participation.getPersonID()
-            if person_id not in top_list:
-                top_list[person_id] = 1
-            else:
-                top_list[person_id] += 1
+            event_id = participation.getEventID()
+            try:
+                person = self.get_person(person_id)
+                event = self.get_event(event_id)
+                if person_id not in top_list:
+                    top_list[person_id] = 1
+                else:
+                    top_list[person_id] += 1
+            except RepositoryException:
+                pass
+
         sorted_top = sorted(top_list.items(), key=lambda x: x[1], reverse = True)
         return sorted_top
 
@@ -333,10 +342,15 @@ class ParticipationService:
         participations = self.__participations_repo.get_all_participations()
         for participation in participations:
             event_id = participation.getEventID()
+            person_id = participation.getPersonID()
             if event_id not in top_list:
-                event = self.get_event(event_id)
-                event_description = event.getDescription()
-                top_list[event_id] = [1, event_description]
+                try:
+                    event = self.get_event(event_id)
+                    person = self.get_person(person_id)
+                    event_description = event.getDescription()
+                    top_list[event_id] = [1, event_description]
+                except RepositoryException:
+                    pass
             else:
                 top_list[event_id][0] += 1
         sorted_top = sorted(top_list.items(), key=lambda x: x[1][0], reverse = True)

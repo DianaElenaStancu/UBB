@@ -1,15 +1,15 @@
-from Calculator_App.domain.conversions import convert_2_to_4_8_16, convert_din_baza_10, convert_in_baza_10
+from Calculator_App.domain.conversions import convert_2_to_power_of_2, convert_din_baza_10, convert_in_baza_10
 
-def test_convert_2_to_4_8_16():
-    assert (convert_2_to_4_8_16("0", 4) == "0")
-    assert (convert_2_to_4_8_16("0", 8) == "0")
-    assert (convert_2_to_4_8_16("0", 16) == "0")
-    assert (convert_2_to_4_8_16("0101010111101", 4) == "222331")
-    assert (convert_2_to_4_8_16("111010101010111", 4) == "13111113")
-    assert (convert_2_to_4_8_16("0101010111101", 8) == "5275")
-    assert (convert_2_to_4_8_16("111010101010111", 8) == "72527")
-    assert (convert_2_to_4_8_16("0101010111101", 16) == "ABD")
-    assert (convert_2_to_4_8_16("111010101010111", 16) == "7557")
+def test_convert_2_to_power_of_2():
+    assert (convert_2_to_power_of_2("0", 4) == "0")
+    assert (convert_2_to_power_of_2("0", 8) == "0")
+    assert (convert_2_to_power_of_2("0", 16) == "0")
+    assert (convert_2_to_power_of_2("0101010111101", 4) == "222331")
+    assert (convert_2_to_power_of_2("111010101010111", 4) == "13111113")
+    assert (convert_2_to_power_of_2("0101010111101", 8) == "5275")
+    assert (convert_2_to_power_of_2("111010101010111", 8) == "72527")
+    assert (convert_2_to_power_of_2("0101010111101", 16) == "ABD")
+    assert (convert_2_to_power_of_2("111010101010111", 16) == "7557")
 
 def test_convert_clasic():
     assert (convert_din_baza_10("1234567890", 2) == "1001001100101100000001011010010")

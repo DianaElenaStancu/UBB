@@ -134,7 +134,7 @@ def mul(a, c, baza):
 
     produs = ""
     transport = 0
-
+    print("in calc: ", type(c))
     for i in range(len(a) - 1, -1, -1):
         valoare_curenta = (str_to_dig[a[i]]*str_to_dig[c]+transport)%baza
         transport = (str_to_dig[a[i]] * str_to_dig[c] + transport) // baza

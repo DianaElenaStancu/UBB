@@ -298,6 +298,7 @@ class ParticipationUI:
             "top_events": self.__top_events,
             "show": self.__show_participations
         }
+
     def run(self):
         back = False
         while not back:
@@ -399,10 +400,13 @@ class ParticipationUI:
 
     def __print_participation(self, participation):
         """afisam participarea cu detaliile persoanei si a evenimentului"""
-        event = self.__participation_srv.get_event(participation.getEventID())
-        person = self.__participation_srv.get_person(participation.getPersonID())
-        print("Persoana: ", colored(person, 'yellow'), "este inscrisa la evenimentul",
-              colored(event, 'yellow'))  # for Participation(v1)
+        try:
+            event = self.__participation_srv.get_event(participation.getEventID())
+            person = self.__participation_srv.get_person(participation.getPersonID())
+            print("Persoana: ", colored(person, 'yellow'), "este inscrisa la evenimentul",
+                colored(event, 'yellow'))  # for Participation(v1)
+        except RepositoryException:
+            pass
         # print("Persoana cu id-ul ", colored(participation.getPerson(), 'yellow'),
         # "este inscrisa la evenimentul cu id-ul", colored(participation.getEvent(), 'yellow')) #for Participation(v0)
 
