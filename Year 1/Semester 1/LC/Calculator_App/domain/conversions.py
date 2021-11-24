@@ -99,6 +99,61 @@ def convert_rapid(a, baza_sursa, baza_destinatie):
 
 
 #conversia directa
+def convert_impartiri(a, baza_sursa, baza_destinatie):
+    """
+        Converteste direct dintr-o baza in alta prin metoda impartirilor succesive
+        :param a: numarul citit de la tastatura
+        :type a: string
+        :param baza_sursa: baza sursa din care se doreste conversia
+        :type: int
+        :param baza_destinatie: baza destinatie in care se doreste conversia
+        :type: int
+        :return b: numarul convertit
+        :rtype: str
+    """
+    dig_to_str = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B',
+                  12: 'C', 13: 'D', 14: 'E', 15: 'F'}
+    b = ""
+    rezultat_div = div(a, dig_to_str[baza_destinatie], baza_sursa)
+    cat = rezultat_div[0]
+    rest = rezultat_div[1]
+
+    while cat != '0':
+        b = rest + b
+        a = cat
+        rezultat_div = div(a, dig_to_str[baza_destinatie], baza_sursa)
+        cat = rezultat_div[0]
+        rest = rezultat_div[1]
+
+    if rest != '0':
+        b = rest + b
+
+    return b
+
+def convert_substitutie(a, baza_sursa, baza_destinatie):
+    """
+        Converteste direct dintr-o baza in alta prin metoda substitutiei
+        :param a: numarul citit de la tastatura
+        :type a: string
+        :param baza_sursa: baza sursa din care se doreste conversia
+        :type: int
+        :param baza_destinatie: baza destinatie in care se doreste conversia
+        :type: int
+        :return b: numarul convertit
+        :rtype: str
+    """
+    dig_to_str = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B',
+                  12: 'C', 13: 'D', 14: 'E', 15: 'F'}
+    putere = '1'
+    b = '0'
+    for i in range(len(a) - 1, -1, -1):
+        cifra = a[i]
+        # b = b + putere*cifra
+        b = sum(b, mul(putere, cifra, baza_destinatie), baza_destinatie)
+        putere = mul(putere, dig_to_str[baza_sursa], baza_destinatie)
+    return b
+
+
 def convert_directa(a, baza_sursa, baza_destinatie):
     """
         Converteste direct dintr-o baza in alta
@@ -112,40 +167,17 @@ def convert_directa(a, baza_sursa, baza_destinatie):
         :rtype: str
     """
     if baza_sursa == baza_destinatie:
-        return a;
+        return a
 
-    str_to_dig = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11,
-                  'C': 12, 'D': 13, 'E': 14, 'F': 15}
-    dig_to_str = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B',
-                  12: 'C', 13: 'D', 14: 'E', 15: 'F'}
-    b = ""
     # se elimina zerourile din fata sirului a
     while a[0] == '0' and len(a) != 1:
         a = a[1:]
 
     #se va trece din baza mai mica in cea mare prin substitutie
     if baza_destinatie > baza_sursa:
-        putere = '1'
-        b = '0'
-        for i in range(len(a) - 1, -1, -1):
-            cifra = a[i]
-            #b = b + putere*cifra
-            b = sum(b, mul(putere, cifra,  baza_destinatie), baza_destinatie)
-            putere = mul(putere, dig_to_str[baza_sursa], baza_destinatie)
-    else: #se va trece din baza mai mare in baza mai mica
-        rezultat_div = div(a, dig_to_str[baza_destinatie], baza_sursa)
-        cat = rezultat_div[0]
-        rest = rezultat_div[1]
-
-        while cat != '0':
-            b = rest + b
-            a = cat
-            rezultat_div = div(a, dig_to_str[baza_destinatie], baza_sursa)
-            cat = rezultat_div[0]
-            rest = rezultat_div[1]
-
-        if rest != '0':
-            b = rest + b
+        b = convert_substitutie(a, baza_sursa, baza_destinatie)
+    else: #se va trece din baza mai mare in baza mai mica prin impartiri succesive
+        b = convert_impartiri(a, baza_sursa, baza_destinatie)
 
     return b
 

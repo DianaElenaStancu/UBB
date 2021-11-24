@@ -1,8 +1,7 @@
 from termcolor import colored
 from validator.validator import valideaza_numar, valideaza_baza, valideaza_cifra, valideaza_convertire_rapida
 from domain.calculator import sum, dif, mul, div
-from domain.conversions import convert_din_baza_2
-
+from domain.conversions import convert_rapid, convert_directa, convert_intermediar
 
 
 def printeaza_Meniu():
@@ -15,7 +14,9 @@ def printeaza_Meniu():
     print(colored("- -> diferenta a doua numere intr-o baza oarecare", 'blue'))
     print(colored("* -> inmultirea unui numar cu o cifra baza oarecare", 'blue'))
     print(colored("/ -> impartirea unui numar cu o cifra baza oarecare", 'blue'))
-    print(colored("cr -> converteste dintr-o baza in alta baza", 'blue'))
+    print(colored("cr -> converteste dintr-o baza putere a lui 2 in alta baza putere a lui 2", 'blue'))
+    print(colored("ci -> converteste dintr-o baza in alta baza folosind o baza intermediara (10)", 'blue'))
+    print(colored("cd -> converteste direct dintr-o baza in alta baza", 'blue'))
     print(colored("x -> iesire din aplicatie", 'blue'))
 
 def sum_ui():
@@ -129,8 +130,44 @@ def convert_rapid_ui():
         valideaza_numar(a, baza_sursa)
         valideaza_convertire_rapida(baza_sursa, baza_destinatie)
 
-        if(baza_sursa == 2):
-            numar = convert_din_baza_2(a, baza_destinatie)
+
+        numar = convert_rapid(a, baza_sursa, baza_destinatie)
+
+        raspuns = "Raspunsul este: " + numar + "(" + str(baza_destinatie) + ")"
+        print(colored(raspuns, 'blue'))
+
+    except ValueError as ve:
+        print(colored(str(ve), 'red'))
+
+def convert_intermediar_ui():
+    try:
+        baza_sursa = int(input("Baza sursa:"))
+        baza_destinatie = int(input("Baza destinatie:"))
+        a = input("Numarul pe care vrei sa il convertesti: ").upper()
+        valideaza_numar(a, baza_sursa)
+        valideaza_baza(baza_sursa)
+        valideaza_baza(baza_destinatie)
+
+        numar = convert_intermediar(a, baza_sursa, baza_destinatie)
+
+        raspuns = "Raspunsul este: " + numar + "(" + str(baza_destinatie) + ")"
+        print(colored(raspuns, 'blue'))
+
+    except ValueError as ve:
+        print(colored(str(ve), 'red'))
+
+
+
+def convert_direct_ui():
+    try:
+        baza_sursa = int(input("Baza sursa:"))
+        baza_destinatie = int(input("Baza destinatie:"))
+        a = input("Numarul pe care vrei sa il convertesti: ").upper()
+        valideaza_numar(a, baza_sursa)
+        valideaza_baza(baza_sursa)
+        valideaza_baza(baza_destinatie)
+
+        numar = convert_directa(a, baza_sursa, baza_destinatie)
 
         raspuns = "Raspunsul este: " + numar + "(" + str(baza_destinatie) + ")"
         print(colored(raspuns, 'blue'))
@@ -158,6 +195,10 @@ def run():
             div_ui()
         elif(cmd == "cr"):
             convert_rapid_ui()
+        elif(cmd == "ci"):
+            convert_intermediar_ui()
+        elif(cmd == "cd"):
+            convert_direct_ui()
         else:
             print(colored("Comanda invalida", 'red'))
     print(colored("Bye", 'blue'))
