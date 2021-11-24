@@ -124,6 +124,7 @@ def mul(a, c, baza):
     :param c: o cifra
     :type c: string
     :param baza: baza in care se va face inmultirea
+    :type baza: int
     :return: a*c
     :rtype: string
     """
@@ -134,7 +135,6 @@ def mul(a, c, baza):
 
     produs = ""
     transport = 0
-    print("in calc: ", type(c))
     for i in range(len(a) - 1, -1, -1):
         valoare_curenta = (str_to_dig[a[i]]*str_to_dig[c]+transport)%baza
         transport = (str_to_dig[a[i]] * str_to_dig[c] + transport) // baza
@@ -149,6 +149,7 @@ def mul(a, c, baza):
 
     return produs
 
+
 #impartirea unui numar la o cifra
 def div(a, c, baza):
     """
@@ -158,6 +159,7 @@ def div(a, c, baza):
     :param c: o cifra
     :type c: string
     :param baza: baza in care se va face inmultirea
+    :type baza: int
     :return: [a//c, a%c]
     :rtype: list of stringa
 

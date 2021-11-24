@@ -296,6 +296,7 @@ class ParticipationUI:
             "report_by_person": self.__report_by_person,
             "top_persons": self.__top_persons,
             "top_events": self.__top_events,
+            "special_top": self.__special_top,#un top cu persoanele care au participat la cel mai popular eveniment; se va afisa numele persoanei si la cate evenimentele participa
             "show": self.__show_participations
         }
 
@@ -303,7 +304,7 @@ class ParticipationUI:
         back = False
         while not back:
             print(colored('-------------------', 'blue'))
-            print(colored('Comenzile disponibile: sign/unsign/report_by_person/top_persons/top_events/show/back', 'blue'))
+            print(colored('Comenzile disponibile: sign/unsign/report_by_person/top_persons/top_events/special_top/show/back', 'blue'))
             print(colored('-------------------', 'blue'))
             cmd = input("Comanda este: ")
             cmd = cmd.lower().strip()
@@ -394,9 +395,29 @@ class ParticipationUI:
         lista primita va avea evenimente memorate astfel: (event_id, [participants_nr, 'description'])
         """
         top_list = self.__participation_srv.top_events()
+        ln = len(top_list)//5
+        top_list_20 = top_list[:ln]
         print(colored("Primele 20% evenimente cu cei mai mulți participanți: ", 'yellow'))
-        for event in top_list:
+        for event in top_list_20:
             print("Evenimentul cu id-ul", colored(event[0],'yellow'), "cu descrierea:", colored(event[1][1], 'yellow'), "la care sunt", colored(event[1][0], 'yellow'), "participanti")
+
+    def __special_top(self):
+        """
+            Afiseaza cel mai popular eveniment si persoanele care participa la acesta
+            Se vor afisa datele persoanei: numele si numarul de evenimentele la care participa
+        """
+        top = self.__participation_srv.special_top()
+        if len(top) == 0:
+            print("Lista este goala")
+            return
+        event = top[0]
+        nr_participation = top[1]
+        print(colored("Evenimentul la care participa cei mai multi participanti: ", 'yellow'))
+        print("Evenimentul cu id-ul", colored(event,'yellow'), "cu numarul de participanti:", colored(nr_participation, 'yellow'))
+        print(colored("Persoanele care participa sunt: ", 'yellow'))
+        for i in range(2, len(top)):
+            person = top[i]
+            print(person.getID(), person.getName(), person.getAddress())
 
     def __print_participation(self, participation):
         """afisam participarea cu detaliile persoanei si a evenimentului"""

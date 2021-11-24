@@ -1,7 +1,7 @@
 from termcolor import colored
 from validator.validator import valideaza_numar, valideaza_baza, valideaza_cifra, valideaza_convertire_rapida
 from domain.calculator import sum, dif, mul, div
-from domain.conversions import convert_2_to_power_of_2
+from domain.conversions import convert_din_baza_2
 
 
 
@@ -130,7 +130,7 @@ def convert_rapid_ui():
         valideaza_convertire_rapida(baza_sursa, baza_destinatie)
 
         if(baza_sursa == 2):
-            numar = convert_2_to_power_of_2(a, baza_destinatie)
+            numar = convert_din_baza_2(a, baza_destinatie)
 
         raspuns = "Raspunsul este: " + numar + "(" + str(baza_destinatie) + ")"
         print(colored(raspuns, 'blue'))

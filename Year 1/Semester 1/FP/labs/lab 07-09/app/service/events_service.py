@@ -107,8 +107,8 @@ class EventService:
         adauga eveniment
         :param event_date: data evenimentului
         :type event_date: date
-        :param time: ora la care se tine evenimentul
-        :type time: time
+        :param event_time: ora la care se tine evenimentul
+        :type event_time: time
         :param description: descrierea evenimentului
         :type description: str
         :return event: evenimentul adaugat
@@ -354,5 +354,36 @@ class ParticipationService:
             else:
                 top_list[event_id][0] += 1
         sorted_top = sorted(top_list.items(), key=lambda x: x[1][0], reverse = True)
-        ln = len(sorted_top)//5
-        return sorted_top[:ln]
+        #ln = len(sorted_top)//5
+        #return sorted_top[:ln]
+        return sorted_top
+
+    def special_top(self):
+        """
+        Returneaza cel mai popular eveniment si persoanele care participa la acesta
+        :return: top
+        :rtype: list of the most popular event and persons
+        """
+        top_20 = self.top_events()
+
+        if len(top_20) == 0:
+            return []
+
+        popular_event = top_20[0]
+        popular_event_id = popular_event[0]
+        nr_participations = popular_event[1][0]
+        event = self.get_event(popular_event_id)
+
+        top = []
+        top.append(event)
+        top.append(nr_participations)
+
+        participations = self.__participations_repo.get_all_participations()
+        for participation in participations:
+            event_id = participation.getEventID()
+            if event_id == popular_event_id:
+                person_id = participation.getPersonID()
+                person = self.get_person(person_id)
+                top.append(person)
+
+        return top
