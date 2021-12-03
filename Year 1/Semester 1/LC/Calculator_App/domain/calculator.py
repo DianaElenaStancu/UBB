@@ -1,7 +1,7 @@
 #suma a doua numere
 def sum(a, b, baza):
     """
-    calculeaza suma a+b in baza baza
+    Calculeaza suma a+b in baza baza
     :param a: primul numar
     :type a: string
     :param b: al doilea numar
@@ -28,7 +28,6 @@ def sum(a, b, baza):
         string_0 += "0"
 
     #se adauga string_0 in fata numarului mai mic
-    #astfel incat cele doua numere sa aiba lungimea egala
     if (lungime_a < lungime_b):
         a = string_0 + a
     else:
@@ -37,8 +36,8 @@ def sum(a, b, baza):
     #setam transportul la 0
     transport = 0
 
-    # algoritmul de adunare a doua numere intr-o baza oarecare
-    # lungimea maxima pe care o poate avea suma celor doua numere
+
+    # setam lungimea maxima pe care o poate avea suma celor doua numere
     lungime_max = max(lungime_a, lungime_b) + 1
     for i in range(lungime_max - 2, -1, -1):
         valoare_curenta = transport + str_to_dig[a[i]]+ str_to_dig[b[i]]
@@ -60,16 +59,17 @@ def sum(a, b, baza):
 #diferenta a doua numere
 def dif(a, b, baza):
     """
-    preconditie a>=b
-    calculeaza diferenta a-b in baza baza
+    Calculeaza diferenta a-b in baza baza
+    Preconditie a>=b
     :param a: primul numar
     :type a: string
     :param b: al doilea numar
     :type b: string
-    :param baza: baza in care se va face diferenta
+    :param baza: baza in care se va efectua diferenta
     :return: diferenta celor doua numere a si b
     :rtype: string
     """
+
     str_to_dig = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11,
                   'C': 12, 'D': 13, 'E': 14, 'F': 15}
     dig_to_str = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B',
@@ -90,7 +90,6 @@ def dif(a, b, baza):
         string_0 += "0"
 
     # se adauga string_0 in fata numarului mai mic
-    # astfel incat cele doua numere sa aiba lungimea egala
     if (lungime_a < lungime_b):
         a = string_0 + a
     else:
@@ -98,10 +97,12 @@ def dif(a, b, baza):
 
     #setam transportul
     transport = 0
-    # algoritmul de adunare a doua numere intr-o baza oarecare
-    # lungimea maxima pe care o poate avea suma celor doua numere
+
+    # setam lungimea maxima pe care o poate avea suma celor doua numere
     lungime_max = max(lungime_a, lungime_b)
     for i in range(lungime_max - 1, -1, -1):
+        #valoare_curenta = a[i] + transport - b[i], daca a[i] + transport >= b[i], transport = 0
+        #valoare_curenta = baza + a[i] + transport - b[i], altfel, transport = -1
         if str_to_dig[a[i]] + transport >= str_to_dig[b[i]]:
             valoare_curenta = str_to_dig[a[i]] + transport - str_to_dig[b[i]]
             transport = 0
@@ -118,12 +119,12 @@ def dif(a, b, baza):
 #inmultirea unui numar cu o cifra
 def mul(a, c, baza):
     """
-    calculeaza a*c in baza b
+    Calculeaza a*c in baza b
     :param a: numar
     :type a: string
     :param c: o cifra
     :type c: string
-    :param baza: baza in care se va face inmultirea
+    :param baza: baza in care se va efectua inmultirea
     :type baza: int
     :return: a*c
     :rtype: string
@@ -136,6 +137,9 @@ def mul(a, c, baza):
     produs = ""
     transport = 0
     for i in range(len(a) - 1, -1, -1):
+        #valoare_curenta = (a[i]*c+transport)%baza
+        #transport = [(a[i]*c+transport):baza]
+        #produs = 'valoare_curenta'+'produs' - concatenarea a doua stringuri
         valoare_curenta = (str_to_dig[a[i]]*str_to_dig[c]+transport)%baza
         transport = (str_to_dig[a[i]] * str_to_dig[c] + transport) // baza
         produs = dig_to_str[valoare_curenta] + produs
@@ -153,7 +157,7 @@ def mul(a, c, baza):
 #impartirea unui numar la o cifra
 def div(a, c, baza):
     """
-    calculeaza catul a//c si restul a%c
+    Calculeaza catul a//c si restul a%c
     :param a: numar
     :type a: string
     :param c: o cifra
@@ -170,9 +174,11 @@ def div(a, c, baza):
     dig_to_str = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: 'A', 11: 'B',
                   12: 'C', 13: 'D', 14: 'E', 15: 'F'}
     cat = ""
-    rest = ""
     transport = 0
     for i in range(0, len(a)):
+        #valoare_curenta = [(transport*baza+a[i]):c]
+        #transport = (transport*baza+a[i])%c
+        #cat = 'cat' + 'valoare_curenta' - concatenarea a doua stringuri
         valoare_curenta = (transport*baza+str_to_dig[a[i]])//str_to_dig[c]
         transport = (transport*baza+str_to_dig[a[i]])%str_to_dig[c]
         cat = cat + dig_to_str[valoare_curenta]
