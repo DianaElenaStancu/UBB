@@ -1,0 +1,11 @@
+12,Flamingo,agricultura vacanta medical,2014
+2,Apache,militar medical,1995
+45,Stark Rebound,militar livrare,2019
+3,Panda,livrare medical intern,2002
+5,Koala,extern militar vacanta,2007
+9,AK67,livrare intern medical vacanta extern,1989
+10,BlackCat,extern medical livrare vacanta,1978
+89,Pantera,militar livrare,1966
+56,Shadow,extern medical agricultura,1979
+99,Cript,militar intern agricultura,1967
+101,Bolt,extern vacanta livrare,1945

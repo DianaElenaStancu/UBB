@@ -54,7 +54,7 @@ class PersonUI:
 
     def __add_person(self):
         """
-        adauga produs
+        adauga persoana
         """
         name = input("Numele persoanei: ")
         address = input("Adresa persoanei: ")

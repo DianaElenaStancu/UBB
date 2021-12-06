@@ -6,7 +6,9 @@ import random
 from random import randint
 from app.domain.entities import Person, Event, Participation, Participation_v1
 from app.repository.events_repo import RepositoryException
+from app.utils.id_generator import IdGenerator
 
+generator = IdGenerator('utils/id_history.txt')
 
 def random_string(ln=None):
     """genereaza un string random"""
@@ -18,6 +20,7 @@ def random_string(ln=None):
 
 
 class PersonService:
+
 
     def __init__(self, repo, validator):
         self.__repo = repo
@@ -36,7 +39,8 @@ class PersonService:
         """
         self.__validator.validate_name(name)
         self.__validator.validate_address(address)
-        person = Person(name, address)
+        id = generator.generate_id("person")
+        person = Person(id, name, address)
         self.__repo.store(person)
         return person
 
@@ -89,7 +93,8 @@ class PersonService:
             address1 = random_string(randint(1, 20))
             name = names.get_last_name()
             address = real_random_address()["address1"]
-            person = Person(name, address)
+            id = generator.generate_id("person")
+            person = Person(id, name, address)
             self.__repo.store(person)
             nr -= 1
 
@@ -120,7 +125,8 @@ class EventService:
         format_date = date.fromisoformat(event_date)
         format_time = datetime.strptime(event_time, "%H:%M")
         new_time = time(format_time.hour, format_time.minute)
-        event = Event(format_date, new_time, description)
+        id = generator.generate_id("event")
+        event = Event(id, format_date, new_time, description)
         self.__repo.store(event)
         return event
 
@@ -195,7 +201,8 @@ class EventService:
             date_value = date(year, month, day)
             time_value = time(hour, minutes, 0)
             description = random.choice(["nunta", "bal", "majorat", "aniversare", "botez"])
-            event = Event(date_value, time_value, description)
+            id = generator.generate_id("event")
+            event = Event(id, date_value, time_value, description)
             self.__repo.store(event)
             nr -= 1
 

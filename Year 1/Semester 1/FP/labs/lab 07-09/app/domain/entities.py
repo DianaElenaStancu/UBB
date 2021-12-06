@@ -2,9 +2,7 @@ from datetime import date, time
 
 class Person():
 
-    numberOfPersons = 0
-
-    def __init__(self, name, address):
+    def __init__(self, id, name, address):
         """
         Initializeaza un obiect de tip persoana cu valorile date
         :param personID: id-ul persoanei
@@ -14,8 +12,7 @@ class Person():
         :param address: adresa persoanei
         :type address: str
         """
-        Person.numberOfPersons += 1
-        self.__personID = Person.numberOfPersons
+        self.__personID = id
         self.__name = name
         self.__address = address
 
@@ -42,9 +39,7 @@ class Person():
 
 class Event():
 
-    numberOfEvents = 0
-
-    def __init__(self, date, time, description):
+    def __init__(self, id, date, time, description):
         """
         Initializeaza un obiect de tip eveniment cu valorile date
         :param eventID: id-ul evenimentului
@@ -56,8 +51,7 @@ class Event():
         :param description: descrierea evenimentului
         :type description: str
         """
-        Event.numberOfEvents += 1
-        self.__eventID = Event.numberOfEvents
+        self.__eventID = id
         self.__date = date
         self.__time = time
         self.__description = description

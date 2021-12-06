@@ -5,6 +5,7 @@ from ui.console import PersonUI, EventUI, ParticipationUI, Console
 
 PersonValidator = PersonValidator()
 PersonRepository = PersonsRepository()
+#PersonRepository = PersonsRepositoryFile('data/persons.txt')
 PersonService = PersonService(PersonRepository, PersonValidator)
 PersonUI = PersonUI(PersonService)
 

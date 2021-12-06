@@ -1,6 +1,5 @@
 1;Haribo Gummy Bears;Germania
 2;Sour Patch;SUA
-3;Twizzlers Twists;SUA
 4;Hershey's Chocolate;SUA
 5;Heidi Chocolate;Elvetia
 6;Leonidas Chocolate;Belgia
@@ -10,3 +9,5 @@
 10;Milka Chocolate;Elvetia
 11;Ferrero Rocher;Italia
 12;Jelly Beans;SUA
+13;cioc;Romania
+34;cioc;Spania
