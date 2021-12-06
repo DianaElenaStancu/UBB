@@ -6,8 +6,6 @@ class Console:
             "2":self.__ui_getAllScopes
         }
 
-
-
     def __ui_FindByScope(self):
         """
         citeste de la tastatura scopul pentru care trebuie afisata lista de elicoptere

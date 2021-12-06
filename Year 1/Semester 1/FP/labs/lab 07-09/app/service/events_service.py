@@ -111,9 +111,9 @@ class EventService:
         """
         adauga eveniment
         :param event_date: data evenimentului
-        :type event_date: date
+        :type event_date: str
         :param event_time: ora la care se tine evenimentul
-        :type event_time: time
+        :type event_time: str
         :param description: descrierea evenimentului
         :type description: str
         :return event: evenimentul adaugat

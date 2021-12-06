@@ -31,6 +31,9 @@ class Person():
     def setAddress(self, value):
         self.__address = value
 
+    def to_string(self):
+        return str(self.__personID) + ";" + self.__name + ";" + self.__address + "\n"
+
     def __repr__(self):
         return "PersonID: " + str(self.__personID) + "; Name: " + self.__name + "; Address: " + self.__address
 
@@ -51,13 +54,13 @@ class Event():
         :param description: descrierea evenimentului
         :type description: str
         """
-        self.__eventID = id
+        self.__id = id
         self.__date = date
         self.__time = time
         self.__description = description
 
     def getID(self):
-        return self.__eventID
+        return self.__id
 
     def getDate(self):
         return self.__date
@@ -77,8 +80,11 @@ class Event():
     def setDescription(self, value):
         self.__description = value
 
+    def to_string(self):
+        return str(self.__id) + ";" + str(self.__date) + ";" + str(self.__time.hour) + ":" +str(self.__time.minute) +";" + self.__description + "\n"
+
     def __repr__(self):
-        return "EventID: " + str(self.__eventID) + "; Date: " + str(self.__date) + "; Time: " + str(self.__time) + "; Description: " + self.__description
+        return "EventID: " + str(self.__id) + "; Date: " + str(self.__date) + "; Time: " + str(self.__time) + "; Description: " + self.__description
 
     def __eq__(self, other):
         return self.getID() == other.getID()
@@ -113,6 +119,9 @@ class Participation_v1:
 
     def getEventID(self):
         return self.__event_id
+
+    def to_string(self):
+        return str(self.getPersonID()) + ";" + str(self.getEventID()) + "\n"
 
     def __eq__(self, other):
         return self.getPersonID() == other.getPersonID() and self.getEventID() == other.getEventID()

@@ -9,7 +9,6 @@ class Elicopter:
         :param scopuri: sir de scopuri ale elicopterului
         :type scopuri: str
         :param anFabricatie: anul in care a fost fabricat elicopterul
-        :type nume: int
         """
         self.__id = id
         self.__nume = nume
