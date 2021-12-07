@@ -1,0 +1,3 @@
+COM1, The Good Place, fantasy comedy, 53
+
+THR1, Mindhunter, psychological thriller, 19

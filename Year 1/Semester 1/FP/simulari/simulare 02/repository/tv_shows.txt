@@ -1,0 +1,4 @@
+COM1, The Good Place, fantasy comedy, 53
+THR1, Mindhunter, psychological thriller, 19
+FAN4, The Witcher, fantasy drama, 8
+CD32, The Marvelous Mrs. Maisel, comedy-drama, 26
