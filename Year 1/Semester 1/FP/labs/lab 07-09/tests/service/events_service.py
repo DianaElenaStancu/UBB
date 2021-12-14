@@ -4,13 +4,16 @@ from app.domain.entities import Person, Event, Participation_v1
 from app.domain.validators import PersonValidator, EventValidator
 from app.repository.events_repo import PersonsRepository, EventsRepository, ParticipationsRepository
 from app.service.events_service import PersonService, EventService, ParticipationService
+from app.utils.id_generator import IdGenerator
 
 
 def test_add_person():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
     val = PersonValidator()
-    srv = PersonService(repo, val)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    srv = PersonService(repo, val, gen)
     srv.add_person("vasile", "str oilor")
     persons = repo.get_all_persons()
     assert(len(persons) == 1)
@@ -60,7 +63,9 @@ def test_del_person():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
     val = PersonValidator()
-    srv = PersonService(repo, val)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    srv = PersonService(repo, val, gen)
     srv.add_person("vasile", "str oilor")
     srv.add_person("tom", "str jupiter")
     srv.add_person("cristi", "str vuvuielelor")
@@ -102,7 +107,9 @@ def test_modify_person():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
     val = PersonValidator()
-    srv = PersonService(repo, val)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    srv = PersonService(repo, val, gen)
     srv.add_person("vasile", "str oilor")
 
     srv.modify_person(1, "name", "cristina")
@@ -139,7 +146,9 @@ def test_search_person():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
     val = PersonValidator()
-    srv = PersonService(repo, val)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    srv = PersonService(repo, val, gen)
     srv.add_person("vasile", "str oilor")
     srv.add_person("tom", "str jupiter")
     srv.add_person("cristi", "str vuvuielelor")
@@ -193,7 +202,9 @@ def test_add_event():
     Event.numberOfEvents = 0
     repo = EventsRepository()
     val = EventValidator()
-    srv = EventService(repo, val)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    srv = EventService(repo, val, gen)
     srv.add_event("2021-10-10", "16:00", "descriere 1")
     events = repo.get_all_events()
     assert(len(events) == 1)
@@ -252,7 +263,9 @@ def test_del_event():
     Event.numberOfEvents = 0
     repo = EventsRepository()
     val = EventValidator()
-    srv = EventService(repo, val)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    srv = EventService(repo, val, gen)
     srv.add_event("2021-10-10", "16:00", "descriere 1")
     srv.add_event("2022-11-01", "23:00", "descriere 2")
     srv.add_event("2023-09-23", "5:00", "descriere 3")
@@ -296,7 +309,9 @@ def test_modify_event():
     Event.numberOfEvents = 0
     repo = EventsRepository()
     val = EventValidator()
-    srv = EventService(repo, val)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    srv = EventService(repo, val, gen)
     srv.add_event("2021-10-10", "16:00", "descriere 1")
 
     srv.modify_event(1, "date", "2021-11-11")
@@ -354,7 +369,9 @@ def test_search_event():
     Event.numberOfEvents = 0
     repo = EventsRepository()
     val = EventValidator()
-    srv = EventService(repo, val)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    srv = EventService(repo, val, gen)
     srv.add_event("2021-10-10", "16:00", "descriere 1")
     srv.add_event("2022-12-09", "15:00", "descriere 2")
     srv.add_event("2023-04-14", "21:00", "descriere 3")
@@ -423,8 +440,25 @@ def test_add_participation_v1():
     persons_repo = PersonsRepository()
     events_repo = EventsRepository()
     srv = ParticipationService(persons_repo, events_repo, participations_repo)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    persons_val = PersonValidator()
+    persons_srv = PersonService(persons_repo, persons_val, gen)
+    events_val = EventValidator()
+    events_srv = EventService(events_repo, events_val, gen)
+
+    persons_srv.add_person("vasile", "str oilor")
+    persons_srv.add_person("tom", "str jupiter")
+    persons_srv.add_person("cristi", "str vuvuielelor")
+    persons_srv.add_person("vasile", "str vuvuielelor")
+    events_srv.add_event("2021-10-10", "16:00", "descriere 1")
+    events_srv.add_event("2022-12-09", "15:00", "descriere 2")
+    events_srv.add_event("2023-04-14", "21:00", "descriere 3")
+    events_srv.add_event("2021-10-10", "15:00", "descriere 4")
+
     participations = srv.get_all_participations()
     assert(len(participations) == 0)
+
     srv.add_participation(1, 2)
     participations = srv.get_all_participations()
     assert(len(participations) == 1)
@@ -449,6 +483,21 @@ def test_del_participation_v1():
     persons_repo = PersonsRepository()
     events_repo = EventsRepository()
     srv = ParticipationService(persons_repo, events_repo, participations_repo)
+    gen = IdGenerator("../tests/utils/id_history.txt")
+    gen.reset_file()
+    persons_val = PersonValidator()
+    persons_srv = PersonService(persons_repo, persons_val, gen)
+    events_val = EventValidator()
+    events_srv = EventService(events_repo, events_val, gen)
+
+    persons_srv.add_person("vasile", "str oilor")
+    persons_srv.add_person("tom", "str jupiter")
+    persons_srv.add_person("cristi", "str vuvuielelor")
+    persons_srv.add_person("vasile", "str vuvuielelor")
+    events_srv.add_event("2021-10-10", "16:00", "descriere 1")
+    events_srv.add_event("2022-12-09", "15:00", "descriere 2")
+    events_srv.add_event("2023-04-14", "21:00", "descriere 3")
+    events_srv.add_event("2021-10-10", "15:00", "descriere 4")
     srv.add_participation(1, 2)
     srv.add_participation(3, 4)
 

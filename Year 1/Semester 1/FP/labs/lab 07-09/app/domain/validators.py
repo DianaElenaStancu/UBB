@@ -45,13 +45,13 @@ class EventValidator:
     def validate_date(self, value):
         try:
             date.fromisoformat(value)
-        except ValidatorException as ve:
+        except ValueError as ve:
             raise ValidatorException(str(ve))
 
     def validate_time(self, time):
         try:
             datetime.strptime(time, "%H:%M")
-        except ValidatorException as ve:
+        except ValueError as ve:
             raise ValidatorException(str(ve))
 
     def validate_description(self, value):

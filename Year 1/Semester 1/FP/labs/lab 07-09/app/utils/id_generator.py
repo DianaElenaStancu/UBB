@@ -2,6 +2,10 @@ class IdGenerator:
     def __init__(self, filename):
         self.__filename = filename
 
+    def reset_file(self):
+        with open(self.__filename, 'w') as f:
+            f.write("0 0 0")
+
     def __load_from_file(self):
         try:
             f = open(self.__filename, 'r')
@@ -31,16 +35,7 @@ class IdGenerator:
 
 
 
-def test_IdGenerator():
-    generator = IdGenerator("test_id_generator.txt")
-    idp = generator.generate_id("person")
-    assert idp == 1
-    ide = generator.generate_id("event")
-    assert ide == 1
-    idr = generator.generate_id("participation")
-    assert idr == 1
-    idr = generator.generate_id("participation")
-    assert idr == 2
+
 
 
 

@@ -3,3 +3,13 @@
 3;Banks;159 Downey Drive
 4;Stewart;5472 Sunstar Common
 5;Abdul;4493 Heath Circle
+6;Olufson;4439 Gale Street
+7;Leger;1731 West 18th Street
+8;Baker;8700 Seaton Boulevard
+9;Styles;6413 Kendall Street
+10;Lemons;4500 Margalo Avenue
+11;Moore;21 Soling Avenue
+12;Barnette;439 Crestmont Drive
+13;Sheehan;2835 Jed Road
+14;Urbanek;60 Downey Drive
+15;Nichols;61 Thomas Street

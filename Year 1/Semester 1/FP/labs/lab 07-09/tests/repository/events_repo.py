@@ -5,8 +5,8 @@ from app.repository.events_repo import PersonsRepository, EventsRepository, Part
 def test_store_person():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
-    p1 = Person("vasile", "str oilor")
-    p2 = Person("mariana", "str lalelelor")
+    p1 = Person(1, "vasile", "str oilor")
+    p2 = Person(2, "mariana", "str lalelelor")
 
     persons = repo.get_all_persons()
     assert(len(persons) == 0)
@@ -30,9 +30,9 @@ def test_store_person():
 def test_delete_person():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
-    p1 = Person("vasile", "str oilor")
-    p2 = Person("mariana", "str lalelelor")
-    p3 = Person("tom", "str jupiter")
+    p1 = Person(1,"vasile", "str oilor")
+    p2 = Person(2,"mariana", "str lalelelor")
+    p3 = Person(3,"tom", "str jupiter")
     repo.store(p1)
     repo.store(p2)
     repo.store(p3)
@@ -61,9 +61,9 @@ def test_delete_person():
 def test_modify_person_name():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
-    p1 = Person("vasile", "str oilor")
-    p2 = Person("mariana", "str lalelelor")
-    p3 = Person("tom", "str jupiter")
+    p1 = Person(1,"vasile", "str oilor")
+    p2 = Person(2,"mariana", "str lalelelor")
+    p3 = Person(3,"tom", "str jupiter")
     repo.store(p1)
     repo.store(p2)
     repo.store(p3)
@@ -107,9 +107,9 @@ def test_modify_person_name():
 def test_modify_person_address():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
-    p1 = Person("vasile", "str oilor")
-    p2 = Person("mariana", "str lalelelor")
-    p3 = Person("tom", "str jupiter")
+    p1 = Person(1,"vasile", "str oilor")
+    p2 = Person(2,"mariana", "str lalelelor")
+    p3 = Person(3,"tom", "str jupiter")
     repo.store(p1)
     repo.store(p2)
     repo.store(p3)
@@ -154,10 +154,10 @@ def test_modify_person_address():
 def test_search_person_by_value():
     Person.numberOfPersons = 0
     repo = PersonsRepository()
-    p1 = Person("vasile", "str oilor")
-    p2 = Person("mariana", "str lalelelor")
-    p3 = Person("tom", "str jupiter")
-    p4 = Person("vasile", "str jupiter")
+    p1 = Person(1,"vasile", "str oilor")
+    p2 = Person(2,"mariana", "str lalelelor")
+    p3 = Person(3,"tom", "str jupiter")
+    p4 = Person(4,"vasile", "str jupiter")
     repo.store(p1)
     repo.store(p2)
     repo.store(p3)
@@ -193,9 +193,9 @@ def test_search_person_by_value():
 def test_store_event():
     Event.numberOfEvents = 0
     repo = EventsRepository()
-    e1 = Event("2021-10-10", "16:00", "descriere 1")
-    e2 = Event("2022-11-01", "23:00", "descriere 2")
-    e3 = Event("2023-09-23", "5:00", "descriere 3")
+    e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
+    e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
+    e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
     events = repo.get_all_events()
     assert(len(events) == 0)
 
@@ -238,9 +238,9 @@ def test_store_event():
 def test_delete_event():
     Event.numberOfEvents = 0
     repo = EventsRepository()
-    e1 = Event("2021-10-10", "16:00", "descriere 1")
-    e2 = Event("2022-11-01", "23:00", "descriere 2")
-    e3 = Event("2023-09-23", "5:00", "descriere 3")
+    e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
+    e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
+    e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
     repo.store(e1)
     repo.store(e2)
     repo.store(e3)
@@ -272,9 +272,9 @@ def test_delete_event():
 def test_modify_event_date():
     Event.numberOfEvents = 0
     repo = EventsRepository()
-    e1 = Event("2021-10-10", "16:00", "descriere 1")
-    e2 = Event("2022-11-01", "23:00", "descriere 2")
-    e3 = Event("2023-09-23", "5:00", "descriere 3")
+    e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
+    e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
+    e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
     repo.store(e1)
     repo.store(e2)
     repo.store(e3)
@@ -327,9 +327,9 @@ def test_modify_event_date():
 def test_modify_event_time():
     Event.numberOfEvents = 0
     repo = EventsRepository()
-    e1 = Event("2021-10-10", "16:00", "descriere 1")
-    e2 = Event("2022-11-01", "23:00", "descriere 2")
-    e3 = Event("2023-09-23", "5:00", "descriere 3")
+    e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
+    e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
+    e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
     repo.store(e1)
     repo.store(e2)
     repo.store(e3)
@@ -382,9 +382,9 @@ def test_modify_event_time():
 def test_modify_event_description():
     Event.numberOfEvents = 0
     repo = EventsRepository()
-    e1 = Event("2021-10-10", "16:00", "descriere 1")
-    e2 = Event("2022-11-01", "23:00", "descriere 2")
-    e3 = Event("2023-09-23", "5:00", "descriere 3")
+    e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
+    e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
+    e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
     repo.store(e1)
     repo.store(e2)
     repo.store(e3)
@@ -437,10 +437,10 @@ def test_modify_event_description():
 def test_search_event_by_value():
     Event.numberOfEvents = 0
     repo = EventsRepository()
-    e1 = Event("2021-10-10", "16:00", "descriere 1")
-    e2 = Event("2022-11-01", "23:00", "descriere 2")
-    e3 = Event("2023-09-23", "5:00", "descriere 3")
-    e4 = Event("2021-10-10", "23:00", "descriere 3")
+    e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
+    e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
+    e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
+    e4 = Event(4,"2021-10-10", "23:00", "descriere 3")
     repo.store(e1)
     repo.store(e2)
     repo.store(e3)
