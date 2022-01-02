@@ -2,72 +2,64 @@ from datetime import date, time
 from app.domain.entities import Person, Event
 from app.domain.validators import PersonValidator, EventValidator
 from app.exceptions.exceptions import ValidatorException
+import unittest
 
+class TestValidator(unittest.TestCase):
+    def setUp(self) -> None:
+        self.__pValidator = PersonValidator()
+        self.__eValidator = EventValidator()
 
-class validator_TEST():
-    def run(self):
-        self.__test_validate_person()
-        self.__test_validate_event()
-        self.__test_validate_event_time()
-        self.__test_validate_event_date()
-        self.__test_validate_person_address()
-        self.__test_validate_event_description()
-        self.__test_validate_person_name()
-
-    def __test_validate_person(self):
-        validator = PersonValidator()
+    def test_validate_person(self):
         p = Person(1, 'John', 'Str Zorilor Nr 12')
-        validator.validate(p)
+        self.__pValidator.validate(p)
 
         p1 = Person(2, '', 'Str Zorilor Nr 12')
         try:
-            validator.validate(p1)
+            self.__pValidator.validate(p1)
             assert False
         except ValidatorException:
             assert True
 
         p2 = Person(3, 'Tom', '')
         try:
-            validator.validate(p2)
+            self.__pValidator.validate(p2)
             assert False
         except ValidatorException:
             assert True
 
         p3 = Person(4, '', '')
         try:
-            validator.validate(p3)
+            self.__pValidator.validate(p3)
             assert False
         except ValidatorException:
             assert True
 
-    def __test_validate_person_name(self):
-        validator = PersonValidator()
+    def test_validate_person_name(self):
         name = ""
         try:
-            validator.validate_name(name)
+            self.__pValidator.validate_name(name)
             assert False
         except ValidatorException:
             assert True
 
         name = "ana"
         try:
-            validator.validate_name(name)
+            self.__pValidator.validate_name(name)
             assert True
         except ValidatorException:
             assert False
 
-    def __test_validate_person_address(self):
-        validator = PersonValidator()
+    def test_validate_person_address(self):
         address = ""
         try:
-            validator.validate_address(address)
+            self.__pValidator.validate_address(address)
             assert False
         except ValidatorException:
             assert True
 
         address = "Str zorilor"
         try:
-            validator.validate_address(address)
+            self.__pValidator.validate_address(address)
             assert True
         except ValidatorException:
             assert False
@@ -76,63 +68,61 @@ class validator_TEST():
     from app.exceptions.exceptions import ValidatorException
 
 
-    def __test_validate_event(self):
-        validator = EventValidator()
+    def test_validate_event(self):
         e = Event(1, "2020-11-30", "16:00", "botezul Anei")
-        validator.validate(e)
+        self.__eValidator.validate(e)
 
         e1 = Event(2, "2020-11-30", "16:00", "")
         try:
-            validator.validate(e1)
+            self.__eValidator.validate(e1)
             assert False
         except ValidatorException:
             assert True
 
-    def __test_validate_event_date(self):
-        validator = EventValidator()
+    def test_validate_event_date(self):
         date = "210jsa-dhsa"
         try:
-            validator.validate_date(date)
+            self.__eValidator.validate_date(date)
             assert False
         except ValidatorException:
             assert True
 
         date = "2020-10-10"
         try:
-            validator.validate_date(date)
+            self.__eValidator.validate_date(date)
             assert True
         except ValidatorException:
             assert False
 
-    def __test_validate_event_time(self):
-        validator = EventValidator()
+    def test_validate_event_time(self):
         time = "16.00"
         try:
-            validator.validate_time(time)
+            self.__eValidator.validate_time(time)
             assert False
         except ValidatorException:
             assert True
 
         time = "16:00"
         try:
-            validator.validate_time(time)
+            self.__eValidator.validate_time(time)
             assert True
         except ValidatorException:
             assert False
 
-    def __test_validate_event_description(self):
-        validator = EventValidator()
+    def test_validate_event_description(self):
         description = ""
         try:
-            validator.validate_description(description)
+            self.__eValidator.validate_description(description)
             assert False
         except ValidatorException:
             assert True
 
         description = "bla bla bla"
         try:
-            validator.validate_description(description)
+            self.__eValidator.validate_description(description)
             assert True
         except ValidatorException:
             assert False
 
+if __name__ == '__main__':
+    unittest.main()

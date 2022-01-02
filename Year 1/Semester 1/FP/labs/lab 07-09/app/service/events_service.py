@@ -86,8 +86,9 @@ class PersonService:
         searched_persons = self.__repo.search_person_by_value(field, value)
         return searched_persons
 
-    def generate_persons(self, nr):
-        """genereaza nr persoane"""
+    #functie implementata recursiv, complexitate O(n)
+    """def generate_persons(self, nr):
+        #genereaza nr persoane
         while nr>0:
             name1 = random_string(randint(1, 20))
             address1 = random_string(randint(1, 20))
@@ -96,7 +97,20 @@ class PersonService:
             id = self.__generator.generate_id("person")
             person = Person(id, name, address)
             self.__repo.store(person)
-            nr -= 1
+            nr -= 1"""
+
+    def generate_persons(self, nr):
+        # genereaza nr persoane
+        if nr > 0:
+            name1 = random_string(randint(1, 20))
+            address1 = random_string(randint(1, 20))
+            name = names.get_last_name()
+            address = real_random_address()["address1"]
+            id = self.__generator.generate_id("person")
+            person = Person(id, name, address)
+            self.__repo.store(person)
+            self.generate_persons(nr - 1)
+
 
     def get_all_persons(self):
         return self.__repo.get_all_persons()
@@ -191,9 +205,10 @@ class EventService:
             searched_events = self.__repo.search_event_by_value(field, new_time)
         return searched_events
 
+    #functie implementata recursiv, complexitate O(n)
     def generate_events(self, nr):
         """genereaza un numar nr de evenimente"""
-        while nr>0:
+        if nr>0:
             year = randint(2021, 2100)
             month = randint(1, 12)
             day = randint(1, 28)
@@ -205,7 +220,7 @@ class EventService:
             id = self.__generator.generate_id("event")
             event = Event(id, date_value, time_value, description)
             self.__repo.store(event)
-            nr -= 1
+            self.generate_events(nr - 1)
 
     def get_all_events(self):
         return self.__repo.get_all_events()

@@ -1,41 +1,28 @@
 from app.domain.entities import Person, Event, Participation_v1
 from app.repository.events_repo import PersonsRepository, EventsRepository, ParticipationsRepository
+import unittest
 
+class testRepo(unittest.TestCase):
+    def setUp(self) -> None:
+        self.__personRepo = PersonsRepository()
+        self.__eventRepo = EventsRepository()
+        self.__participationRepo = ParticipationsRepository()
 
-class repo_TEST():
-    def run(self):
-        self.__test_store_person()
-        self.__test_delete_person()
-        self.__test_modify_person_address()
-        self.__test_store_event()
-        self.__test_delete_event()
-        self.__test_delete_participation_v1()
-        self.__test_modify_event_date()
-        self.__test_modify_event_description()
-        self.__test_modify_event_time()
-        self.__test_modify_person_name()
-        self.__test_modify_person_address()
-        self.__test_store_participation_v1()
-        self.__test_search_person_by_value()
-        self.__test_search_event_by_value()
-
-    def __test_store_person(self):
-        Person.numberOfPersons = 0
-        repo = PersonsRepository()
+    def test_store_person(self):
         p1 = Person(1, "vasile", "str oilor")
         p2 = Person(2, "mariana", "str lalelelor")
 
-        persons = repo.get_all_persons()
+        persons = self.__personRepo.get_all_persons()
         assert(len(persons) == 0)
-        repo.store(p1)
-        persons = repo.get_all_persons()
+        self.__personRepo.store(p1)
+        persons = self.__personRepo.get_all_persons()
         assert(len(persons) == 1)
         assert(persons[0].getID() == 1)
         assert(persons[0].getName() == p1.getName())
         assert (persons[0].getAddress() == p1.getAddress())
 
-        repo.store(p2)
-        persons = repo.get_all_persons()
+        self.__personRepo.store(p2)
+        persons = self.__personRepo.get_all_persons()
         assert (len(persons) == 2)
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == p1.getName())
@@ -44,18 +31,16 @@ class repo_TEST():
         assert(persons[1].getName() == p2.getName())
         assert (persons[1].getAddress() == p2.getAddress())
 
-    def __test_delete_person(self):
-        Person.numberOfPersons = 0
-        repo = PersonsRepository()
+    def test_delete_person(self):
         p1 = Person(1,"vasile", "str oilor")
         p2 = Person(2,"mariana", "str lalelelor")
         p3 = Person(3,"tom", "str jupiter")
-        repo.store(p1)
-        repo.store(p2)
-        repo.store(p3)
+        self.__personRepo.store(p1)
+        self.__personRepo.store(p2)
+        self.__personRepo.store(p3)
 
-        repo.delete_person(p1)
-        persons = repo.get_all_persons()
+        self.__personRepo.delete_person(p1)
+        persons = self.__personRepo.get_all_persons()
         assert (len(persons) == 2)
         assert (persons[0].getID() == 2)
         assert(persons[0].getName() == p2.getName())
@@ -64,29 +49,27 @@ class repo_TEST():
         assert(persons[1].getName() == p3.getName())
         assert (persons[1].getAddress() == p3.getAddress())
 
-        repo.delete_person(p2)
-        persons = repo.get_all_persons()
+        self.__personRepo.delete_person(p2)
+        persons = self.__personRepo.get_all_persons()
         assert (len(persons) == 1)
         assert (persons[0].getID() == 3)
         assert(persons[0].getName() == p3.getName())
         assert (persons[0].getAddress() == p3.getAddress())
 
-        repo.delete_person(p3)
-        persons = repo.get_all_persons()
+        self.__personRepo.delete_person(p3)
+        persons = self.__personRepo.get_all_persons()
         assert (len(persons) == 0)
 
-    def __test_modify_person_name(self):
-        Person.numberOfPersons = 0
-        repo = PersonsRepository()
+    def test_modify_person_name(self):
         p1 = Person(1,"vasile", "str oilor")
         p2 = Person(2,"mariana", "str lalelelor")
         p3 = Person(3,"tom", "str jupiter")
-        repo.store(p1)
-        repo.store(p2)
-        repo.store(p3)
+        self.__personRepo.store(p1)
+        self.__personRepo.store(p2)
+        self.__personRepo.store(p3)
 
-        repo.modify_person_name(p1, "clara")
-        persons = repo.get_all_persons()
+        self.__personRepo.modify_person_name(p1, "clara")
+        persons = self.__personRepo.get_all_persons()
         assert (len(persons) == 3)
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == "clara")
@@ -97,8 +80,8 @@ class repo_TEST():
         assert(persons[2].getName() == p3.getName())
         assert (persons[2].getAddress() == p3.getAddress())
 
-        repo.modify_person_name(p2, "paul")
-        persons = repo.get_all_persons()
+        self.__personRepo.modify_person_name(p2, "paul")
+        persons = self.__personRepo.get_all_persons()
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == "clara")
         assert (persons[0].getAddress() == p1.getAddress())
@@ -109,8 +92,8 @@ class repo_TEST():
         assert(persons[2].getName() == p3.getName())
         assert (persons[2].getAddress() == p3.getAddress())
 
-        repo.modify_person_name(p3, "ana")
-        persons = repo.get_all_persons()
+        self.__personRepo.modify_person_name(p3, "ana")
+        persons = self.__personRepo.get_all_persons()
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == "clara")
         assert (persons[0].getAddress() == p1.getAddress())
@@ -121,18 +104,16 @@ class repo_TEST():
         assert(persons[2].getName() == "ana")
         assert (persons[2].getAddress() == p3.getAddress())
 
-    def __test_modify_person_address(self):
-        Person.numberOfPersons = 0
-        repo = PersonsRepository()
+    def test_modify_person_address(self):
         p1 = Person(1,"vasile", "str oilor")
         p2 = Person(2,"mariana", "str lalelelor")
         p3 = Person(3,"tom", "str jupiter")
-        repo.store(p1)
-        repo.store(p2)
-        repo.store(p3)
+        self.__personRepo.store(p1)
+        self.__personRepo.store(p2)
+        self.__personRepo.store(p3)
 
-        repo.modify_person_address(p1, "str mercur")
-        persons = repo.get_all_persons()
+        self.__personRepo.modify_person_address(p1, "str mercur")
+        persons = self.__personRepo.get_all_persons()
         assert (len(persons) == 3)
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == p1.getName())
@@ -144,8 +125,8 @@ class repo_TEST():
         assert(persons[2].getName() == p3.getName())
         assert (persons[2].getAddress() == p3.getAddress())
 
-        repo.modify_person_address(p2, "str unirii")
-        persons = repo.get_all_persons()
+        self.__personRepo.modify_person_address(p2, "str unirii")
+        persons = self.__personRepo.get_all_persons()
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == p1.getName())
         assert (persons[0].getAddress() == "str mercur")
@@ -156,8 +137,8 @@ class repo_TEST():
         assert(persons[2].getName() == p3.getName())
         assert (persons[2].getAddress() == p3.getAddress())
 
-        repo.modify_person_address(p3, "str victoriei")
-        persons = repo.get_all_persons()
+        self.__personRepo.modify_person_address(p3, "str victoriei")
+        persons = self.__personRepo.get_all_persons()
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == p1.getName())
         assert (persons[0].getAddress() == "str mercur")
@@ -168,25 +149,23 @@ class repo_TEST():
         assert(persons[2].getName() == p3.getName())
         assert (persons[2].getAddress() == "str victoriei")
 
-    def __test_search_person_by_value(self):
-        Person.numberOfPersons = 0
-        repo = PersonsRepository()
+    def test_search_person_by_value(self):
         p1 = Person(1,"vasile", "str oilor")
         p2 = Person(2,"mariana", "str lalelelor")
         p3 = Person(3,"tom", "str jupiter")
         p4 = Person(4,"vasile", "str jupiter")
-        repo.store(p1)
-        repo.store(p2)
-        repo.store(p3)
-        repo.store(p4)
+        self.__personRepo.store(p1)
+        self.__personRepo.store(p2)
+        self.__personRepo.store(p3)
+        self.__personRepo.store(p4)
 
-        persons = repo.search_person_by_value("id", 1)
+        persons = self.__personRepo.search_person_by_value("id", 1)
         assert(len(persons) == 1)
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == p1.getName())
         assert (persons[0].getAddress() == p1.getAddress())
 
-        persons = repo.search_person_by_value("name", "vasile")
+        persons = self.__personRepo.search_person_by_value("name", "vasile")
         assert(len(persons) == 2)
         assert (persons[0].getID() == 1)
         assert(persons[0].getName() == p1.getName())
@@ -196,36 +175,34 @@ class repo_TEST():
         assert (persons[1].getAddress() == p4.getAddress())
 
         try:
-            persons= repo.search_person_by_value("id", 5)
+            persons= self.__personRepo.search_person_by_value("id", 5)
             assert False
         except:
             assert True
 
         try:
-            persons = repo.search_person_by_value("name", "mariana")
+            persons = self.__personRepo.search_person_by_value("name", "mariana")
             assert False
         except:
             assert True
 
-    def __test_store_event(self):
-        Event.numberOfEvents = 0
-        repo = EventsRepository()
+    def test_store_event(self):
         e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
         e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
         e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
-        events = repo.get_all_events()
+        events = self.__eventRepo.get_all_events()
         assert(len(events) == 0)
 
-        repo.store(e1)
-        events = repo.get_all_events()
+        self.__eventRepo.store(e1)
+        events = self.__eventRepo.get_all_events()
         assert(len(events) == 1)
         assert (events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
         assert (events[0].getTime() == "16:00")
         assert (events[0].getDescription() == "descriere 1")
 
-        repo.store(e2)
-        events = repo.get_all_events()
+        self.__eventRepo.store(e2)
+        events = self.__eventRepo.get_all_events()
         assert(len(events) == 2)
         assert (events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
@@ -236,8 +213,8 @@ class repo_TEST():
         assert (events[1].getTime() == "23:00")
         assert (events[1].getDescription() == "descriere 2")
 
-        repo.store(e3)
-        events = repo.get_all_events()
+        self.__eventRepo.store(e3)
+        events = self.__eventRepo.get_all_events()
         assert(len(events) == 3)
         assert (events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
@@ -252,18 +229,16 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere 3")
 
-    def __test_delete_event(self):
-        Event.numberOfEvents = 0
-        repo = EventsRepository()
+    def test_delete_event(self):
         e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
         e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
         e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
-        repo.store(e1)
-        repo.store(e2)
-        repo.store(e3)
+        self.__eventRepo.store(e1)
+        self.__eventRepo.store(e2)
+        self.__eventRepo.store(e3)
 
-        repo.delete_event(e1)
-        events = repo.get_all_events()
+        self.__eventRepo.delete_event(e1)
+        events = self.__eventRepo.get_all_events()
         assert(len(events) == 2)
         assert(events[0].getID() == 2)
         assert(events[0].getDate() == "2022-11-01")
@@ -274,30 +249,28 @@ class repo_TEST():
         assert (events[1].getTime() == "5:00")
         assert (events[1].getDescription() == "descriere 3")
 
-        repo.delete_event(e2)
-        events = repo.get_all_events()
+        self.__eventRepo.delete_event(e2)
+        events = self.__eventRepo.get_all_events()
         assert(len(events) == 1)
         assert(events[0].getID() == 3)
         assert(events[0].getDate() == "2023-09-23")
         assert (events[0].getTime() == "5:00")
         assert (events[0].getDescription() == "descriere 3")
 
-        repo.delete_event(e3)
-        events = repo.get_all_events()
+        self.__eventRepo.delete_event(e3)
+        events = self.__eventRepo.get_all_events()
         assert(len(events) == 0)
 
-    def __test_modify_event_date(self):
-        Event.numberOfEvents = 0
-        repo = EventsRepository()
+    def test_modify_event_date(self):
         e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
         e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
         e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
-        repo.store(e1)
-        repo.store(e2)
-        repo.store(e3)
+        self.__eventRepo.store(e1)
+        self.__eventRepo.store(e2)
+        self.__eventRepo.store(e3)
 
-        repo.modify_event_date(e1, "2019-03-04")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_date(e1, "2019-03-04")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2019-03-04")
         assert (events[0].getTime() == "16:00")
@@ -311,8 +284,8 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere 3")
 
-        repo.modify_event_date(e2, "2089-12-12")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_date(e2, "2089-12-12")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2019-03-04")
         assert (events[0].getTime() == "16:00")
@@ -326,8 +299,8 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere 3")
 
-        repo.modify_event_date(e3, "2004-11-01")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_date(e3, "2004-11-01")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2019-03-04")
         assert (events[0].getTime() == "16:00")
@@ -341,18 +314,16 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere 3")
 
-    def __test_modify_event_time(self):
-        Event.numberOfEvents = 0
-        repo = EventsRepository()
+    def test_modify_event_time(self):
         e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
         e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
         e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
-        repo.store(e1)
-        repo.store(e2)
-        repo.store(e3)
+        self.__eventRepo.store(e1)
+        self.__eventRepo.store(e2)
+        self.__eventRepo.store(e3)
 
-        repo.modify_event_time(e1, "23:00")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_time(e1, "23:00")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
         assert (events[0].getTime() == "23:00")
@@ -366,8 +337,8 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere 3")
 
-        repo.modify_event_time(e2, "17:00")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_time(e2, "17:00")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
         assert (events[0].getTime() == "23:00")
@@ -381,8 +352,8 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere 3")
 
-        repo.modify_event_time(e3, "20:00")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_time(e3, "20:00")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
         assert (events[0].getTime() == "23:00")
@@ -396,18 +367,16 @@ class repo_TEST():
         assert (events[2].getTime() == "20:00")
         assert (events[2].getDescription() == "descriere 3")
 
-    def __test_modify_event_description(self):
-        Event.numberOfEvents = 0
-        repo = EventsRepository()
+    def test_modify_event_description(self):
         e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
         e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
         e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
-        repo.store(e1)
-        repo.store(e2)
-        repo.store(e3)
+        self.__eventRepo.store(e1)
+        self.__eventRepo.store(e2)
+        self.__eventRepo.store(e3)
 
-        repo.modify_event_description(e1, "descriere noua 1")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_description(e1, "descriere noua 1")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
         assert (events[0].getTime() == "16:00")
@@ -421,8 +390,8 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere 3")
 
-        repo.modify_event_description(e2, "descriere noua 2")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_description(e2, "descriere noua 2")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
         assert (events[0].getTime() == "16:00")
@@ -436,8 +405,8 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere 3")
 
-        repo.modify_event_description(e3, "descriere noua 3")
-        events = repo.get_all_events()
+        self.__eventRepo.modify_event_description(e3, "descriere noua 3")
+        events = self.__eventRepo.get_all_events()
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
         assert (events[0].getTime() == "16:00")
@@ -451,26 +420,24 @@ class repo_TEST():
         assert (events[2].getTime() == "5:00")
         assert (events[2].getDescription() == "descriere noua 3")
 
-    def __test_search_event_by_value(self):
-        Event.numberOfEvents = 0
-        repo = EventsRepository()
+    def test_search_event_by_value(self):
         e1 = Event(1,"2021-10-10", "16:00", "descriere 1")
         e2 = Event(2,"2022-11-01", "23:00", "descriere 2")
         e3 = Event(3,"2023-09-23", "5:00", "descriere 3")
         e4 = Event(4,"2021-10-10", "23:00", "descriere 3")
-        repo.store(e1)
-        repo.store(e2)
-        repo.store(e3)
-        repo.store(e4)
+        self.__eventRepo.store(e1)
+        self.__eventRepo.store(e2)
+        self.__eventRepo.store(e3)
+        self.__eventRepo.store(e4)
 
-        events = repo.search_event_by_value("id", 1)
+        events = self.__eventRepo.search_event_by_value("id", 1)
         assert(len(events) == 1)
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
         assert (events[0].getTime() == "16:00")
         assert (events[0].getDescription() == "descriere 1")
 
-        events = repo.search_event_by_value("date", "2021-10-10")
+        events = self.__eventRepo.search_event_by_value("date", "2021-10-10")
         assert(len(events) == 2)
         assert(events[0].getID() == 1)
         assert(events[0].getDate() == "2021-10-10")
@@ -481,7 +448,7 @@ class repo_TEST():
         assert (events[1].getTime() == "23:00")
         assert (events[1].getDescription() == "descriere 3")
 
-        events = repo.search_event_by_value("time", "23:00")
+        events = self.__eventRepo.search_event_by_value("time", "23:00")
         assert(len(events) == 2)
         assert(events[0].getID() == 2)
         assert(events[0].getDate() == "2022-11-01")
@@ -493,40 +460,39 @@ class repo_TEST():
         assert (events[1].getDescription() == "descriere 3")
 
         try:
-            repo.search_event_by_value("id", 10)
+            self.__eventRepo.search_event_by_value("id", 10)
             assert False
         except:
             assert True
 
         try:
-            repo.search_event_by_value("date", "10")
+            self.__eventRepo.search_event_by_value("date", "10")
             assert False
         except:
             assert True
 
         try:
-            repo.search_event_by_value("time", "19:23")
+            self.__eventRepo.search_event_by_value("time", "19:23")
             assert False
         except:
             assert True
 
-    def __test_store_participation_v1(self):
-        repo = ParticipationsRepository()
+    def test_store_participation_v1(self):
         p1 = Participation_v1(1,2)
         p2 = Participation_v1(3,4)
         p3 = Participation_v1(1,2)
 
-        participations = repo.get_all_participations()
+        participations = self.__participationRepo.get_all_participations()
         assert(len(participations) == 0)
 
-        repo.store_participation(p1)
-        participations = repo.get_all_participations()
+        self.__participationRepo.store_participation(p1)
+        participations = self.__participationRepo.get_all_participations()
         assert (len(participations) == 1)
         assert (participations[0].getPersonID() == 1)
         assert (participations[0].getEventID() == 2)
 
-        repo.store_participation(p2)
-        participations = repo.get_all_participations()
+        self.__participationRepo.store_participation(p2)
+        participations = self.__participationRepo.get_all_participations()
         assert (len(participations) == 2)
         assert (participations[0].getPersonID() == 1)
         assert (participations[0].getEventID() == 2)
@@ -534,40 +500,43 @@ class repo_TEST():
         assert (participations[1].getEventID() == 4)
 
         try:
-            repo.store_participation(p3)
+            self.__participationRepo.store_participation(p3)
             assert False
         except:
             assert True
 
-    def __test_delete_participation_v1(self):
-        repo = ParticipationsRepository()
+    def test_delete_participation_v1(self):
         p1 = Participation_v1(1,2)
         p2 = Participation_v1(3,4)
         p3 = Participation_v1(5,6)
-        repo.store_participation(p1)
-        repo.store_participation(p2)
-        repo.store_participation(p3)
+        self.__participationRepo.store_participation(p1)
+        self.__participationRepo.store_participation(p2)
+        self.__participationRepo.store_participation(p3)
 
-        repo.del_participation(p1)
-        participations = repo.get_all_participations()
+        self.__participationRepo.del_participation(p1)
+        participations = self.__participationRepo.get_all_participations()
         assert (len(participations) == 2)
         assert (participations[0].getPersonID() == 3)
         assert (participations[0].getEventID() == 4)
         assert (participations[1].getPersonID() == 5)
         assert (participations[1].getEventID() == 6)
 
-        repo.del_participation(p2)
-        participations = repo.get_all_participations()
+        self.__participationRepo.del_participation(p2)
+        participations = self.__participationRepo.get_all_participations()
         assert (len(participations) == 1)
         assert (participations[0].getPersonID() == 5)
         assert (participations[0].getEventID() == 6)
 
-        repo.del_participation(p3)
-        participations = repo.get_all_participations()
+        self.__participationRepo.del_participation(p3)
+        participations = self.__participationRepo.get_all_participations()
         assert (len(participations) == 0)
 
         try:
-            repo.del_participation(p1)
+            self.__participationRepo.del_participation(p1)
             assert False
         except:
             assert True
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -15,3 +15,8 @@
 16;Pingrey;6450 West Bethany Home Road
 17;Lindgren;49 West Street
 18;Enriquez;1689 Fisher Pond Road
+19;Medina;1100 West Bowen Boulevard
+20;Labrie;33 Linscott Road
+21;Robison;31 Baileys Mills Road
+22;Lindquist;1637 Acre Circle
+23;Bates;2406 Lindbergh Drive
