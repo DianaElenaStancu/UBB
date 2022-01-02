@@ -3,44 +3,19 @@ from domain.validators import *
 from repository.events_repo import *
 from service.events_service import *
 
+
 def test_all():
     #domain
-    test_create_person()
-    test_create_event()
-    test_create_participation()
-    test_create_participation_v1()
-    test_validate_event()
-    test_validate_person()
-    test_validate_event_date()
-    test_validate_event_time()
-    test_validate_person_name()
-    test_validate_person_address()
-    test_validate_event_description()
+    test_entities = entities_TEST()
+    test_entities.run()
+    test_validator = validator_TEST()
+    test_validator.run()
     #repo
-    test_store_person()
-    test_delete_person()
-    test_modify_person_name()
-    test_modify_person_address()
-    test_store_event()
-    test_delete_event()
-    test_modify_event_date()
-    test_modify_event_time()
-    test_modify_event_description()
-    test_search_person_by_value()
-    test_search_event_by_value()
-    test_store_participation_v1()
-    test_delete_participation_v1
+    test_repo = repo_TEST()
+    test_repo.run()
     #srv
-    test_add_person()
-    test_add_event()
-    test_del_person()
-    test_del_event()
-    test_modify_event()
-    test_modify_person()
-    test_search_event()
-    test_search_person()
-    test_add_participation_v1()
-    test_del_participation_v1()
+    test_srv =srv_TEST()
+    test_srv.run()
 
     print("test passed :)")
 

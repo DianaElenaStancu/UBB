@@ -3,7 +3,6 @@
 3;Banks;159 Downey Drive
 4;Stewart;5472 Sunstar Common
 5;Abdul;4493 Heath Circle
-6;Olufson;4439 Gale Street
 7;Leger;1731 West 18th Street
 8;Baker;8700 Seaton Boulevard
 9;Styles;6413 Kendall Street
@@ -13,3 +12,6 @@
 13;Sheehan;2835 Jed Road
 14;Urbanek;60 Downey Drive
 15;Nichols;61 Thomas Street
+16;Pingrey;6450 West Bethany Home Road
+17;Lindgren;49 West Street
+18;Enriquez;1689 Fisher Pond Road

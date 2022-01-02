@@ -16,7 +16,7 @@ PersonUI = PersonUI(PersonService)
 EventValidator = EventValidator()
 #EventRepository = EventsRepository()
 EventRepository = EventsRepositoryFile('data/events.txt')
-EventService = EventService(EventRepository, generator)
+EventService = EventService(EventRepository, EventValidator, generator)
 EventUI = EventUI(EventService)
 
 #ParticipationRepository = ParticipationsRepository()
