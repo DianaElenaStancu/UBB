@@ -50,7 +50,10 @@ def merge(iterable, start, mid, end, key, cmp, reverse):
         index_all += 1
         index_end += 1
 
-
+"""
+similar to a selection sort ---> 
+O(n + m^2) - time, n - number of items, m - number of unique values 
+"""
 def bingoSort(iterable, key=lambda x: x, cmp=lambda x, y: x < y, reverse=False):
     if reverse:
         reverse = lambda x: x
@@ -70,7 +73,6 @@ def bingoSort(iterable, key=lambda x: x, cmp=lambda x, y: x < y, reverse=False):
     while last:
         prevMax = nextMax
         nextMax = iterable[last]
-
         for i in range(last - 1, -1, -1):
             if reverse(cmp(key(iterable[i]), key(nextMax))):
                 if iterable[i] != prevMax:
@@ -78,8 +80,14 @@ def bingoSort(iterable, key=lambda x: x, cmp=lambda x, y: x < y, reverse=False):
                 else:
                     iterable[i], iterable[last] = iterable[last], iterable[i]
                     last -= 1
-
         while last > 0 and iterable[last] == nextMax:
             last -= 1
 
     return iterable
+
+
+def testSorts():
+    assert mergeSort([4,5,6,0,0,1]) == [0,0,1,4,5,6]
+    assert bingoSort([4,5,6,0,0,1]) == [0,0,1,4,5,6]
+
+bingoSort([4,5,6,0,0,1])
