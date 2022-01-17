@@ -1,5 +1,4 @@
 #5:23
-from datetime import date
 class Carte():
     def __init__(self, id, titlu, autor, anAparitie):
         """
@@ -30,6 +29,9 @@ class Carte():
     def setAnAparitie(self, value):
         self.__anAparitie = value
 
+    def to_string(self):
+        return str(self.__id) + ";" + self.__titlu + ";" + self.__autor + ";" + str(self.__anAparitie) + "\n"
+
     def __eq__(self, other):
         return self.getId() == other.getId()
-    
+

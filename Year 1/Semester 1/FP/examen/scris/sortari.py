@@ -213,7 +213,8 @@ greater = q([5, 3, 2, 7, 4])
 def merge(l, start, end, m):
     left = l[start:(m+1)]
     right = l[(m+1):(end+1)]
-    i = j = 0
+    i = 0
+    j = 0
     k = start
     while i < len(left) and j < len(right):
         if left[i] < right[j]:
@@ -224,11 +225,11 @@ def merge(l, start, end, m):
             j += 1
         k += 1
     while i < len(left):
-        l[k] = l[i]
+        l[k] = left[i]
         i += 1
         k += 1
     while j < len(right):
-        l[k] = l[j]
+        l[k] = right[j]
         j += 1
         k += 1
 
@@ -241,10 +242,6 @@ def mergeSort(l, start, end):
     mergeSort(l, m+1, end)
     merge(l, start, end, m)
 
-
-
-
-
-l = [5,4,3,2]
-mergeSort(l, 0, 3)
+l = [5,4,3,2, 0, 54384, -384034, 4,3 ,2 -1, 0, 0, 2]
+mergeSort(l, 0, 13)
 print(l)
