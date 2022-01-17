@@ -1,0 +1,14 @@
+9,frontend,app crashes randomly,6
+13,backend,database exceeds memory quota,9
+4,backend,server crashes on duplicate id,8
+5,database,server not loading,1
+7,frontend,app crashes,5
+8,backend,sorting crashes,5
+
+10,database,tables not creating,3
+11,frontend,image not loading,2
+12,backend,linking errors,1
+12,backend, linking errors
+1,frontend,text inserted randomly,4
+2,server,not getting the data,3
+6,host,crashes randomly,1

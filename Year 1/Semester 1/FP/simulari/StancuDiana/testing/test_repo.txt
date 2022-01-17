@@ -1,0 +1,4 @@
+9,frontend,app crashes randomly,6
+
+13,backend,database exceeds memory quota,9
+4,backend,server crashes on duplicate id,8
