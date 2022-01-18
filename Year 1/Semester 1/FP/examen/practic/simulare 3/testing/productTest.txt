@@ -1,0 +1,2 @@
+2;bezele;6
+1;ciocolata;5
