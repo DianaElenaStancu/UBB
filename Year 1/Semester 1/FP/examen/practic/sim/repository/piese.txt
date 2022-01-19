@@ -1,0 +1,10 @@
+titlu1;regizo1r;comedie;34
+titlu2;regizo2;altele;34647
+titlu3;regizo3;drama;3477
+titlu4;regizo4;satira;3434
+titlu5;regizo5;comedie;3411
+titlu6;regizo6;altele;3407
+titlu1;regizor1;comedie;654
+titlu2;regizor2;altele;654
+titlu2;reizo3;altele;6326
+a;b;comedie;6000

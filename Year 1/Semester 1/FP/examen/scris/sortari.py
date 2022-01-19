@@ -235,7 +235,7 @@ def merge(l, start, end, m):
 
 
 def mergeSort(l, start, end):
-    if end-start < 1:
+    if end-start <= 0:
         return
     m = (end+start)//2
     mergeSort(l, start, m)
