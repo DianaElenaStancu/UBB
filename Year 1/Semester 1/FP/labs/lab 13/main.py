@@ -1,65 +1,55 @@
 """14.Se dă o listă de numere întregi a1,...an. Generaţi toate permutările listei pentru care
 numerele au aspect de vale (descresc până la un punct de unde cresc). valorile sunt distincte"""
 
-#bkt
-def consistent(x):
-    return len(x) == len(set(x))
 
-def solution(x, l):
-    if len(x) != len(l):
-        return False
-    # vezi daca e secventa de vale
-    i = 0
-    # la inceput trb sa scada apoi sa creasca
-    c =lambda: i+1 < len(x) and x[i] < len(l) and x[i + 1] < len(l)
-    while c() and l[x[i]] >= l[x[i+1]] :
-
-        i += 1
-    # trec la secventa crescatoare
-    if i != 0:
-        i += 1
-
-    while c() and l[x[i]] <= l[x[i+1]]:
-        i += 1
-    return i == len(l) - 1
-
-def printSol(x,l):
+def consistent(x, l):
+    copy = l[:]
     for i in x:
-        print(l[i], end= ' ')
-    print()
+        if i not in copy:
+            return False
+        else:
+            copy.remove(i)
+    #verificam ca descreste pana intr-un punct
+    i = 0
+    while i + 1 < len(x) and x[i] >= x[i+1]:
+        i += 1
+    #verificam ca creste pana intr-un punct
+    while i + 1 < len(x) and x[i] <= x[i+1]:
+        i += 1
+    return  i == len(x) - 1
+
+def solutie(x, l):
+    return len(x) == len(l)
 
 def backRec(x, l):
     x.append(0)
     for i in range(len(l)):
-        x[-1] = i
-        if consistent(x):
-            if solution(x,l):
-                printSol(x,l)
+        x[-1] = l[i]
+        if consistent(x, l):
+            if solutie(x, l):
+                print(x)
             else:
-                backRec(x,l)
+                backRec(x, l)
     x.pop()
 
-def backIter(x,l, dim):
-    x=[-1] #candidate solution
-    while len(x)>0:
-        choosed = False
-        while not choosed and x[-1]<dim-1:
-            x[-1] = x[-1]+1 #increase the last component
-            choosed = consistent(x)
-        if choosed:
-            if solution(x, l):
-                printSol(x, l)
-            x.append(-1) # expand candidate solution
+def backIter(l):
+    x = [-1]
+    copy= l[:]
+    copy.insert(0, -1)
+
+    while len(x) > 0:
+        chosen = False
+        while not chosen and copy.index(x[-1]) < len(copy)-1:
+            x[-1] = copy[copy.index(x[-1])+1]
+            chosen = consistent(x, l)
+        if chosen:
+            if solutie(x, l):
+                print(x)
+            else:
+                x.append(-1)
         else:
-            x = x[:-1] #go back one component
+            x.pop()
 
-
-
-#l = [10, 16, 27, 18, 14, 7]
-#l = [1,1, 2, 3, 4, 4]
-l = [1,2,3,4]
-#
-backRec([], l)
-print("*********")
-backIter([], l, len(l))
-#print("*********")
+l = [1,3,4,5]
+#backRec([], l)
+backIter(l)
