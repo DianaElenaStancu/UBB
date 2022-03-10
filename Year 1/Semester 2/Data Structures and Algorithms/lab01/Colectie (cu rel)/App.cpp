@@ -9,5 +9,4 @@ using namespace std;
 int main() {
 	//testAllExtins();
 	//testAll();
-    cout << "End";
 }

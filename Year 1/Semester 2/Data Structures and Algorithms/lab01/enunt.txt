@@ -1,2 +1,2 @@
 8.TAD Colecție cu elemente de tip comparabil (TElement=TComparabil)–reprezentare folosind un  vector  dinamic
- de  perechi  de  forma  (element, frecvență) ordonate în raport cu relația de ordine =între elemente.
+ de  perechi  de  forma  (element, frecvență) ordonate în raport cu relația de ordine R = <=între elemente.
