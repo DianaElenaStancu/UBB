@@ -23,8 +23,7 @@ Materie createMaterie (char* name, char* producer, int quantity) {
     nrC = strlen(producer) + 1;
     material.producer = (char*)malloc(sizeof(char) * nrC);
     strcpy(material.producer, producer);
-    material.quantity = (int*)malloc(sizeof(int));
-    *material.quantity = quantity;
+    material.quantity = quantity;
     return material;
 }
 
@@ -37,7 +36,7 @@ char* getProducer(Materie *materie) {
 }
 
 int getQuantity(Materie *materie) {
-    return *materie->quantity;
+    return materie->quantity;
 }
 
 void setName(Materie *material, char* name) {
@@ -59,7 +58,7 @@ void setProducer(Materie *materie, char* producer) {
 }
 
 void setQuantity(Materie *materie, int quantity) {
-    *materie -> quantity = quantity;
+    materie -> quantity = quantity;
 }
 
 bool equal(Materie materie1, Materie materie2) {
@@ -80,8 +79,6 @@ void destroyMaterie(Materie* materie) {
     materie->name = NULL;
     free(materie->name);
     materie->producer = NULL;
-    free(materie->quantity);
-    materie->quantity = NULL;
 }
 
 char* str(Materie materie) {

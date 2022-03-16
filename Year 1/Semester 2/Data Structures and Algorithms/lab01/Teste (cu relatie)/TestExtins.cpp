@@ -198,6 +198,6 @@ void testQuantity() {
 void testAllExtins() {
 	testCreeaza();
 	testAdauga();
-	testSterge();
-	testQuantity();
+	//testSterge();
+	//testQuantity();
 }

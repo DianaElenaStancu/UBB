@@ -15,6 +15,7 @@ private:
 
     //contine o referinta catre containerul pe care il itereaza
 	const Colectie& col;
+    int pc;
 	/* aici e reprezentarea  spcifica a iteratorului*/
 
 public:

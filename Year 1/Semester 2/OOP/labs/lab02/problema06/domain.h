@@ -10,7 +10,7 @@
 typedef struct {
     char* name;
     char* producer;
-    int* quantity;
+    int quantity;
 } Materie;
 
 Materie createMaterie (char* name, char* producer, int quantity);

@@ -16,6 +16,10 @@ class Colectie {
 
 private:
 	/* aici e reprezentarea */
+    TElem *element;
+    int n;
+    int cp;
+    void redim();
 public:
 		//constructorul implicit
 		Colectie();

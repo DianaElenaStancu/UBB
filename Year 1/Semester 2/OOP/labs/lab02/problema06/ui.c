@@ -6,6 +6,7 @@
 #include "service.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 Ui createUi(Service srv) {
     /*
@@ -34,7 +35,12 @@ void addUi(Ui ui) {
     char name[20], producer[20];
     int quantity;
     printf("Adaugati materie prima sub forma: nume producator cantitate -> ");
-    scanf("%s %s %d", name, producer, &quantity);
+    int len;
+    len = scanf("%s %s %d", name, producer, &quantity);
+    if (len < 3) {
+        printf("Materia prima nu a putut fi adaugata.\n");
+        return;
+    }
 
     bool succ = addMaterieSrv(&ui.srv, name, producer, quantity);
     if (succ == false)
@@ -63,6 +69,12 @@ void printUi(Materie* materie, int len) {
 }
 
 void updateUi(Ui ui) {
+    int len = getLenRepo(&ui.srv);
+    if (len == 0) {
+        printf("nu sunt materii prime in repo!\n");
+        return;
+    }
+
     char name[20], producer[20];
     int quantity;
     printf("Updatati materie prima sub forma: nume producator cantitate -> ");
@@ -76,6 +88,12 @@ void updateUi(Ui ui) {
 }
 
 void deleteUi(Ui ui) {
+    int len = getLenRepo(&ui.srv);
+    if (len == 0) {
+        printf("nu sunt materii prime in repo!\n");
+        return;
+    }
+
     char name[20];
     printf("Stergeti materia cu numele -> ");
     scanf("%s", name);
@@ -118,39 +136,33 @@ void printByOption(Ui ui) {
         printByOption(ui);
     }
     //afisam materia filtrata
-    printUi(materieFiltered.repo, *materieFiltered.len);
+    printUi(materieFiltered.repo, materieFiltered.len);
 }
 
 void run(Ui ui) {
     //the console for user interaction
     bool running = true;
-    short int cmd;
+    char* cmd;
 
     while (running) {
         printMenu();
         printf("The command (0,1,..) -> ");
-        scanf("%hd", &cmd);
-        switch (cmd) {
-            case 0:
-                running = false;
-                break;
-            case 1:
-                addUi(ui);
-                break;
-            case 2:
-                updateUi(ui);
-                break;
-            case 3:
-                deleteUi(ui);
-                break;
-            case 4:
-                printByOption(ui);
-                break;
-            case 6:
-                printAllUi(ui);
-                break;
-            default:
-                printf("Invalid command\n");
+        scanf("%s", cmd);
+        if (strcmp(cmd, "0") == 0) {
+            running = false;
+        } else if (strcmp(cmd, "1") == 0) {
+            addUi(ui);
+        } else if (strcmp(cmd, "2") == 0) {
+            updateUi(ui);
+        } else if (strcmp(cmd, "3") == 0) {
+            deleteUi(ui);
+        } else if (strcmp(cmd, "4") == 0) {
+            printByOption(ui);
+        } else if (strcmp(cmd, "6") == 0) {
+            printAllUi(ui);
+        } else {
+            printf("Invalid command\n");
         }
+
     }
 }

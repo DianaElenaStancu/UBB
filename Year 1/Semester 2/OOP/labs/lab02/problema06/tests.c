@@ -71,7 +71,7 @@ void testValidator() {
 void testRepo() {
     MateriiRepo materiiRepo = createRepo();
     assert(getLen(materiiRepo) == 0);
-    assert(*materiiRepo.capacity == 100);
+    assert(materiiRepo.capacity == 100);
     //Materie* repo = getRepo(materiiRepo);
     // verificam daca repo e gol
     Materie m1 = createMaterie("lapte", "Napolact", 20);
@@ -83,7 +83,7 @@ void testRepo() {
 
     assert(addMaterie(&materiiRepo, m1));
     assert(getLen(materiiRepo) == 1);
-    assert(*materiiRepo.capacity == 100);
+    assert(materiiRepo.capacity == 100);
     Materie * repo = getRepo(materiiRepo);
     assert(equal(repo[0], m1));
     assert(addMaterie(&materiiRepo, m1) == false);
@@ -92,14 +92,14 @@ void testRepo() {
 
     assert(addMaterie(&materiiRepo, m2));
     assert(getLen(materiiRepo) == 2);
-    assert(*materiiRepo.capacity == 100);
+    assert(materiiRepo.capacity == 100);
     repo = getRepo(materiiRepo);
     assert(equal(repo[0], m1));
     assert(equal(repo[1], m2));
 
     assert(addMaterie(&materiiRepo, m3));
     assert(getLen(materiiRepo) == 3);
-    assert(*materiiRepo.capacity == 100);
+    assert(materiiRepo.capacity == 100);
     repo = getRepo(materiiRepo);
     assert(equal(repo[0], m1));
     assert(equal(repo[1], m2));

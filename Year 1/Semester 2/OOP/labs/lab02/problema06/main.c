@@ -11,13 +11,13 @@
 #include <stdio.h>
 
 int main(){
-    testAll();
-    printf("Tests passed!\n");//run with coverage
+//    testAll();
+//    printf("Tests passed!\n");//run with coverage
 
-//    MateriiRepo repo = createRepo();
-//    Service srv = createService(repo);
-//    Ui ui = createUi(srv);
-//    run(ui);
+    MateriiRepo repo = createRepo();
+    Service srv = createService(repo);
+    Ui ui = createUi(srv);
+    run(ui);
 
     printf("Bye bye!");
     return 0;

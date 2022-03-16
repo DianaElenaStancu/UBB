@@ -6,8 +6,8 @@
 #define PROBLEMA06_REPO_H
 typedef struct {
     Materie* repo;
-    int* len;
-    int* capacity;
+    int len;
+    int capacity;
 } MateriiRepo;
 
 MateriiRepo createRepo();

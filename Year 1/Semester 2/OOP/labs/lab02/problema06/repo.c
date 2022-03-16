@@ -15,12 +15,9 @@ MateriiRepo createRepo() {
      * returneaza un struct repo de materii prime
      */
     MateriiRepo materialRepo;
-    materialRepo.len = (int*) malloc(sizeof(int));
-    *materialRepo.len = 0;
-    materialRepo.capacity = (int*) malloc(sizeof(int));
-    *materialRepo.capacity = 100;
-    Materie* ptr = malloc(*materialRepo.capacity * sizeof(Materie));
-
+    materialRepo.len = 0;
+    materialRepo.capacity = 100;
+    Materie* ptr = malloc(materialRepo.capacity * sizeof(Materie));
     materialRepo.repo = ptr;
     return materialRepo;
 }
@@ -30,13 +27,9 @@ void destroyRepo(MateriiRepo* materiiRepo) {
      * dealoca spatiul ocupat de repo
      * seteaza toti pointerii la NULL
      */
-    for (int i = 0; i < *materiiRepo->len; i++)
+    for (int i = 0; i < materiiRepo->len; i++)
         destroyMaterie(&materiiRepo->repo[i]);
     free(materiiRepo->repo);
-    materiiRepo->repo = NULL;
-    free(materiiRepo->len);
-    materiiRepo->repo = NULL;
-    free(materiiRepo->capacity);
     materiiRepo->repo = NULL;
 }
 
@@ -45,7 +38,7 @@ Materie* getRepo (MateriiRepo materialRepo) {
 }
 
 int getLen(MateriiRepo materiiRepo) {
-    return *materiiRepo.len;
+    return materiiRepo.len;
 }
 /*
 void redim(MateriiRepo* materiiRepo) {
@@ -88,7 +81,7 @@ void redim(MateriiRepo* materiiRepo) {
 */
 int findMaterie (MateriiRepo* materiiRepo, Materie materie) {
     int i;
-    for (i = 0; i < *materiiRepo->len; i++) {
+    for (i = 0; i < materiiRepo->len; i++) {
         if (equal(materiiRepo->repo[i], materie)) {
             return i;
         }
@@ -102,11 +95,11 @@ bool addMaterie(MateriiRepo* materiiRepo, Materie materie) {
      * daca materia prima deja exista
      * aceasta nu va fi adaugata
      */
-    printf("capacitatea este: %d\n", *materiiRepo->capacity);
+    //printf("capacitatea este: %d\n", *materiiRepo->capacity);
     if (findMaterie(materiiRepo, materie) == -1) {
         //redim(materiiRepo);
-        *(*materiiRepo).len += 1;
-        (*materiiRepo).repo[*(*materiiRepo).len - 1] = copy(materie);
+        (*materiiRepo).len += 1;
+        (*materiiRepo).repo[(*materiiRepo).len - 1] = copy(materie);
     } else {
         printf("Materia deja exista! Se updateaza cantitatea si producatorul acesteia.\n");
         updateMaterie(materiiRepo, materie);
@@ -135,7 +128,7 @@ bool deleteMaterie(MateriiRepo* materiiRepo, Materie materie) {
      */
     int index = findMaterie(materiiRepo, materie);
     if (index != -1) {
-        for (int i = index; i < *materiiRepo->len - 1; i++) {
+        for (int i = index; i < materiiRepo->len - 1; i++) {
            // char name[30], producer[30]; int quantity;
             //strcpy(name, getName(&materiiRepo->repo[i+1]));
             //strcpy(producer, getProducer(&materiiRepo->repo[i+1]));
@@ -145,8 +138,8 @@ bool deleteMaterie(MateriiRepo* materiiRepo, Materie materie) {
             setQuantity(&materiiRepo->repo[i], getQuantity(&materiiRepo->repo[i+1]));
 
         }
-        *materiiRepo->len -= 1;
-        destroyMaterie(&materiiRepo->repo[*materiiRepo->len]);
+        materiiRepo->len -= 1;
+        destroyMaterie(&materiiRepo->repo[materiiRepo->len]);
     }
     else {
         printf ("Materia prima cu numele dat nu exista in repo!\n");

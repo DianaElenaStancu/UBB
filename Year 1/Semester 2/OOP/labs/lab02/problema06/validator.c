@@ -8,7 +8,7 @@
 #include "domain.h"
 
 bool validate (Materie *m) {
-    if (*m -> quantity < 0)
+    if (m -> quantity < 0)
         return false;
     if (strlen (m -> name) == 0)
         return false;

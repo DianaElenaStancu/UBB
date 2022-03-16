@@ -79,8 +79,8 @@ MateriiRepo filterByName(Service* service, char l) {
     int len = getLen(service->repo), k = 0;
     for (int i = 0; i < len; i++) {
         if (getName(&materie[i])[0] == l) {
-            *(materiiFiltered.len) += 1;
-            (materiiFiltered.repo)[*(materiiFiltered.len) - 1] = copy(materie[i]);
+            (materiiFiltered.len) += 1;
+            (materiiFiltered.repo)[(materiiFiltered.len) - 1] = copy(materie[i]);
         }
     }
     return materiiFiltered;
@@ -101,8 +101,8 @@ MateriiRepo filterByProducer(Service* service, char producer[]) {
     int len = getLen(service->repo), k = 0;
     for (int i = 0; i < len; i++) {
         if (strcmp(getProducer(&materie[i]), producer) == 0) {
-            *(materiiFiltered.len) += 1;
-            (materiiFiltered.repo)[*(materiiFiltered.len) - 1] = copy(materie[i]);
+            materiiFiltered.len += 1;
+            (materiiFiltered.repo)[materiiFiltered.len - 1] = copy(materie[i]);
         }
     }
     return materiiFiltered;
@@ -123,8 +123,8 @@ MateriiRepo filterByQuantity(Service* service, int quantity) {
     int len = getLen(service->repo), k = 0;
     for (int i = 0; i < len; i++) {
         if (getQuantity(&materie[i]) <= quantity) {
-            *(materiiFiltered.len) += 1;
-            (materiiFiltered.repo)[*(materiiFiltered.len) - 1] = copy(materie[i]);
+            materiiFiltered.len += 1;
+            (materiiFiltered.repo)[materiiFiltered.len - 1] = copy(materie[i]);
         }
     }
     return materiiFiltered;
