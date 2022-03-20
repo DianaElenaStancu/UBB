@@ -1,9 +1,7 @@
-#include "TestScurt.h"
 #include "Colectie.h"
 #include "IteratorColectie.h"
 #include <assert.h>
 #include <iostream>
-#include <stdlib.h>
 
 using namespace std;
 
@@ -198,6 +196,6 @@ void testQuantity() {
 void testAllExtins() {
 	testCreeaza();
 	testAdauga();
-	//testSterge();
-	//testQuantity();
+	testSterge();
+	testQuantity();
 }

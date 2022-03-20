@@ -5,33 +5,39 @@ using namespace std;
 
 IteratorColectie::IteratorColectie(const Colectie& c): col(c) {
 	/* de adaugat */
-    pc = 0;
+    pozitie = 0;
+    frecventa = 1;
 }
 
 TElem IteratorColectie::element() const{
 	/* de adaugat */
-    if (!valid())
-        throw exception();
+    if (this->valid()) {
+        return col.e[pozitie].valoare;
+    }
     else
-        return col.element[pc];
-	return -1;
+        throw exception();
 }
 
 bool IteratorColectie::valid() const {
 	/* de adaugat */
-    if (pc < col.dim())
-        return true;
-	return false;
+    return pozitie < col.n;
 }
 
 void IteratorColectie::urmator() {
 	/* de adaugat */
-    if (!valid())
+    if (this->valid())
+        if (frecventa < col.e[pozitie].frecventa)
+            frecventa++;
+        else {
+            pozitie++;
+            frecventa = 1;
+        }
+    else
         throw exception();
-    pc++;
 }
 
 void IteratorColectie::prim() {
 	/* de adaugat */
-    pc = 0;
+    pozitie = 0;
+    frecventa = 1;
 }

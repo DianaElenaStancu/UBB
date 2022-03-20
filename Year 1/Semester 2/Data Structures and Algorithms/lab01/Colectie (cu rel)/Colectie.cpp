@@ -5,77 +5,92 @@
 using namespace std;
 
 bool rel(TElem e1, TElem e2) {
-	/* de adaugat */
-    if (e1 <= e2)
-        return true;
-	return false;
+    return e1 <= e2;
 }
 
+int Colectie::cautareBinara(Pereche *pereche, int stanga, int dreapta, TElem elem, bool& gasit) const{
+
+    int mijloc = 0;
+    while (stanga <= dreapta && !gasit) {
+        mijloc = stanga + (dreapta - stanga) / 2;
+        if (elem == pereche[mijloc].valoare) {
+            gasit = true;
+        }
+        else {
+            if (rel(elem, pereche[mijloc].valoare))
+                dreapta = mijloc - 1;
+            else
+                stanga = mijloc + 1;
+        }
+    }
+    if (rel(elem, pereche[mijloc].valoare))
+        return mijloc;
+    return mijloc + 1;
+}
+
+void Colectie::redim() {
+    //realocam un spatiu de capacitate dubla
+    Pereche* eNou = new Pereche[2 * cp];
+    //copiem vechile valori in eNou
+    for (int i = 0; i < n; i++)
+        eNou[i] = e[i];
+    //dublam capacitatea
+    cp = 2 * cp;
+    //eliberam vechea zona
+    delete[] e;
+    //vectorul indica spre noua zona
+    e = eNou;
+}
 
 Colectie::Colectie() {
 	/* de adaugat */
-    this -> cp = 1;
-    element = new TElem[cp];
-    this -> n = 0;
-}
-
-
-void Colectie::redim() {
-    TElem* elemNou = new TElem[2*cp];
-    for (int i = 0; i < n; i++)
-        elemNou[i] = element[i];
-    delete[] element;
-    element = elemNou;
-    this -> cp *= 2;
+    //setam capacitatea
+    this->cp = 1;
+    //alocam spatiu de memorare pentru vector
+    this->e = new Pereche[this->cp];
+    //setam numarul de elemente (colectia este vida)
+    this->n = 0;
 }
 
 void Colectie::adauga(TElem e) {
 	/* de adaugat */
-    if (n == cp)
-        redim();
-    int i = 0;
-    while (i < n && rel(element[i], e))
-        i++;
-
-    int pi = i;
-    i = n;
-    while (i > pi) {
-        element[i] = element[i - 1];
-        i--;
+    if (n == 0) {
+        Pereche p;
+        p.valoare = e;
+        p.frecventa = 1;
+        this->e[0] = p;
+        n++;
+        return;
     }
-
-    this -> element[pi] = e;
-    n++;
+    bool gasit = false;
+    int poz = cautareBinara(this->e, 0, n - 1, e, gasit);
+    if (gasit)
+        this->e[poz].frecventa++;
+    else {
+        if (n == cp)
+            redim();
+        for (int i = n; i > poz; i--)
+            this->e[i] = this->e[i - 1];
+        Pereche p;
+        p.valoare = e;
+        p.frecventa = 1;
+        this->e[poz] = p;
+        n++;
+    }
 }
 
 
 bool Colectie::sterge(TElem e) {
 	/* de adaugat */
-    if (n == 0)
+    bool gasit = false;
+    int poz = cautareBinara(this->e, 0, n - 1, e, gasit);
+    if (!gasit)
         return false;
-
-    int p, st, dr;
-    p = -1;
-    st = 0;
-    dr = n;
-    while(st <= dr) {
-        int m = (st+dr)/2;
-        if (element[m] == e) {
-            p = m;
-            break;
-        }
-        if (element[m] > e)
-            dr = m - 1;
-        if (element[m] < e)
-            st = m + 1;
-    }
-
-    if (p == -1)
-        return false;
+    if (this->e[poz].frecventa > 1)
+        this->e[poz].frecventa--;//stergem o singura aparitie a elementului e
     else {
-        for (int j = p; j < n; j++) {
-            element[j] = element[j + 1];
-        }
+        for (int i = poz; i < n-1; i++)
+            this->e[i] = this->e[i + 1];
         n--;
     }
     return true;
@@ -83,76 +98,35 @@ bool Colectie::sterge(TElem e) {
 
 bool Colectie::cauta(TElem elem) const {
 	/* de adaugat */
-    if (n == 0)
-        return false;
-
-    int p, st, dr;
-    p = -1;
-    st = 0;
-    dr = n;
-    while(st <= dr) {
-        int m = (st+dr)/2;
-        if (element[m] == elem) {
-            p = m;
-            break;
-        }
-        if (element[m] > elem)
-            dr = m - 1;
-        if (element[m] < elem)
-            st = m + 1;
-    }
-    if (p == -1)
-	    return false;
-    return true;
+    bool gasit = false;
+    cautareBinara(this->e, 0, n - 1, elem, gasit);
+    return gasit;
 }
 
 
 int Colectie::nrAparitii(TElem elem) const {
 	/* de adaugat */
-    if (n == 0)
-        return false;
-    
-    int c = 0;
-    int p, st, dr;
-    p = -1;
-    st = 0;
-    dr = n;
-    while(st <= dr) {
-        int m = (st+dr)/2;
-        if (element[m] == elem) {
-            p = m;
-            break;
-        }
-        if (element[m] > elem)
-            dr = m - 1;
-        if (element[m] < elem)
-            st = m + 1;
-    }
-    if (p == -1)
-        return c;
-    else {
-        int i = p;
-        while (element[p] == element[i])
-            c++, i++;
-        while (element[p] == element[i])
-            c++, i--;
-        return c;
-    }
+    bool gasit = false;
+    int poz = cautareBinara(this->e, 0, n - 1, elem, gasit);
+    if (!gasit)
+        return 0;
+    return this->e[poz].frecventa;
 }
 
 
 
 int Colectie::dim() const {
 	/* de adaugat */
-	return n;
+    int d = 0;
+    for (int i = 0; i < n; i++)
+        d += this->e[i].frecventa;
+	return d;
 }
 
 
 bool Colectie::vida() const {
 	/* de adaugat */
-    if (n == 0)
-	    return true;
-    return false;
+    return n == 0;
 }
 
 
@@ -163,5 +137,5 @@ IteratorColectie Colectie::iterator() const {
 
 Colectie::~Colectie() {
 	/* de adaugat */
-    delete[] element;
+    delete[] e;
 }

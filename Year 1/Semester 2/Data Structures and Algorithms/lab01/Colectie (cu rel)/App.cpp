@@ -4,8 +4,9 @@
 
 using namespace std;
 
-
 int main() {
 	testAllExtins();
+    cout << "Extins passed\n";
 	testAll();
+    cout << "Short passed\n";
 }

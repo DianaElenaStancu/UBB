@@ -2,6 +2,7 @@
 #include "Colectie.h"
 #include "IteratorColectie.h"
 #include <assert.h>
+#include <iostream>
 
 void testAll() {
 	Colectie c;
@@ -24,11 +25,10 @@ void testAll() {
 	IteratorColectie ic = c.iterator();
 	assert(ic.valid() == true);
 	while (ic.valid()) {
-		ic.element();
+        ic.element();
 		ic.urmator();
 	}
 	assert(ic.valid() == false);
 	ic.prim();
 	assert(ic.valid() == true);
-
 }

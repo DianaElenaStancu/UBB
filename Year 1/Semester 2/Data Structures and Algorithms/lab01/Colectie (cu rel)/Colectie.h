@@ -1,6 +1,12 @@
-#pragma once;
+#pragma once
 #include "IteratorColectie.h"
 typedef int TElem;
+
+//pentru perechea din vector (valoare, frecventa)
+struct Pereche {
+    TElem valoare;
+    int frecventa;
+};
 
 typedef bool(*Relatie)(TElem, TElem);
 
@@ -16,10 +22,17 @@ class Colectie {
 
 private:
 	/* aici e reprezentarea */
-    TElem *element;
-    int n;
+    //capacitate
     int cp;
+    //numarul de elemente
+    int n;
+    //elementul reprezentand o pereche de tipul (valoare, frecventa)
+    Pereche *e;
+
+    //redimensionarea vectorului dinamic
     void redim();
+
+    int cautareBinara(Pereche* pereche, int stanga, int dreapta, TElem elem, bool& gasit) const;
 public:
 		//constructorul implicit
 		Colectie();
