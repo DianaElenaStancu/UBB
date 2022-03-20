@@ -1,0 +1,1 @@
+9.TAD Mulțime –reprezentare folosind o LSI (lista simplu inlantuita).
