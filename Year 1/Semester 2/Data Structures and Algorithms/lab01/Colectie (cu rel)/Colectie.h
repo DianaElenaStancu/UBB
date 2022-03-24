@@ -28,10 +28,9 @@ private:
     int n;
     //elementul reprezentand o pereche de tipul (valoare, frecventa)
     Pereche *e;
-
     //redimensionarea vectorului dinamic
     void redim();
-
+    //cauta un element intr-un vector dinamic
     int cautareBinara(Pereche* pereche, int stanga, int dreapta, TElem elem, bool& gasit) const;
 public:
 		//constructorul implicit

@@ -3,12 +3,22 @@
 #include "Colectie.h"
 using namespace std;
 
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: Θ(1)
+ */
 IteratorColectie::IteratorColectie(const Colectie& c): col(c) {
 	/* de adaugat */
     pozitie = 0;
     frecventa = 1;
 }
 
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: Θ(1)
+ */
 TElem IteratorColectie::element() const{
 	/* de adaugat */
     if (this->valid()) {
@@ -18,11 +28,21 @@ TElem IteratorColectie::element() const{
         throw exception();
 }
 
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: Θ(1)
+ */
 bool IteratorColectie::valid() const {
 	/* de adaugat */
     return pozitie < col.n;
 }
 
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: Θ(1)
+ */
 void IteratorColectie::urmator() {
 	/* de adaugat */
     if (this->valid())
@@ -36,6 +56,11 @@ void IteratorColectie::urmator() {
         throw exception();
 }
 
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: Θ(1)
+ */
 void IteratorColectie::prim() {
 	/* de adaugat */
     pozitie = 0;

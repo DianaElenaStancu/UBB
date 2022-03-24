@@ -8,6 +8,14 @@ bool rel(TElem e1, TElem e2) {
     return e1 <= e2;
 }
 
+/*
+ * caz favorabil: perechea cautata se afla chiar in mijlocul vectorului - Θ(1)
+ * caz defavorabil: perechea nu exista sau se afla intr-un capat al sirului - Θ(logn)
+ * caz mediu: probabilitatea de a gasi un element dupa k cautari este p(k) = k/(1+2+...+log(n)) atunci
+ *             T(n) =  Σ(i=1,n) p(i)*i = (2*log(n)+1)/3 e Θ(logn)
+ * complexitate timp: O(logn)
+ * complexitate spatiu: O(1)
+ */
 int Colectie::cautareBinara(Pereche *pereche, int stanga, int dreapta, TElem elem, bool& gasit) const{
 
     int mijloc = 0;
@@ -28,6 +36,11 @@ int Colectie::cautareBinara(Pereche *pereche, int stanga, int dreapta, TElem ele
     return mijloc + 1;
 }
 
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(n)
+ * complexitate spatiu: O(n)
+ */
 void Colectie::redim() {
     //realocam un spatiu de capacitate dubla
     Pereche* eNou = new Pereche[2 * cp];
@@ -42,6 +55,11 @@ void Colectie::redim() {
     e = eNou;
 }
 
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: O(1)
+ */
 Colectie::Colectie() {
 	/* de adaugat */
     //setam capacitatea
@@ -52,6 +70,16 @@ Colectie::Colectie() {
     this->n = 0;
 }
 
+/*
+ * complexitatea realocarii este amortizata: Θ(1) (daca se considera n operatii de adaugare => redimensionarea se face cel
+ * mult o data, n=dimensiunea vectorului)
+ * caz favorabil: perechea trebuie adaugata/exista chiar in mijlocul vectorului- Θ(1)
+ * caz defavorabil: perechea (nu) exista in vector si se trebuie adaugata/se afla intr-un capat al sirului - Θ(logn)
+ * caz mediu: probabilitatea de a gasi un element dupa k cautari este p(k) = k/(1+2+...+log(n)) atunci
+ *             T(n) =  Σ(i=1,n) p(i)*i = (2*log(n)+1)/3 e Θ(logn)
+ * complexitate timp: O(logn)
+ * complexitate spatiu: O(1)
+ */
 void Colectie::adauga(TElem e) {
 	/* de adaugat */
     if (n == 0) {
@@ -79,7 +107,14 @@ void Colectie::adauga(TElem e) {
     }
 }
 
-
+/*
+ * caz favorabil: perechea exista chiar in mijlocul vectorului- Θ(1)
+ * caz defavorabil: perechea (nu) exista in vector si trebuie stearsa/se afla intr-un capat al sirului - Θ(logn)
+ * caz mediu: probabilitatea de a gasi un element dupa k cautari este p(k) = k/(1+2+...+log(n)) atunci
+ *             T(n) =  Σ(i=1,n) p(i)*i = (2*log(n)+1)/3 e Θ(logn)
+ * complexitate timp: O(logn)
+ * complexitate spatiu: O(1)
+ */
 bool Colectie::sterge(TElem e) {
 	/* de adaugat */
     bool gasit = false;
@@ -96,6 +131,14 @@ bool Colectie::sterge(TElem e) {
     return true;
 }
 
+/*
+ * caz favorabil: perechea cautata se afla chiar in mijlocul vectorului - Θ(1)
+ * caz defavorabil: perechea nu exista sau se afla intr-un capat al sirului - Θ(logn)
+ * caz mediu: probabilitatea de a gasi un element dupa k cautari este p(k) = k/(1+2+...+log(n)) atunci
+ *             T(n) =  Σ(i=1,n) p(i)*i = (2*log(n)+1)/3 e Θ(logn)
+ * complexitate timp: O(logn)
+ * complexitate spatiu: O(1)
+ */
 bool Colectie::cauta(TElem elem) const {
 	/* de adaugat */
     bool gasit = false;
@@ -103,7 +146,14 @@ bool Colectie::cauta(TElem elem) const {
     return gasit;
 }
 
-
+/*
+ * caz favorabil: perechea cautata se afla chiar in mijlocul vectorului - Θ(1)
+ * caz defavorabil: perechea nu exista sau se afla intr-un capat al sirului - Θ(logn)
+ * caz mediu: probabilitatea de a gasi un element dupa k cautari este p(k) = k/(1+2+...+log(n)) atunci
+ *             T(n) =  Σ(i=1,n) p(i)*i = (2*log(n)+1)/3 e Θ(logn)
+ * complexitate timp: O(logn)
+ * complexitate spatiu: O(1)
+ */
 int Colectie::nrAparitii(TElem elem) const {
 	/* de adaugat */
     bool gasit = false;
@@ -114,7 +164,11 @@ int Colectie::nrAparitii(TElem elem) const {
 }
 
 
-
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: O(1)
+ */
 int Colectie::dim() const {
 	/* de adaugat */
     int d = 0;
@@ -123,18 +177,30 @@ int Colectie::dim() const {
 	return d;
 }
 
-
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: O(1)
+ */
 bool Colectie::vida() const {
 	/* de adaugat */
     return n == 0;
 }
 
-
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: O(1)
+ */
 IteratorColectie Colectie::iterator() const {
 	return  IteratorColectie(*this);
 }
 
-
+/*
+ * caz favorabil = caz defavorabil = caz mediu
+ * complexitate timp: Θ(1)
+ * complexitate spatiu: Θ(1)
+ */
 Colectie::~Colectie() {
 	/* de adaugat */
     delete[] e;
