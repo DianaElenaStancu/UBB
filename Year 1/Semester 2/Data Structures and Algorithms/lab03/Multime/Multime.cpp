@@ -42,7 +42,7 @@ bool Multime::adauga(TElem elem) {
 }
 
 /*
- * caz favorabil: lista este goala Θ(1)
+ * caz favorabil: cazul in care am elementul pe prima pozitie Θ(1)
  * caz defavorabil: elementul trebuie adaugat pe ultima pozitie Θ(n)
  * caz mediu: probabilitatea de a trebui sa stergem in orice pozitie este 1/(n+1)
  *            T(n) = 1/(n+1)*Σ(i=1,n+1)i=(n+1)(n+2)/((n+1)*2) = (n+2)/2 e Θ(n)
@@ -137,3 +137,45 @@ IteratorMultime Multime::iterator() const {
 	return IteratorMultime(*this);
 }
 
+
+/*
+ * complexitate timp: 0(n)
+ */
+/*
+ * Functie diferentaMaxMin()
+ *  pre: m - multime
+ *  post: dif e integer (in cazul nostru) = diferenta dintre elementul maxim si minim din multime
+ *
+ *  Daca m.vida() atunci
+ *      returneaza -1
+ *  SfDaca
+ *  im = m.iterator()
+ *  im.prim()
+ *  min = max = im.element()
+ *  CatTimp im.valid() executa
+ *      Daca min > im.element() atunci
+ *          min = im.element()
+ *      SfDaca
+ *      Daca max < im.element() atunci
+ *          max = im.element()
+ *      SfDaca
+ *      im.urmator()
+ *   SfCatTimp
+ *   returneaza max-min
+ */
+int Multime::diferentaMaxMin() const {
+    if (vida())
+        return -1;
+    IteratorMultime im = iterator();
+    im.prim();
+    int min, max;
+    min=max=im.element();
+    while (im.valid()) {
+        if (min > im.element())
+            min = im.element();
+        if (max < im.element())
+            max = im.element();
+        im.urmator();
+    }
+    return max-min;
+}

@@ -112,7 +112,7 @@ void Colectie::adauga(TElem e) {
  * caz defavorabil: perechea (nu) exista in vector si trebuie stearsa/se afla intr-un capat al sirului - Θ(logn)
  * caz mediu: probabilitatea de a gasi un element dupa k cautari este p(k) = k/(1+2+...+log(n)) atunci
  *             T(n) =  Σ(i=1,n) p(i)*i = (2*log(n)+1)/3 e Θ(logn)
- * complexitate timp: O(logn)
+ * complexitate timp: O(n)
  * complexitate spatiu: O(1)
  */
 bool Colectie::sterge(TElem e) {
@@ -135,7 +135,7 @@ bool Colectie::sterge(TElem e) {
  * caz favorabil: perechea cautata se afla chiar in mijlocul vectorului - Θ(1)
  * caz defavorabil: perechea nu exista sau se afla intr-un capat al sirului - Θ(logn)
  * caz mediu: probabilitatea de a gasi un element dupa k cautari este p(k) = k/(1+2+...+log(n)) atunci
- *             T(n) =  Σ(i=1,n) p(i)*i = (2*log(n)+1)/3 e Θ(logn)
+ *             T(n) =  Σ(i=1,log(n)) p(i)*i = (2*log(n)+1)/3 e Θ(logn)
  * complexitate timp: O(logn)
  * complexitate spatiu: O(1)
  */

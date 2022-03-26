@@ -38,6 +38,10 @@ class Multime {
 		//verifica daca multimea e vida;
 		bool vida() const;
 
+        //returneaza diferenta dintre valoarea maxima si cea minima (presupunem valori intregi)
+        //daca multimea este vida, se returneaza -1
+        int diferentaMaxMin() const;
+
 		//returneaza un iterator pe multime
 		IteratorMultime iterator() const;
 
