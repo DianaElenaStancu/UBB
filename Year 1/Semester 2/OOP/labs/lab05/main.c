@@ -7,7 +7,7 @@
 
 int main() {
     RunAllTests();
-    printf("Tests passed");
+    printf("Tests passed\n");
 
     ValidationFunction validator = ValidateCheltuiala;
 

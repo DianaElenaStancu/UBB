@@ -11,13 +11,7 @@ Activitate::Activitate(const Activitate & obj) {
     Durata = obj.Durata;
 }
 
-Activitate& Activitate::operator=(const Activitate & obj) {
-    Titlu = obj.Titlu;
-    Descriere = obj.Descriere;
-    Tip = obj.Tip;
-    Durata = obj.Durata;
-    return *this;
-}
+Activitate& Activitate::operator=(const Activitate & obj) = default;
 
 TypeTitlu Activitate::getTitlu() const {
     return Titlu;
@@ -76,4 +70,18 @@ bool Activitate::operator<=(const Activitate& obj) const {
 
 bool Activitate::operator>=(const Activitate& obj) const {
     return !(*this < obj);
+}
+
+
+istream& operator>>(istream& in, Activitate& obj) {
+    in>>obj.Titlu;
+    in>>obj.Descriere;
+    in>>obj.Tip;
+    in>>obj.Durata;
+    return in;
+}
+
+ostream& operator<<(ostream& out, const Activitate& obj) {
+    out << obj.Titlu << ' ' << obj.Descriere << ' ' << obj.Tip << ' ' << obj.Durata;
+    return out;
 }

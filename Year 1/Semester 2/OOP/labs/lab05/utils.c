@@ -50,7 +50,8 @@ int isDouble(char* text)
 int compareTip(PCHELTUIALA t1, PCHELTUIALA t2) {
     if (strcmp(GetTip(t1), GetTip(t2)) == 0)
     {
-        return 0;}
+        return 0;
+    }
     else if (strcmp(GetTip(t1), GetTip(t2)) < 0)
     {
         return 1;
@@ -215,6 +216,20 @@ static void TestSort()
     assert(GetId(GetElement(Array, 0)) == 6);
     assert(GetId(GetElement(Array, 1)) == 7);
     assert(GetId(GetElement(Array, 2)) == 8);
+
+    TElem Cheltuiala3;
+    Cheltuiala3 = CreateCheltuiala(90, 5, 0.04, "gaz");
+    Insert(Array, Cheltuiala3);
+    BubbleSort(Array, compareTip, ascendingMode);
+    assert(GetId(GetElement(Array, 0)) == 6);
+    assert(GetId(GetElement(Array, 1)) == 7);
+    assert(GetId(GetElement(Array, 2)) == 8);
+    assert(GetId(GetElement(Array, 3)) == 90);
+    BubbleSort(Array, compareSuma, descendingMode);
+    assert(GetId(GetElement(Array, 3)) == 90);
+    assert(GetId(GetElement(Array, 2)) == 8);
+    assert(GetId(GetElement(Array, 1)) == 6);
+    assert(GetId(GetElement(Array, 0)) == 7);
 
     Destroy(Array, DestroyCheltuiala);
 }

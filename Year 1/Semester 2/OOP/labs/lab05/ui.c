@@ -179,14 +179,14 @@ int consoleModifyCheltuiala(PCONSOLE Console, char* errors)
         printf("New numar apartament: ");
         if (scanf("%d", &numar_apartament) != 1)
         {
-            strcat(errors, "Invalid day!\n");
+            strcat(errors, "Invalid numar apartament!\n");
             return -1;
         }
     }
 
     if (modifyType == 2 || modifyType == 3)
     {
-        printf("Type: ");
+        printf("Tip: ");
         if (scanf("%s", tip) != 1)
         {
             free(tip);
@@ -397,7 +397,7 @@ int runConsole(PCONSOLE Console)
 
         if (returnValue != 0)
         {
-            //while ((command = getchar()) != '\n' && command != EOF);
+            while ((command = getchar()) != '\n' && command != EOF);
             printf("%s", errors);
         }
         printf("\n");

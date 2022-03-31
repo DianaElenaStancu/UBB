@@ -133,6 +133,7 @@ static void TestCompare() {
     CHELTUIALA* CheltuialaCopy = CopyCheltuiala(Cheltuiala);
 
     assert(CheltuialaEqual(Cheltuiala, CheltuialaCopy));
+    assert(CheltuialaEqualId(Cheltuiala, CheltuialaCopy));
     assert(CheltuialaEqual(Cheltuiala, CheltuialaIdentic));
     assert(CheltuialaEqual(CheltuialaDiferit, CheltuialaIdentic) == 0);
     DestroyCheltuiala(CheltuialaDiferit);

@@ -3,10 +3,13 @@
 //
 #include <iostream>
 #include "tests.h"
+#include "ui.h"
 using namespace std;
 int main() {
     TestAll();
-    cout << "Tests passed!";
+    cout << "Tests passed!\n";
+    ConsoleUI console;
+    console.run();
     return 0;
 }
 

@@ -132,12 +132,7 @@ int ChangeCheltuiala(PSERVICE_CHELTUIELI Service, int Id, int NumarApartament, d
         return -1;
     }
 
-    if (ModifyCheltuiala(Service->Repository, Id, NumarApartament, Suma, Tip) != 0)
-    {
-        DestroyCheltuiala(Cheltuiala);
-        strcat(errors, "The modification failed!\n");
-        return -1;
-    }
+    if (ModifyCheltuiala(Service->Repository, Id, NumarApartament, Suma, Tip) != 0){  DestroyCheltuiala(Cheltuiala);strcat(errors, "The modification failed!\n");return -1;}
 
     DestroyCheltuiala(Cheltuiala);
 
@@ -354,7 +349,12 @@ static void TestChange()
 
     assert(ChangeCheltuiala(&Service, 6, 5, -200.244, "apa", errors) == -1);
     assert(strcmp(errors, "Invalid sum!\n") == 0);
-    assert(ChangeCheltuiala(&Service, 6, 5, 2100.244, "apa", errors) == 0);
+
+    assert(ChangeCheltuiala(&Service, 6, 5, -200.244, "", errors) == -1);
+
+    assert(ChangeCheltuiala(&Service, 90, 5, -200.244, "apa", errors) == -1);
+
+    assert(ChangeCheltuiala(&Service, 6, 5, 2100.244, "gaz", errors) == 0);
 
     DYNAMIC_VECTOR * Array;
     Array = ViewCheltuieli(&Service, 0, 0, errors);
