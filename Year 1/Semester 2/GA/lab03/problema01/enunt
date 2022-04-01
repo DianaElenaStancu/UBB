@@ -1,0 +1,65 @@
+Problema 1
+Cerința:
+Având dat un graf orientat ponderat și un vârf sursă,
+calculați costul minim de la vârful sursă până la fiecare vârf accesibil din graf.
+Implementarea trebuie să fie eficientă din punctul de vedere al memoriei folosite și al timpului de execuție.
+(Implementați un algoritm de drum minim în graf: Bellman-Ford, Dijkstra.)
+
+Formatul sursei
+Soluția va fi implementată în limbajul de programare C++.
+Numele sursei va fi „p1.cpp”.
+Căile fișierelor de intrare și de ieșire vor fi date ca parametrii în linia de comandă,
+prima fiind calea fișierului de intrare și a doua fiind calea fișierului de ieșire.
+
+Formatul fișierului de intrare
+Fișierul de  intrare conține pe prima  linie 3 numere  separate prin spațiu: V E S.
+V reprezintă numărul de vârfuri pentru graful dat.
+E reprezintă numărul arcelor din graf.
+S este nodul sursăde la care se vor calcula costurile minime.
+Următoarele E linii vor conține câte 3 numere separate prin spațiu, reprezentând câte un arc: x  y  w.
+x este  nodul  sursă al  arcului, y este  nodul  destinație,  iar w este  ponderea.
+Indexarea vârfurilor se face de la 0.
+
+Valorile din fișierul de intrare se încadrează în următoarele limite:
+ •1≤𝑉≤10000;
+ •0≤𝐸≤150000;
+ •0≤𝑆<𝑉;
+ •0≤𝑥<𝑉;
+ •0≤𝑦<𝑉;
+ •1≤𝑤≤100.
+
+Formatul fișierului de ieșire
+Fișierul  de  ieșire  va  conține  o  singură linie  cu N valori  separate  prin  spațiu.
+Valoarea  de  pe poziția i reprezintă costul drumului de cost minim de la vârful sursă S până la vârful i.
+Dacă vârful i este inaccesibil din vârful S, atunci pe poziția i se va scrie șirul de caractere „INF”.
+
+Exemplu
+
+fisierul de intrare:
+5 7 0
+0 2 4
+0 3 1
+1 0 1
+1 2 4
+2 0 1
+2 3 1
+3 4 1
+
+fisierul de iesire
+0 INF 4 1 2
+
+
+
+Fișierul de intrare descrie un graf orientat ponderat cu 5 vârfuri și 7 arce.
+Vârful sursă este 0.
+0 este accesibil din 0, iar costul asociat este 0, astfel prima valoare din fișierul de ieșire este 0.
+Vârful  1  nu  este  accesibil  din  0,  astfel  a  doua  valoare  din  fișierul  de  ieșire  este  INF.
+2  este accesibil din 0 prin intermediul drumului format dintr-un sigur arc 0->2, drum ce are asociat costul 4,
+astfel a treia valoare din fișierul de ieșire este 4.
+3 este accesibil din 0 prin intermediul drumului format dintr-un sigur arc 0->3, drum ce are asociat costul 1,
+astfel a treia valoare din fișierul de ieșire este 1.
+4 este accesibil din 0 prin intermediul drumului format din două arce 0->3->4, drum ce are asociat costul 1 + 1 = 2,
+astfel a treia valoare din fișierul de ieșire este 2. Costurile  scrise în  fișier  sunt  cele  minime.
+Vârful  4  este  accesibil  din  0 și  prin  intermediul drumului 0->2->3->4, însă
+acesta are costul asociat 4 + 1 + 1 = 6, cost care nu este minim.
+

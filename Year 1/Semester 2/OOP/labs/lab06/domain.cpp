@@ -3,12 +3,14 @@
 //
 
 #include "domain.h"
-
+#include <iostream>
+using namespace std;
 Activitate::Activitate(const Activitate & obj) {
     Titlu = obj.Titlu;
     Descriere = obj.Descriere;
     Tip = obj.Tip;
     Durata = obj.Durata;
+    cout << "obiect creat\n";
 }
 
 Activitate& Activitate::operator=(const Activitate & obj) = default;

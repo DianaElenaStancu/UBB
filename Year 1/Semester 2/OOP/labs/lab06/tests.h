@@ -9,7 +9,7 @@
 #include <cstring>
 #include <strstream>
 #include "domain.h"
-#include "repository.h"
+#include "repository.hpp"
 #include "service.h"
 
 class Test {

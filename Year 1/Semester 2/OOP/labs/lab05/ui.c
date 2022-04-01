@@ -307,13 +307,13 @@ static int consoleFilterCheltuieli(PCONSOLE Console, char* errors)
         if (scanf("%s", &tip) != 1)
         {
             free(tip);
-            strcat(errors, "Invalid sum!\n");
+            strcat(errors, "Invalid tip!\n");
             return -1;
         }
     }
 
     DYNAMIC_VECTOR * Array;
-    Array = FilterCheltuieli(&(Console->ServiceCheltuieli), numar_apartament, suma, tip, mode, errors);
+    Array = FilterCheltuieli(&(Console->ServiceCheltuieli), numar_apartament, suma, &tip, mode, errors);
 
     int count = GetLength(Array);
     for (int i = 0; i < count; ++i)
@@ -328,7 +328,7 @@ static int consoleFilterCheltuieli(PCONSOLE Console, char* errors)
         printf("Nu exista cheltuieli!\n");
     }
 
-    free(tip);
+    //free(tip);
     Destroy(Array, DestroyCheltuiala);
     return 0;
 }
@@ -338,7 +338,7 @@ int consoleUndo(PCONSOLE Console, char* errors)
     errors[0] = '\0';
     if (Undo(&(Console->ServiceCheltuieli)) != 0)
     {
-        strcat(errors, "No more undos!\n");
+        strcat(errors, "No more undos!\n\0");
         return -1;
     }
     return 0;

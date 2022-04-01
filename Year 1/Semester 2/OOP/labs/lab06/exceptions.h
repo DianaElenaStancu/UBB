@@ -32,7 +32,7 @@ private:
     string sep="\n";
     vector<InvalidFieldException> errors;
 public:
-    explicit ValidatorException()=default;
+    explicit ValidatorException()=default;//nu il pot folosit pentru conversii implicite si initializari de copiere
     explicit ValidatorException(const vector<InvalidFieldException> &errors_) : errors{errors_} {
         exc = "";
         for(const InvalidFieldException& ie : errors_)

@@ -3,6 +3,7 @@
 //
 
 #include "repository.h"
+#include <stdio.h>
 
 PREPOSITORY CreateRepository()
 {
@@ -110,6 +111,7 @@ int UndoOperation(PREPOSITORY* Repository)
 {
     if (GetLength((*Repository)->UndoList) == 0)
     {
+        printf("no undos here");
         return -1;
     }
 

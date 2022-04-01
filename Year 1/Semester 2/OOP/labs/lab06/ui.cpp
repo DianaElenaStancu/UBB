@@ -31,7 +31,7 @@ static void readActivitate(istream & in, ostream& out, TypeTitlu& titlu, TypeDes
     out<<"Introduceti durata: ";
     in>>strdurata;
     try{ durata = std::stoi(strdurata); }
-    catch(...) { out<<"Suprafata invalida!\n";  durata=0;}
+    catch(...) { out<<"Durata invalida!\n";  durata=0;}
 }
 
 static void writeActivitate(ostream & out, const Activitate & activitate) {

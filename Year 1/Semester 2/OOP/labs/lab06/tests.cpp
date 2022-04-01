@@ -137,7 +137,7 @@ protected:
         Repository<Activitate> repository{a2, a3};
         for(Activitate x : repository){}
         for(Activitate& x : repository){}
-        for(const Activitate x: repository){}
+        //for(const Activitate x: repository){}
         for(const Activitate& x: repository){}
         for(auto x : repository){}
         for(auto& x : repository){}
@@ -264,7 +264,7 @@ protected:
         service.addSRV("Alergat", "Sport", "Cardio", 120);
         for(Activitate x : service){}
         for(Activitate& x : service){}
-        for(const Activitate x: service){}
+        //for(const Activitate x: service){}
         for(const Activitate& x: service){}
         for(auto x : service){}
         for(auto& x : service){}

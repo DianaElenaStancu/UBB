@@ -2,8 +2,8 @@
 // Created by Diana-Elena Stancu on 29/03/2022.
 //
 
-#ifndef LAB06_REPOSITORY_H
-#define LAB06_REPOSITORY_H
+#ifndef LAB06_REPOSITORY_HPP
+#define LAB06_REPOSITORY_HPP
 
 #include <type_traits>
 #include <vector>
@@ -53,4 +53,4 @@ public:
 };
 
 
-#endif //LAB06_REPOSITORY_H
+#endif //LAB06_REPOSITORY_HPP

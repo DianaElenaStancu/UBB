@@ -5,11 +5,13 @@
 #ifndef LAB06_SERVICE_H
 #define LAB06_SERVICE_H
 
-
+#include <type_traits>
+#include <string>
+#include <sstream>
 #include "domain.h"
 #include "validator.h"
-#include "repository.cpp"
-#include "repository.h"
+//#include "repository.cpp"
+#include "repository.hpp"
 
 class Service{
 private:

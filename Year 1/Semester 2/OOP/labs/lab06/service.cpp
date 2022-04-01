@@ -4,6 +4,7 @@
 
 #include "service.h"
 
+#include "repository.hpp"
 
 void Service::addSRV(const TypeTitlu & titlu, const TypeDescriere & descriere, const TypeTip& tip, const TypeDurata & durata) {
     Activitate activitate{titlu, descriere, tip, durata};
@@ -38,8 +39,8 @@ Activitate Service::findSRV(const TypeTitlu & titlu) {
 Repository<Activitate> Service::filterDescriere(const TypeDescriere & descriere) {
     Validator::validDescriere(descriere);
     Repository<Activitate> rez;
-    auto pred = [&descriere](const Activitate &l)
-    { return l.getDescriere() == descriere; };
+    auto pred = [&descriere](const Activitate &a)
+    { return a.getDescriere() == descriere; };
     auto it = repository.find(pred);
     while(it != nullptr)
     {
@@ -53,8 +54,8 @@ Repository<Activitate> Service::filterDescriere(const TypeDescriere & descriere)
 Repository<Activitate> Service::filterTip(const TypeTip & tip) {
     Validator::validTip(tip);
     Repository<Activitate> rez;
-    auto pred = [&tip](const Activitate &l)
-    { return l.getTip() == tip; };
+    auto pred = [&tip](const Activitate &a)
+    { return a.getTip() == tip; };
     auto it = repository.find(pred);
     while(it != nullptr)
     {
