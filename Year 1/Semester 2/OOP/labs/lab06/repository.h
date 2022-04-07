@@ -2,13 +2,14 @@
 // Created by Diana-Elena Stancu on 29/03/2022.
 //
 
-#ifndef LAB06_REPOSITORY_HPP
-#define LAB06_REPOSITORY_HPP
+#ifndef LAB06_REPOSITORY_H
+#define LAB06_REPOSITORY_H
 
 #include <type_traits>
 #include <vector>
 #include <algorithm>
 #include "exceptions.h"
+#include "dynamic_array.h"
 using std::vector;
 
 template<typename T>
@@ -16,6 +17,7 @@ template<typename T>
 class Repository {
 private:
     vector <T> list;
+    //DynamicArray<T> list;
     typename vector <T>::iterator getIterator(T*);
 public:
     //constructori
@@ -53,4 +55,4 @@ public:
 };
 
 
-#endif //LAB06_REPOSITORY_HPP
+#endif //LAB06_REPOSITORY_H

@@ -37,14 +37,15 @@ TValoare Dictionar::adauga(TCheie c, TValoare v){
     }
     else {
         //adaug in lista noul element
-        //cout << "adaug: " << c << ' ' << primLiber << ' ' << prim << ' ' << urm[primLiber] <<  endl;
+        cout << "adaug: " << c << ' ' << primLiber << ' ' << prim << ' ' << urm[primLiber] <<  endl;
         TElem e;
         e.first = c;
         e.second = v;
         int nou = creeazaNod(e);
         if (prim == -1)
             prim = nou;
-        urm[ultim] = nou;
+        if (prim != ultim)
+            urm[ultim] = nou;
         prec[nou] = ultim;
         ultim = nou;
         urm[nou] = -1;
@@ -139,7 +140,6 @@ int Dictionar::creeazaNod(TElem e) {
     int i = aloca();
     elems[i] = e;
     urm[i] = -1;
-    prec[i] = -1;
     return i;
 }
 

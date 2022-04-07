@@ -1,16 +1,13 @@
 #include "TestExtins.h"
 #include "TestScurt.h"
 #include "Dictionar.h"
-
 #include <iostream>
 using namespace std;
-
 void myTest() {
     Dictionar d;
     for (int i = -10; i <= 10; i = i + 2) { //adaugam elemente din 2 in 2
         d.adauga(i,i);
     }
-    //printD(d);
     for (int i = 10; i > -10; i--) { //stergem descrescator (in ordine inversa fata de ordinea adaugarii)
         if (i % 2 == 0) {
             assert(d.sterge(i) == i);
@@ -48,7 +45,7 @@ void myTest() {
 
 int main() {
 	testAll();
-	testAllExtins();
+	//testAllExtins();
     //myTest();
 
 	cout << "That's all!" << endl;

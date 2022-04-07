@@ -2,10 +2,10 @@
 // Created by Diana-Elena Stancu on 29/03/2022.
 //
 
-#include "repository.hpp"
+#include "repository.h"
 
 template<typename T>
-typename vector <T>::iterator Repository<T>::getIterator(T* pointer ){
+typename vector <T>::iterator Repository<T>::getIterator(T* pointer){
     return list.begin() + (pointer-list.data());
 }
 

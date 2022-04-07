@@ -3,8 +3,7 @@
 //
 
 #include "service.h"
-
-#include "repository.hpp"
+#include "repository.h"
 
 void Service::addSRV(const TypeTitlu & titlu, const TypeDescriere & descriere, const TypeTip& tip, const TypeDurata & durata) {
     Activitate activitate{titlu, descriere, tip, durata};
