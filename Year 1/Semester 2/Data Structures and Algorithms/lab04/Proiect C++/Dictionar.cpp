@@ -21,6 +21,7 @@ Dictionar::~Dictionar() {
     delete[] prec;
 }
 
+//O(n)
 TValoare Dictionar::adauga(TCheie c, TValoare v){
 	/* de adaugat */
     //caut in dictionar daca se afla deja un element cu cheia data
@@ -36,25 +37,30 @@ TValoare Dictionar::adauga(TCheie c, TValoare v){
         return v_old;
     }
     else {
-        //adaug in lista noul element
-        cout << "adaug: " << c << ' ' << primLiber << ' ' << prim << ' ' << urm[primLiber] <<  endl;
-        TElem e;
-        e.first = c;
-        e.second = v;
-        int nou = creeazaNod(e);
-        if (prim == -1)
+        if (prim == -1) {
+            //adaug primul element
+            TElem e;
+            e.first = c;
+            e.second = v;
+            int nou = creeazaNod(e);
+            urm[nou] = prec[nou] = -1;
+            prim = ultim = nou;
+        } else {
+            //adaugam inainte de primul element
+            TElem e;
+            e.first = c;
+            e.second = v;
+            int nou = creeazaNod(e);
+            urm[nou] = prim;
+            prec[prim] = nou;
             prim = nou;
-        if (prim != ultim)
-            urm[ultim] = nou;
-        prec[nou] = ultim;
-        ultim = nou;
-        urm[nou] = -1;
+        }
     }
 	return NULL_TVALOARE;
 }
 
 
-
+//0(n)
 //cauta o cheie si returneaza valoarea asociata (daca dictionarul contine cheia) sau null
 TValoare Dictionar::cauta(TCheie c) const{
 	/* de adaugat */
@@ -70,7 +76,7 @@ TValoare Dictionar::cauta(TCheie c) const{
 	return NULL_TVALOARE;
 }
 
-
+//O(n)
 TValoare Dictionar::sterge(TCheie c){
 	/* de adaugat */
     int i = prim;
@@ -93,20 +99,24 @@ TValoare Dictionar::sterge(TCheie c){
     return v_old;
 }
 
-
+//0(1)
 int Dictionar::dim() const {
 	return n;
 }
 
+//0(1)
 bool Dictionar::vid() const{
 	return n==0;
 }
 
-
-IteratorDictionar Dictionar::iterator() const {
+//0(1)
+IteratorDictionar Dictionar::iterator(){
 	return  IteratorDictionar(*this);
 }
 
+/*
+ * complexitatea amortizata 0(1)
+ */
 int Dictionar::aloca() {
     //furnizeaza un spatiu liber de indice i
     //se sterge primul nod din lista spatiului liber
@@ -118,6 +128,10 @@ int Dictionar::aloca() {
     return i;
 }
 
+/*
+ * caz favorabil = caz defavorabil
+ * 0(n)
+ */
 void Dictionar::initSpatiuLiber(int cp) {
     //creeaza o LDI de lungime cp - toate pozitiile din tablou sunt libere
     for (int i = 0; i < cp - 1; i++)
@@ -128,6 +142,9 @@ void Dictionar::initSpatiuLiber(int cp) {
     primLiber = 0;
 }
 
+/*
+ * 0(1)
+ */
 void Dictionar::dealoca(int i) {
     //trece pozitia i in lista spatiului liber
     //se adauga i la inceputul listei spatiului liber
@@ -136,13 +153,21 @@ void Dictionar::dealoca(int i) {
     --n;
 }
 
+/*
+ * complexitatea amortizata 0(1)
+ */
 int Dictionar::creeazaNod(TElem e) {
     int i = aloca();
     elems[i] = e;
     urm[i] = -1;
+    prec[i] = -1;
     return i;
 }
 
+/*
+ * caz favorabil = caz defavorabil
+ * 0(n)
+ */
 void Dictionar::redim(int new_cp) {
     TElem* new_elems = new TElem [new_cp];
     int *new_urm = new int [new_cp], *new_prec = new int [new_cp];

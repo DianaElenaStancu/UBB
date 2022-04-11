@@ -118,7 +118,6 @@ void testSterge() {
 
 	d.sterge(-100);
 	assert(d.dim() == 0);
-    cout << "----------------\n";
 	for (int i = -100; i < 100; i++) { //adaugam de 5 ori pe fiecare element
 		d.adauga(i,0);
 		d.adauga(i,1);
@@ -157,7 +156,6 @@ void testIterator() {
 	assert(el.first == 33);
 	id2.urmator();
 	assert(id2.valid() == false);
-
 	id2.prim(); //resetam pe primul elemente
 	assert(id2.valid() == true);
 
@@ -231,7 +229,7 @@ void testQuantity() {//scopul e sa adaugam multe date
 void testAllExtins() {
 	testCreeaza();
 	testAdauga();
-	//testSterge();
+	testSterge();
 	testIterator();
 	testQuantity();
 }

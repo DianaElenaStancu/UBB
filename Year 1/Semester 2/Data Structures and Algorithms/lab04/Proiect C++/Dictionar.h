@@ -50,7 +50,7 @@ class Dictionar {
 	bool vid() const;
 
 	// se returneaza iterator pe dictionar
-	IteratorDictionar iterator() const;
+	IteratorDictionar iterator();
 
 
 	// destructorul dictionarului	

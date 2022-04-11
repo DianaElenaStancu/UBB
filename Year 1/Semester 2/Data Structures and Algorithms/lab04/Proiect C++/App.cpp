@@ -1,53 +1,49 @@
 #include "TestExtins.h"
 #include "TestScurt.h"
-#include "Dictionar.h"
 #include <iostream>
+#include "Dictionar.h"
+#include "IteratorDictionar.h"
 using namespace std;
-void myTest() {
+void testEliminaIterator() {
+    //creem un dictionar si un iterator
     Dictionar d;
-    for (int i = -10; i <= 10; i = i + 2) { //adaugam elemente din 2 in 2
-        d.adauga(i,i);
-    }
-    for (int i = 10; i > -10; i--) { //stergem descrescator (in ordine inversa fata de ordinea adaugarii)
-        if (i % 2 == 0) {
-            assert(d.sterge(i) == i);
-        }
-        else {
-            assert(d.sterge(i) == NULL_TVALOARE);
-        }
+    IteratorDictionar id = d.iterator();
+    //incercam sa eliminam element cand iteratorul este doar creat
+    try {
+       id.elimina();
+       assert(false);
+    } catch(...) {
+       assert(true);
     }
 
-    assert(d.dim() == 1);
-    //printD(d);
-
-    d.sterge(-10);
+    //eliminam primul element si vedem daca iteratorul este invalid
+    d.adauga(5, 11);
+    id.prim();
+    assert(id.elimina() == make_pair(5, 11));
+    assert(id.valid() == false);
     assert(d.dim() == 0);
-    cout << "----------------\n";
-    for (int i = -10; i < 10; i++) { //adaugam de 5 ori pe fiecare element
-        d.adauga(i,0);
-        d.adauga(i,1);
-        d.adauga(i,2);
-        d.adauga(i,3);
-        d.adauga(i,4);
-    }
-    //printD(d);
-    assert(d.dim() == 20);
-    for (int i = -20; i < 20; i++) { //stergem elemente inexistente si existente
-        if (i < -10 || i >= 10) {
-            assert(d.sterge(i) == NULL_TVALOARE);
-        }
-        else {
-            assert(d.sterge(i) == 4);
-            assert(d.sterge(i) == NULL_TVALOARE);
-        }
-    }
-}
 
+    //eliminam un element din mijloc si verificam daca pointeaza spre urmatorul element
+    d.adauga(1, 10);
+    d.adauga(2, 12);
+    d.adauga(3, 14);
+    id.prim();
+    assert(id.elimina() == make_pair(3, 14));
+    assert(id.valid());
+    assert(id.element() == make_pair(2, 12));
+
+    //eliminam ultimul element
+    assert(id.elimina() == make_pair(2, 12));
+    assert(id.valid());
+    assert(id.element() == make_pair(1, 10));
+    assert(id.elimina() == make_pair(1, 10));
+    assert(id.valid() == false);
+    assert(d.dim() == 0);
+}
 int main() {
 	testAll();
-	//testAllExtins();
-    //myTest();
-
+	testAllExtins();
+    testEliminaIterator();
 	cout << "That's all!" << endl;
 	return 0;
 }
