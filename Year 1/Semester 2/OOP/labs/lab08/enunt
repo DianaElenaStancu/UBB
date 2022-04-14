@@ -1,0 +1,37 @@
+Cerințe generale:
+– Creați o aplicație C++, folosiți paradigma orientat obiect
+– Aplicația are interfața utilizator tip consola
+– Utilizați procesul de dezvoltare bazat pe funcționalități (Feature driven
+development). Identificați funcționalitățile și planificați-le pe doua iterații
+– Folosiți o arhitectură stratificata (UI / Services(GRASP Controller) / Repository).
+Creati clase pentru: Domain, Service, UI, Repository.
+– Toate funcțiile necesare vor fi specificate și testate. (Test Code Coverage >99% la
+toate modulele in afara de UI)
+– Fara warninguri (in Visual Studio warning level /W4, treat warning as errors)
+– Const Correctness:
+– folosiți calificativul const pentru variabile/parametrii care nu sunt modificați
+– folosiți calificativul const pentru metode care nu modifica starea obiectelor
+– transmiteți parametrii prin const & peste tot unde este posibil
+– evitați copierea obiectelor când nu este necesar.
+
+ Iterație 1:
+– Folosiți clasa std::string si clasa std::vector din STL (librăria standard C++)
+– Nu folosiți pointeri.
+– Nu alocați dinamic.
+ Iterația 2:
+– Înlocuiți clasa std::vector cu o clasa proprie parametrizata (Template) care
+implementează o lista folosind structura de date lista înlănțuita sau vector
+dinamic (la alegere).
+– Validarea datelor. Utilizatorul este anunțat printr-un mesaj daca: introduce
+valori de intrare greșite; încearcă sa adauge o entitate de doua ori, încearcă
+sa șteargă / modifice o entitate inexistenta (se vor folosi excepții)
+– Creați o diagramă UML a claselor pentru a schița arhitectura aplicației
+
+
+4 Planificarea activităților
+Creați o aplicație care permite:
+· gestiunea unei liste de activități. Activitate: titlu, descriere, tip, durata
+· adăugare, ștergere, modificare și afișare activități
+· căutare activitate
+· filtrare activități după: descriere, tip
+· sortare activități după: titlu, descriere, tip + durata
