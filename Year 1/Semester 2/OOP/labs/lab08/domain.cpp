@@ -75,14 +75,17 @@ bool Activitate::operator>=(const Activitate& obj) const {
 
 
 istream& operator>>(istream& in, Activitate& obj) {
-    in>>obj.Titlu;
-    in>>obj.Descriere;
-    in>>obj.Tip;
-    in>>obj.Durata;
+    string line, sep;
+    getline(in, line);
+    istringstream input(line);
+    input>>obj.Titlu >> sep;
+    input>>obj.Descriere >> sep;
+    input>>obj.Tip >> sep;
+    input>>obj.Durata;
     return in;
 }
 
 ostream& operator<<(ostream& out, const Activitate& obj) {
-    out << obj.Titlu << ' ' << obj.Descriere << ' ' << obj.Tip << ' ' << obj.Durata;
+    out << obj.Titlu << " ; " << obj.Descriere << " ; " << obj.Tip << " ; " << obj.Durata << '\n';
     return out;
 }

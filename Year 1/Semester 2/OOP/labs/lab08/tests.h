@@ -13,6 +13,7 @@
 //#include "exceptions.h"
 //#include "validator.h"
 #include "service.h"
+
 class Test {
 protected:
     virtual void ctors(){} //il declar intr-o clasa si il redefinesc intr-o clasa derivata

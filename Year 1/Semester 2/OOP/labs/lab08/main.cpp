@@ -8,10 +8,12 @@ using namespace std;
 int main() {
     TestAll();
     cout << "Tests passed!\n";
-    Repository repo{};
-    Service service{repo};
+    Repository repository{};
+    RepositoryFile repositoryfile{"data.out"};
+    Service service{repository};
     ConsoleUI console{service};
     console.run();
+
     return 0;
 }
 

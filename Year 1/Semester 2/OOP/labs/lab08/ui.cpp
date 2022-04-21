@@ -3,7 +3,8 @@
 //
 
 #include "ui.h"
-
+#include <fstream>
+std::ifstream fin("file.txt");
 
 static void printMenu(ostream & out) {
     out<<"\tMeniu\n"
@@ -15,7 +16,7 @@ static void printMenu(ostream & out) {
          "6. Filtrare\n"
          "7. Sortare\n"
          "8. Lista de activitati\n"
-         "9. Numara activitati cu o durata mai mica decat\n"
+         "9. Undo\n"
          "0. Iesire\n";
 }
 
@@ -157,7 +158,8 @@ void ConsoleUI::lista_activitati(istream & in, ostream & out)  {
     out<<"\tMeniu lista activitati:\n"
          "1. Goleste lista\n"
          "2. Adauga in lista\n"
-         "3. Genereaza lista\n";
+         "3. Genereaza lista\n"
+         "4. Exporta lista\n";
     string cmd; in>>cmd;
     if (cmd == "1") {
         service.golesteLista();
@@ -172,14 +174,24 @@ void ConsoleUI::lista_activitati(istream & in, ostream & out)  {
         out << "Introduceti numarul de activitati: "; in >> nstr;
         try{ n = std::stoi(nstr); }
         catch(...) { out<<"Valoare invalida!\n"; return;}
-        if (n <= 0) {
+        if (n <= 0 && n >= 20) {
             out << "Valoare invalida!\n";
             return;
         }
         try {service.genereazaLista(n);}
         catch(Exception& me) {out << me; return;}
 
-    } else {
+    } else if (cmd == "4") {
+        string fisier;
+        cout << "Fisier export: ";
+        cin >> fisier;
+        if (fisier.length() <= 4 || (fisier.find(".html") == string::npos && fisier.find(".csv") == string::npos)) {
+            cout << "Nume fisier invalid!\n";
+            return;
+        }
+        service.exportFisier(fisier);
+    }
+    else {
         out << "Optiune invalida\n";
         return;
     }
@@ -197,6 +209,14 @@ void ConsoleUI::numara_activitati(istream & in, ostream & out)  {
     catch(...) { out<<"Durata invalida!\n";  durata=0;}
     out << service.numara_activitati(durata) << '\n';
 }
+
+void ConsoleUI::undo(ostream & out) {
+    try {
+        service.Undo();
+    }
+    catch(Exception& me) {out << me;}
+}
+
 void ConsoleUI::run(istream & in, ostream & out) {
     while (true){
         printMenu(out);
@@ -211,8 +231,126 @@ void ConsoleUI::run(istream & in, ostream & out) {
         else if(cmd=="6") filtrare(in, out);
         else if(cmd=="7") sortare(in, out);
         else if(cmd=="8") lista_activitati(in, out);
-        else if(cmd=="9") numara_activitati(in, out);
+        else if(cmd=="9") undo(out);
         else if(cmd=="0") break;
         else out<<"Comanda invalida!\n";
+    }
+}
+
+void ConsoleUI::run_file(ostream & out) {
+    vector <string> lista; string cmd;
+    while(fin >> cmd) {
+        lista.push_back(cmd);
+    }
+    for (auto &c: lista) {
+        string copie=c;
+        string input=c.substr(0, c.find(":"));
+        auto pos = c.find(input);
+        c.erase(pos, input.size() + 1);
+        if (input == "add") {
+            TypeTitlu titlu;
+            TypeDescriere descriere;
+            TypeTip tip;
+            TypeDurata durata_int; string durata;
+
+            titlu=c.substr(0, c.find(";"));
+            c.erase(0, titlu.size() + 1);
+
+            descriere=c.substr(0, c.find(";"));
+            c.erase(0, descriere.size() + 1);
+
+            tip=c.substr(0, c.find(";"));
+            c.erase(0, tip.size() + 1);
+
+            durata=c.substr(0, c.find(";"));
+            c.erase(0, durata.size() + 1);
+
+            try{ durata_int = std::stoi(durata); }
+            catch(...) { out<<"Durata invalida!\n";  durata_int=0;}
+
+            if(c.empty()) {
+                try { service.addSRV(titlu, descriere, tip, durata_int); }
+                catch (Exception &me) {
+                    cout << "Comanda invalida: " << copie << '\n';
+                    out << me;
+                    cout << "*****\n";
+                }
+            }
+
+        } else if (input == "delete") {
+            TypeTitlu titlu;
+            TypeDescriere descriere;
+            TypeTip tip;
+            TypeDurata durata_int; string durata;
+
+            titlu=c.substr(0, c.find(";"));
+            c.erase(0, titlu.size() + 1);
+
+            descriere=c.substr(0, c.find(";"));
+            c.erase(0, descriere.size() + 1);
+
+            tip=c.substr(0, c.find(";"));
+            c.erase(0, tip.size() + 1);
+
+            durata=c.substr(0, c.find(";"));
+            c.erase(0, durata.size() + 1);
+
+            try{ durata_int = std::stoi(durata); }
+            catch(...) { out<<"Durata invalida!\n";  durata_int=0;}
+            if (c.empty()) {
+                try{service.removeSRV(titlu, descriere, tip, durata_int);}
+                catch(Exception& me) {cout << "Comanda invalida: " << copie << '\n';  out<<me; cout << "*****\n";}
+            }
+
+        } else if (input == "modify") {
+            TypeTitlu titlu, titlu_new;
+            TypeDescriere descriere, descriere_new;
+            TypeTip tip, tip_new;
+            TypeDurata durata_int, durata_int_new; string durata, durata_new;
+
+            titlu=c.substr(0, c.find(";"));
+            c.erase(0, titlu.size() + 1);
+
+            descriere=c.substr(0, c.find(";"));
+            c.erase(0, descriere.size() + 1);
+
+            tip=c.substr(0, c.find(";"));
+            c.erase(0, tip.size() + 1);
+
+            durata=c.substr(0, c.find(";"));
+            c.erase(0, durata.size() + 1);
+
+            try{ durata_int = std::stoi(durata); }
+            catch(...) { out<<"Durata invalida!\n";  durata_int=0;}
+
+            titlu_new=c.substr(0, c.find(";"));
+            c.erase(0, titlu_new.size() + 1);
+
+            descriere_new=c.substr(0, c.find(";"));
+            c.erase(0, descriere_new.size() + 1);
+
+            tip_new=c.substr(0, c.find(";"));
+            c.erase(0, tip_new.size() + 1);
+
+            durata_new=c.substr(0, c.find(";"));
+            c.erase(0, durata_new.size() + 1);
+
+            try{ durata_int_new = std::stoi(durata_new); }
+            catch(...) { out<<"Durata invalida!\n";  durata_int_new=0;}
+
+            if(c.empty()) {
+                try{ service.modifySRV(titlu, descriere, tip, durata_int,
+                                       titlu_new, descriere_new, tip_new, durata_int_new);}
+                catch(Exception& me) {  cout << "Comanda invalida: " << copie << '\n'; out<<me; cout << "*****\n";}
+            }
+        } else if (input == "print") {
+            cout << "*****\n";
+            auto lista = service.getAll();
+            if(lista.empty()) out<<"Nu exista astfel de elemente!\n";
+            for(const auto& elem : lista)
+                writeActivitate(out, elem);
+        } else {
+            cout << "Comanda invalida: " << copie << '\n';
+        }
     }
 }

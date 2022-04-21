@@ -5,7 +5,9 @@
 #ifndef LAB07_SERVICE_H
 #define LAB07_SERVICE_H
 #include "repository.h"
+#include "repositoryfile.h"
 #include "validator.h"
+#include "undo.h"
 
 #include <algorithm>
 #include <algorithm>
@@ -21,6 +23,7 @@ class Service {
 private:
     Repository& repository;
     vector <Activitate> listaActivitati;
+    vector<std::unique_ptr<ActiuneUndo>> undoActions;
     //const Validator
 public:
     Service()=delete;
@@ -43,6 +46,8 @@ public:
     vector <Activitate> getLista();
     void genereazaLista(int n);
     long numara_activitati(int durata);
+    void exportFisier(const string& fisier);
+    void Undo();
 };
 
 

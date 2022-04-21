@@ -10,12 +10,14 @@ void Service::addSRV(const TypeTitlu & titlu, const TypeDescriere & descriere, c
     Activitate activitate{titlu, descriere, tip, durata};
     Validator::validActivitate(activitate);
     repository.add(activitate);
+    undoActions.push_back(std::make_unique<UndoStore>(repository, activitate));
 }
 
 void Service::removeSRV(const TypeTitlu &titlu, const TypeDescriere &descriere, const TypeTip &tip, const TypeDurata& durata) {
     Activitate activitate{titlu, descriere, tip, durata};
     Validator::validActivitate(activitate);
     repository.remove(activitate);
+    undoActions.push_back(std::make_unique<UndoErase>(repository, activitate));
 }
 
 void Service::modifySRV(const TypeTitlu & titlu, const TypeDescriere & descriere, const TypeTip& tip, const TypeDurata & durata,
@@ -25,6 +27,7 @@ void Service::modifySRV(const TypeTitlu & titlu, const TypeDescriere & descriere
     Validator::validActivitate(activitate);
     Validator::validActivitate(activitate_noua);
     repository.modify(activitate, activitate_noua);
+    undoActions.push_back(std::make_unique<UndoModify>(repository, activitate, activitate_noua));
 }
 
 Activitate Service::findSRV(const TypeTitlu& titlu) {
@@ -106,4 +109,26 @@ long Service::numara_activitati(int durata) {
     auto lista{ getAll() };
     auto i = count_if(lista.begin(), lista.end(), [&](Activitate &a){return a.getDurata() < durata;});
     return i;
+}
+
+void Service::exportFisier(const string& fisier) {
+    ofstream out{ fisier };
+
+    if (out.fail()) {return;}
+
+    for (const auto& a : listaActivitati) {
+        out << a;
+    }
+
+    out.close();
+}
+
+void Service::Undo() {
+    if (undoActions.empty()) {
+        throw ServiceException("Nu mai exista operatii de undo!\n");
+    }
+
+    std::unique_ptr<ActiuneUndo> undo = std::move(undoActions.at(undoActions.size() - 1));
+    (*undo).doUndo();
+    undoActions.pop_back();
 }

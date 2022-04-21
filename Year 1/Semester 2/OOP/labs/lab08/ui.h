@@ -10,6 +10,7 @@
 using std::cin;
 using std::cout;
 
+
 class ConsoleUI
 {
 private:
@@ -41,11 +42,15 @@ private:
 
     //nuamra activitati
     void numara_activitati(istream & in, ostream & out);
+
+    //undo
+    void undo(ostream & out);
 public:
     ConsoleUI()=delete;
     explicit ConsoleUI(Service& service) noexcept: service{service}{};
     // rulez meniul
     void run(istream& = cin, ostream& = cout);
+    void run_file(ostream& = cout);
 };
 
 

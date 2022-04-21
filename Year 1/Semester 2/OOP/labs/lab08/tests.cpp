@@ -120,6 +120,82 @@ protected:
     }
 };
 
+
+class TestRepositoryFile : public Test {
+protected:
+    void ctors() override {
+        try {
+            RepositoryFile repository{"test.out"};
+            assert(false);
+        }
+        catch(RepositoryException&) {
+            assert(true);
+        }
+        RepositoryFile repository{"testLoad.out"};
+        assert(repository.size() == 2);
+        auto const all = repository.getAll();
+        Activitate a1("citit", "romanta", "cultura", 120);
+        Activitate a2("alergat", "2km", "sport", 60);
+
+        assert(all.at(0) == a2);
+        assert(all.at(1) == a1);
+
+    }
+    void add() override {
+        ofstream out("testLoad1.out", std::ios::trunc);
+        out.close();
+        RepositoryFile repository{"testLoad1.out"};
+        assert(repository.size() == 0);
+        Activitate a1("citit", "romanta", "cultura", 120);
+        Activitate a2("alergat", "2km", "sport", 60);
+        repository.add(a1);
+        assert(repository.size() == 1);
+        repository.add(a2);
+        assert(repository.size() == 2);
+
+        RepositoryFile repository1{"testLoad1.out"};
+        auto const all = repository1.getAll();
+        assert(all.at(0) == a1);
+        assert(all.at(1) == a2);
+    }
+
+    void remove() override {
+        ofstream out("testLoad2.out", std::ios::trunc);
+        out.close();
+        RepositoryFile repository{"testLoad2.out"};
+        Activitate a1("citit", "romanta", "cultura", 120);
+        Activitate a2("alergat", "2km", "sport", 60);
+        try {
+            repository.remove(a1);
+            assert(false);
+        }
+        catch (RepositoryException&) { assert(true);}
+        repository.add(a1);
+        repository.add(a2);
+        assert(repository.size() == 2);
+        repository.remove(a1);
+        assert (repository.size() == 1);
+        try {
+            repository.find(a1);
+            assert(false);
+        }
+        catch (RepositoryException&) { assert(true);}
+        assert (repository.find(a2) == a2);
+        repository.remove(a2);
+        assert (repository.size() == 0);
+    }
+
+    void modify() override {
+        ofstream out("testLoad4.out", std::ios::trunc);
+        out.close();
+        RepositoryFile repository{"testLoad4.out"};
+        Activitate a1("citit", "romanta", "cultura", 120);
+        Activitate a2("alergat", "2km", "sport", 60);
+        repository.add(a1);
+        repository.modify(a1, a2);
+        assert(repository.find(a2) == a2);
+    }
+};
 class TestService : public Test {
 protected:
     void add() override{
@@ -127,6 +203,9 @@ protected:
         Service service{repository};
         service.addSRV("Citit", "Romanta", "Cultura", 120);
         Activitate a1("Citit", "Romanta", "Cultura", 120);
+        service.Undo();
+        assert(repository.size() == 0);
+        service.addSRV("Citit", "Romanta", "Cultura", 120);
         try {
             service.addSRV("Citit", "Romanta", "Cultura", 120);
             assert(false);
@@ -152,6 +231,12 @@ protected:
 
         assert(repository.size() == 0);
 
+        service.Undo();
+
+        assert(repository.size() == 1);
+
+        service.removeSRV("Citit", "Romanta", "Cultura", 120);
+
         try {
             service.removeSRV("Citit", "Romanta", "Cultura", 0);
             assert(false);
@@ -162,6 +247,7 @@ protected:
         Repository repository{};
         Service service{repository};
         Activitate a1("Yoga", "in curte","Relax", 30);
+        Activitate a2("Citit", "Romanta", "Cultura", 120);
         try {
             service.modifySRV("Citit", "Romanta", "Cultura", 120, "Citit", "Romanta", "Cultura", 120);
             assert(false);
@@ -182,6 +268,16 @@ protected:
             service.modifySRV("Citit", "Romanta", "Cultura", 120, "Citit", "", "Cultura", 120);
             assert(false);
         } catch(ValidatorException&) { assert(true);}
+
+        service.Undo();
+        assert(service.findSRV("Citit") == a2);
+        service.Undo();
+        try {
+            service.Undo();
+            assert(false);
+        } catch(...) {
+            assert(true);
+        }
     }
 
 
@@ -248,8 +344,11 @@ protected:
         Activitate a2("Cantat", "Romanta", "Cardio", 120);
         Activitate a3("Alergat", "ASport", "Cardio", 60);
 
-        try{service.genereazaLista(10); assert(false);}
-        catch(...) {assert(true);}
+        try {
+            service.genereazaLista(10);
+            assert(false);
+        }
+        catch (...) { assert(true); }
 
         service.addSRV("Citit", "Romanta", "Cultura", 120);
         service.addSRV("Cantat", "Romanta", "Cardio", 120);
@@ -259,8 +358,11 @@ protected:
         service.golesteLista();
         r = service.getLista();
         assert(r.empty());
-        try{service.adaugaActivitate("a"); assert(false);}
-        catch(...) {assert(true);}
+        try {
+            service.adaugaActivitate("a");
+            assert(false);
+        }
+        catch (...) { assert(true); }
         r = service.getLista();
         assert(r.empty());
         service.adaugaActivitate("Citit");
@@ -282,6 +384,28 @@ protected:
         assert(service.numara_activitati(100) == 1);
         assert(service.numara_activitati(130) == 3);
         assert(service.numara_activitati(0) == 0);
+
+        //exporta intr-un fisier
+        service.golesteLista();
+        service.adaugaActivitate("Citit");
+        service.adaugaActivitate("Alergat");
+        service.exportFisier("activitati.csv");
+
+        std::ifstream in{"activitati.csv"};
+        string format;
+        int number = 0;
+
+        while (getline(in, format)) {
+            if (number == 0) {
+                assert(format == "Citit ; Romanta ; Cultura ; 120");
+            } else {
+                assert(format == "Alergat ; ASport ; Cardio ; 60");
+            }
+            number++;
+        }
+
+        assert(number == 2);
+        in.close();
     }
 };
 
@@ -347,4 +471,5 @@ void TestAll() {
     TestRepository().run();
     TestService().run();
     TestValidator().run();
+    TestRepositoryFile().run();
 }

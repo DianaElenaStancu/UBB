@@ -17,13 +17,13 @@ public:
     //constructori
     Repository() = default;
     Repository(const Repository&) = delete;
-    void add(const Activitate&);
+    virtual void add(const Activitate&);
     const Activitate& find(const Activitate&) const;
     unsigned int size() const noexcept;
-    void remove(const Activitate&);
+    virtual void remove(const Activitate&);
     //const DynamicArray<Activitate>& getAll() const noexcept;
     const vector<Activitate>& getAll() const noexcept;
-    void modify(Activitate& activitate, Activitate& activitate_noua);
+    virtual void modify(Activitate& activitate, Activitate& activitate_noua);
 };
 
 
