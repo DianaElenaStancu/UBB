@@ -1,0 +1,2 @@
+TAD Colectie - reprezentare prin perechi de forma (element, frecventa), folosind
+o TD cu rezolvare coliziuni prin liste intrepatrunse

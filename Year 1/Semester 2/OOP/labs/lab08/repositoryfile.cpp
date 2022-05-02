@@ -2,47 +2,57 @@
 // Created by Diana-Elena Stancu on 20/04/2022.
 //
 #include "repositoryfile.h"
+#include <iostream>
+using namespace std;
 
-void RepositoryFile::loadFromFile() {
-    ifstream in(filename, std::ios::in);
+double RepositoryProb::gen() const {
+    std::mt19937 mt{ std::random_device{}() };
+    std::uniform_int_distribution<> dist(0, 100);
+    int r = dist(mt);
+    double pb = double(r/100.0);
+    return pb;
+};
 
-    if(!in.is_open()) {
-        throw RepositoryException("Open error\n");
-    }
-
-    if(in.peek() == ifstream::traits_type::eof()) {
-        return;
-    }
-
-    while(!in.eof()) {
-        if(in.peek() == ifstream::traits_type::eof()) {
-            return;
-        }
-        Activitate activitate;
-        in >> activitate;
-        Repository::add(activitate);
-    }
-}
-
-void RepositoryFile::writeToFile(){
-    ofstream out(filename, ios::trunc);
-
-    if (!out.is_open()) {throw RepositoryException("Open error\n");}
-
-    for (const auto& a : getAll()) {
-        out << a;
-    }
-}
-
-void RepositoryFile::add(const Activitate& activitate) {
+void RepositoryProb::add(const Activitate& activitate) {
     Repository::add(activitate);
-    writeToFile();
+    double pb = gen();
+    cout << pb << endl;
+    if (pb > prob) {
+        throw RepositoryException("exception prob");
+    }
+    ++index;
+    storage.insert(pair <int, Activitate>(index, activitate));
 }
-void RepositoryFile::remove(const Activitate& activitate) {
+
+void RepositoryProb::remove(const Activitate& activitate) {
     Repository::remove(activitate);
-    writeToFile();
+    double pb = gen();
+    cout << pb << endl;
+    if (pb > prob) {
+        throw RepositoryException("exception prob");
+    }
+    for (auto it = storage.begin(); it != storage.end(); it++) {
+        if(it->second == activitate) {
+            int in = it->first;
+            storage.erase(in);
+        }
+    }
+
 }
-void RepositoryFile::modify(Activitate& activitate, Activitate& activitate_noua) {
+
+void RepositoryProb::modify(Activitate& activitate, Activitate& activitate_noua) {
     Repository::modify(activitate, activitate_noua);
-    writeToFile();
+    double pb = gen();
+    cout << pb << endl;
+    if (pb > prob) {
+        throw RepositoryException("exception prob");
+    }
+    for (auto it = storage.begin(); it != storage.end(); it++) {
+        if(it->second == activitate) {
+            int in = it->first;
+            storage.erase(in);
+            storage.insert(pair <int, Activitate>(index, activitate_noua));
+        }
+    }
 }
+

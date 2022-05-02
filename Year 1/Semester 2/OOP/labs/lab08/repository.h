@@ -18,11 +18,11 @@ public:
     Repository() = default;
     Repository(const Repository&) = delete;
     virtual void add(const Activitate&);
-    const Activitate& find(const Activitate&) const;
-    unsigned int size() const noexcept;
+    virtual const Activitate& find(const Activitate&) const;
+    virtual unsigned int size() const noexcept;
     virtual void remove(const Activitate&);
     //const DynamicArray<Activitate>& getAll() const noexcept;
-    const vector<Activitate>& getAll() const noexcept;
+    virtual const vector<Activitate>& getAll() const noexcept;
     virtual void modify(Activitate& activitate, Activitate& activitate_noua);
 };
 

@@ -5,24 +5,30 @@
 #ifndef LAB07_REPOSITORYFILE_H
 #define LAB07_REPOSITORYFILE_H
 #include "repository.h"
-#include <string>
+#include <map>
+#include <random>
+#include <chrono>
 #include <fstream>
+using std::string;
+using std::map;
 using std::string;
 using std::ifstream;
 using std::ofstream;
 using std::ios;
 
-class RepositoryFile : public Repository {
-    string filename;
-    void loadFromFile();
-    void writeToFile();
+class RepositoryProb : public Repository {
+    double prob;
+    int index = 0;
+    map <int, Activitate> storage;
+    double gen() const;
+
 public:
-    RepositoryFile(const string& filename) : Repository(), filename {filename} {
-      loadFromFile();
+    RepositoryProb(const double& prob) : Repository(), prob {prob} {
     };
-    void add(const Activitate&) override;
-    void remove(const Activitate&) override;
-    void modify(Activitate& activitate, Activitate& activitate_noua) override;
+
+     void add(const Activitate&) override;
+     void remove(const Activitate&) override;
+     void modify(Activitate& activitate, Activitate& activitate_noua) override;
 };
 
 
