@@ -15,6 +15,7 @@
 #include <qmessagebox.h>
 #include <QtWidgets/qcombobox.h>
 #include <QTWidgets/qgridlayout.h>
+#include <string>
 
 #define Connect QObject::connect
 #define MsgBox(msg) QMessageBox::information(this, "Info", msg);
@@ -24,6 +25,8 @@ private:
     Service& service;
 
     QListWidget *lst = new QListWidget;
+    QListWidget *buttons = new QListWidget;
+    QVBoxLayout *btns = new QVBoxLayout;
 
     QLineEdit *Titlu = new QLineEdit;
     QLineEdit *Descriere = new QLineEdit;
@@ -31,6 +34,7 @@ private:
     QLineEdit *Durata = new QLineEdit;
     QLineEdit *Search = new QLineEdit;
 
+    QPushButton *btn;
     QPushButton *btnAdd = new QPushButton("&Add");
     QPushButton *btnModify = new QPushButton("&Modify");
     QPushButton *btnRemove = new QPushButton("&Remove");
@@ -53,22 +57,29 @@ private:
     QPushButton *btnSort = new QPushButton("&Sortare");
     QComboBox *cmbSort = new QComboBox;
 
+    QHBoxLayout *htable;
+    QWidget *panel1, *panel2, *panel3;
+    QVBoxLayout *p1l, *p2l, *p3l;
+
+    QVector<QPushButton*> buttons_f;
+
     // constructor methods
     void initGUI(){
-        QHBoxLayout *htable;
-        QWidget *panel1, *panel2;
-        QVBoxLayout *p1l, *p2l;
 
         // horizontal table
         htable = new QHBoxLayout;
         panel1 = new QWidget;
         panel2 = new QWidget;
+        panel3 = new QWidget;
         htable->addWidget(panel1);
         htable->addWidget(panel2);
+        htable->addWidget(panel3);
         p1l = new QVBoxLayout(panel1);
         p2l = new QVBoxLayout(panel2);
+        p3l = new QVBoxLayout(panel3);
         panel1->setLayout(p1l);
         panel2->setLayout(p2l);
+        panel3->setLayout(p3l);
         setLayout(htable); /// !
 
         // panel 1
@@ -128,6 +139,8 @@ private:
         notL3->addWidget(Path);
         notL3->addWidget(btnNotExportFisier);
         p2l->addLayout(notL3);
+
+        p3l->addLayout(btns);
     }
 
     void loadData(const vector <Activitate> &l){
@@ -135,7 +148,72 @@ private:
         for(const auto& a : l)
             lst->addItem(QString::fromStdString(a.toString()));
     }
+    /*void loadButtons() {
+        vector <string> tipuri;
+        for (const auto& activitate: service.getAll()) {
+            auto it = find_if(tipuri.begin(),tipuri.end(), [&](const string &t){return t == activitate.getTip() ;});//activitate.getTip() == a.getTip();
+            if (it == tipuri.end()) {
+                tipuri.push_back(activitate.getTip());
+            }
+        }
 
+        if ( btns->layout() != NULL ) {
+            QLayoutItem* item;
+            while ( ( item = btns->layout()->takeAt( 0 ) ) != NULL )
+            {
+                delete item->widget();
+                delete item;
+            }
+        }
+        for(const auto& tip: tipuri) {
+            btn = new QPushButton(QString::fromStdString(tip));
+            btn->setObjectName(QString::fromStdString(tip));
+
+            Connect(btn, &QPushButton::clicked, [&]() {
+                auto const s = btn->objectName();
+                //std::cout << s.toStdString() << std::endl;
+
+                MsgBox(s);
+            });
+            btns->addWidget(btn);
+        }
+    }*/
+    void loadButtons() {
+        vector <string> tipuri;
+        for (const auto& activitate: service.getAll()) {
+            auto it = find_if(tipuri.begin(),tipuri.end(), [&](const string &t){return t == activitate.getTip() ;});//activitate.getTip() == a.getTip();
+            if (it == tipuri.end()) {
+                tipuri.push_back(activitate.getTip());
+            }
+        }
+
+        if ( btns->layout() != NULL ) {
+            QLayoutItem* item;
+            while ( ( item = btns->layout()->takeAt( 0 ) ) != NULL )
+            {
+                delete item->widget();
+                delete item;
+            }
+        }
+
+        buttons_f.clear();
+
+        for(const auto& tip: tipuri) {
+            QPushButton* btn = new QPushButton(QString::fromStdString(tip));
+            btn->setObjectName(QString::fromStdString(tip));
+            buttons_f.push_back(btn);
+        }
+
+        for(auto& btn : buttons_f) {
+            Connect(btn, &QPushButton::clicked, [&]() {
+                auto const s = service.filterTip(btn->objectName().toStdString()).size();
+
+
+                MsgBox(QString::number(s));
+            });
+            btns->addWidget(btn);
+        }
+    }
 
     void init_connect() {
         //butoane helper
@@ -170,6 +248,7 @@ private:
             try {
                 service.addSRV(titlu, descriere, tip, durata);
                 loadData(service.getAll());
+                loadButtons();
             }
             catch(Exception& me) { MsgBox(me.what()); }
         });
@@ -182,6 +261,7 @@ private:
             try {
                 service.removeSRV(titlu, descriere, tip, durata);
                 loadData(service.getAll());
+                loadButtons();
             }
             catch(Exception& me) { MsgBox(me.what()); }
         });
@@ -194,6 +274,7 @@ private:
             try {
                 service.modifySRV1(titlu, descriere, tip, durata);
                 loadData(service.getAll());
+                loadButtons();
             }
             catch(Exception& me) { MsgBox(me.what()); }
         });
@@ -246,6 +327,7 @@ private:
             try{
                 service.Undo();
                 loadData(service.getAll());
+                loadButtons();
             }
             catch(Exception& me) {QMessageBox::information(this, "Eroare", me.what());}
         });
