@@ -1,6 +1,6 @@
 #include "IteratorColectie.h"
 #include "Colectie.h"
-
+//O(m)
 void IteratorColectie::deplasare() {
     while ((curent < col.m) && col.e[curent].valoare == NIL)
         curent++;

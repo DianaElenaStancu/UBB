@@ -5,6 +5,7 @@
 typedef int TElem;
 #define oo 0x3f3f3f3f
 #define NIL -oo
+#define INITIAL_SIZE 1000
 
 //pentru perechea din vector (valoare, frecventa)
 struct Pereche {
@@ -22,12 +23,15 @@ private:
 	/* aici e reprezentarea */
     //reprezentare folosind o TD - rezolvare coliziuni prin liste intrepatrunse
     int m, size; //numarul de locatii din tabela de dispersie
-    Pereche e[MAX]; //vectorul elementelor - vector static
-    int urm[MAX]; //vectorul legaturilor
+    Pereche* e; //vectorul elementelor - vector static
+    int* urm; //vectorul legaturilor
     int primLiber; // locatia primei pozitii libere din tabela
 
     //actualizare primLiber
     void actPrimLiber();
+
+    void redimAndRehashing();
+
     //functia de dispersie
     int d(TElem e) const;
 public:
@@ -60,5 +64,6 @@ public:
 		// destructorul colectiei
 		~Colectie();
 
+        void adaugaToateElementele(const Colectie &b);
 };
 

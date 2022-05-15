@@ -16,10 +16,12 @@ int Colectie::d(TElem el) const {
     //dispersia prin diviziune
     return hashCode(el) % m;
 }
-
+//O(n)
 Colectie::Colectie() {
 	/* de adaugat */
-    m = MAX; //initializam m cu o valoare predefinita
+    m = INITIAL_SIZE; //initializam m cu o valoare predefinita
+    e = new Pereche [m];
+    urm = new int [m];
     //daca va fi cazul, se poate redimensiona tabela si sa se redisperseze elementele
     //se initializeaza vectorii
     for (int i = 0; i < m; i++) {
@@ -32,6 +34,8 @@ Colectie::Colectie() {
     size = 0;
 }
 
+
+//O(n)
 // actualizare primLiber
 void Colectie::actPrimLiber()
 {
@@ -40,13 +44,44 @@ void Colectie::actPrimLiber()
         primLiber++;
 }
 
+//caz amortizat O(1)
+void Colectie::redimAndRehashing() {
+    int new_cp = m*2;
+    auto new_elems = new Pereche [new_cp];
+    auto old_elems = new Pereche[m];
+    int *new_urm = new int [new_cp];
+
+    for (int i = 0; i < new_cp; i++) {
+        new_elems[i].valoare = NIL; // consideram ca elementul e intreg
+        new_elems[i].frecventa = 0;
+        new_urm[i] = -1;
+    }
+
+    old_elems = e;
+    e = new_elems;
+    urm = new_urm;
+    primLiber = 0;
+    m = new_cp;
+    size = 0;
+
+    for (int i = 0; i < m/2; i++) {
+        if(old_elems[i].valoare != NIL) {
+            for (int j = 0; j < old_elems[i].frecventa; j++)
+                adauga(old_elems[i].valoare);
+        }
+    }
+
+    delete [] old_elems;
+}
+
+//O(1)
 void Colectie::adauga(TElem elem) {
 	/* de adaugat */
-    ++size;
     //locatia de dispersie a cheii
     int i=d(elem);
     if (e[i].valoare == NIL)	// pozitia este libera
     {
+        ++size;
         e[i].valoare = elem;	// adaugam elementul
         e[i].frecventa = 1;
         if (i == primLiber)
@@ -59,6 +94,7 @@ void Colectie::adauga(TElem elem) {
     {
         //verificam daca elementul exista deja in tabela
         if (e[i].valoare == elem) {
+            ++size;
             e[i].frecventa++;
             return;
         }
@@ -66,19 +102,21 @@ void Colectie::adauga(TElem elem) {
         i = urm[i];
     }
     if (primLiber >= m) {
-        cout << "Depasire!";
-        return;
+        //cout << "Depasire!";
+        redimAndRehashing();
+        //return;
     }
 
 
     // adaugam elementul
+    ++size;
     e[primLiber].valoare = elem;
     e[primLiber].frecventa = 1;
     urm[j] = primLiber;
     actPrimLiber();
 }
 
-
+//O(1)
 bool Colectie::sterge(TElem elem) {
 	/* de adaugat */
     /*int i=d(elem);
@@ -149,7 +187,7 @@ bool Colectie::sterge(TElem elem) {
     return true;
 }
 
-
+//O(1)
 bool Colectie::cauta(TElem elem) const {
 	/* de adaugat */
     int i=d(elem);
@@ -200,6 +238,34 @@ IteratorColectie Colectie::iterator() const {
 
 Colectie::~Colectie() {
 	/* de adaugat */
+    delete [] e;
+    delete [] urm;
 }
 
+
+/*
+ * complexitate: O(n) in contextul SUH in care operatia de adaugare este O(1)
+ * functie adaugaToateElementele(b)
+ *  pre: b - Colectie, c - Colectie
+ *  post: c' - Colectie in care toate elementele din b sunt adaugate in c
+ *
+ *  ic <- b.iterator()
+ *  ic.prim()
+ *  CatTimp ic.valid() executa
+ *      element <- ic.element()
+ *      c.adauga(element)
+ *      ic.urmator()
+ *  SfarsitCatTimp
+ *
+ *  SfarsitFunctie
+ */
+void Colectie::adaugaToateElementele(const Colectie &b) {
+    IteratorColectie ic = b.iterator();
+    ic.prim();
+    while (ic.valid()) {
+        TElem element = ic.element();
+        this->adauga(element);
+        ic.urmator();
+    }
+}
 

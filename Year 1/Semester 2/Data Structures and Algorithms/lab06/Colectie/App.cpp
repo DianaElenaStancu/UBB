@@ -5,51 +5,30 @@
 using namespace std;
 void t() {
     Colectie c;
-    assert(c.vida() == true);
-    assert(c.dim() == 0); //adaug niste elemente
     c.adauga(5);
     c.adauga(15);
     c.adauga(20);
     c.adauga(35);
     c.adauga(30);
-    assert(c.cauta(5));
-    assert(c.cauta(15));
-    assert(c.cauta(20));
-    assert(c.cauta(35));
-    assert(c.cauta(30));
-    assert(c.sterge(20));
-    assert(c.cauta(5));
-    assert(c.cauta(15));
-    assert(c.cauta(20)==false);
-    assert(c.cauta(35));
-    assert(c.cauta(30));
-    assert(c.sterge(5));
-    assert(c.cauta(5)==false);
-    assert(c.cauta(15));
-    assert(c.cauta(20)==false);
-    assert(c.cauta(35));
-    assert(c.cauta(30));
-    assert(c.sterge(15));
-    assert(c.cauta(5)==false);
-    assert(c.cauta(15)==false);
-    assert(c.cauta(20)==false);
-    assert(c.cauta(35));
-    assert(c.cauta(30));
-    assert(c.sterge(30));
-    assert(c.cauta(5)==false);
-    assert(c.cauta(15)==false);
-    assert(c.cauta(20)==false);
-    assert(c.cauta(35));
-    assert(c.cauta(30)==false);
-    assert(c.sterge(35));
-    assert(c.cauta(5)==false);
-    assert(c.cauta(15)==false);
-    assert(c.cauta(20)==false);
-    assert(c.cauta(35)==false);
-    assert(c.cauta(30)==false);
+    Colectie b;
+    c.adaugaToateElementele(b);
+    assert(c.dim() == 5);
+    b.adauga(6);
+    b.adauga(15);
+    b.adauga(15);
+    b.adauga(20);
+    b.adauga(35);
+    b.adauga(30);
+    c.adaugaToateElementele(b);
+    assert(c.nrAparitii(5) == 1);
+    assert(c.nrAparitii(15) == 3);
+    assert(c.nrAparitii(20) == 2);
+    assert(c.nrAparitii(35) == 2);
+    assert(c.nrAparitii(30) == 2);
 }
 
 int main() {
+    t();
 	testAll();
 	testAllExtins();
 	cout<<"End";

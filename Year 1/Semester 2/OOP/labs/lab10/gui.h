@@ -5,6 +5,7 @@
 #include "service.h"
 
 #include <QtWidgets/qwidget.h>
+#include <QtWidgets/qtablewidget.h>
 #include <QtWidgets/qboxlayout.h>
 #include <QtWidgets/qlistwidget.h>
 #include <QtWidgets/qformlayout.h>
@@ -24,8 +25,9 @@ class GUI : public QWidget{
 private:
     Service& service;
 
-    QListWidget *lst = new QListWidget;
-    QListWidget *buttons = new QListWidget;
+   // QListWidget *lst = new QListWidget;
+    QTableWidget *lst = new QTableWidget{0, 4};
+
     QVBoxLayout *btns = new QVBoxLayout;
 
     QLineEdit *Titlu = new QLineEdit;
@@ -34,7 +36,6 @@ private:
     QLineEdit *Durata = new QLineEdit;
     QLineEdit *Search = new QLineEdit;
 
-    QPushButton *btn;
     QPushButton *btnAdd = new QPushButton("&Add");
     QPushButton *btnModify = new QPushButton("&Modify");
     QPushButton *btnRemove = new QPushButton("&Remove");
@@ -116,7 +117,7 @@ private:
         buttonsR->addWidget(btnClear);
         p2l->addLayout(buttonsR);
         auto *search = new QHBoxLayout;
-        QLabel *srclabel = new QLabel("Cauta/filtreaza");
+        auto *srclabel = new QLabel("Cauta/filtreaza");
         search->addWidget(srclabel);
         search->addWidget(Search);
         search->addWidget(btnSearch);
@@ -134,7 +135,7 @@ private:
         notL2->addWidget(spinBox);
         p2l->addLayout(notL2);
         auto *notL3 = new QHBoxLayout;
-        QLabel *lblPath = new QLabel("Nume fisier");
+        auto *lblPath = new QLabel("Nume fisier");
         notL3->addWidget(lblPath);
         notL3->addWidget(Path);
         notL3->addWidget(btnNotExportFisier);
@@ -145,39 +146,26 @@ private:
 
     void loadData(const vector <Activitate> &l){
         lst -> clear();
-        for(const auto& a : l)
-            lst->addItem(QString::fromStdString(a.toString()));
+        lst->setHorizontalHeaderItem(0, new QTableWidgetItem("Titlu"));
+        lst->setHorizontalHeaderItem(1, new QTableWidgetItem("Descriere"));
+        lst->setHorizontalHeaderItem(2, new QTableWidgetItem("Tip"));
+        lst->setHorizontalHeaderItem(3, new QTableWidgetItem("Durata"));
+
+        int nbOfItems = 0;
+        lst->setRowCount(l.size());
+        for(const auto& a : l) {
+            // lst->addItem(QString::fromStdString(a.toString()));
+            lst->setVerticalHeaderItem(nbOfItems, new QTableWidgetItem(QString::number(nbOfItems)));
+            QTableWidgetItem* curent_item = new QTableWidgetItem(QString::fromStdString(a.getTitlu()));
+            curent_item->setData(Qt::UserRole, nbOfItems);
+            lst->setItem(nbOfItems, 0, curent_item);
+            lst->setItem(nbOfItems, 1, new QTableWidgetItem(QString::fromStdString(a.getDescriere())));
+            lst->setItem(nbOfItems, 2, new QTableWidgetItem(QString::fromStdString(a.getTip())));
+            lst->setItem(nbOfItems, 3, new QTableWidgetItem(QString::number(a.getDurata())));
+            nbOfItems++;
+        }
     }
-    /*void loadButtons() {
-        vector <string> tipuri;
-        for (const auto& activitate: service.getAll()) {
-            auto it = find_if(tipuri.begin(),tipuri.end(), [&](const string &t){return t == activitate.getTip() ;});//activitate.getTip() == a.getTip();
-            if (it == tipuri.end()) {
-                tipuri.push_back(activitate.getTip());
-            }
-        }
 
-        if ( btns->layout() != NULL ) {
-            QLayoutItem* item;
-            while ( ( item = btns->layout()->takeAt( 0 ) ) != NULL )
-            {
-                delete item->widget();
-                delete item;
-            }
-        }
-        for(const auto& tip: tipuri) {
-            btn = new QPushButton(QString::fromStdString(tip));
-            btn->setObjectName(QString::fromStdString(tip));
-
-            Connect(btn, &QPushButton::clicked, [&]() {
-                auto const s = btn->objectName();
-                //std::cout << s.toStdString() << std::endl;
-
-                MsgBox(s);
-            });
-            btns->addWidget(btn);
-        }
-    }*/
     void loadButtons() {
         vector <string> tipuri;
         for (const auto& activitate: service.getAll()) {
@@ -187,9 +175,9 @@ private:
             }
         }
 
-        if ( btns->layout() != NULL ) {
+        if ( btns->layout() != nullptr ) {
             QLayoutItem* item;
-            while ( ( item = btns->layout()->takeAt( 0 ) ) != NULL )
+            while ( ( item = btns->layout()->takeAt( 0 ) ) != nullptr )
             {
                 delete item->widget();
                 delete item;
@@ -199,7 +187,7 @@ private:
         buttons_f.clear();
 
         for(const auto& tip: tipuri) {
-            QPushButton* btn = new QPushButton(QString::fromStdString(tip));
+            auto btn = new QPushButton(QString::fromStdString(tip));
             btn->setObjectName(QString::fromStdString(tip));
             buttons_f.push_back(btn);
         }
@@ -215,6 +203,11 @@ private:
         }
     }
 
+    int getSelectedIndex() {
+        auto currentIndex = lst->selectionModel()->currentIndex();
+        return currentIndex.row();
+    }
+
     void init_connect() {
         //butoane helper
         Connect(btnShow, &QPushButton::clicked, [&]() { loadData(service.getAll()); });
@@ -224,19 +217,25 @@ private:
             Tip->setText("");
             Durata->setText("");
         });
+
         // lista
-        Connect(lst, &QListWidget::itemSelectionChanged, [&]() {
+        //Connect(lst, &QListWidget::itemSelectionChanged, [&]() {
+        Connect(lst, &QTableWidget::itemSelectionChanged, [&]() {
             if (lst->selectedItems().isEmpty()) {
                 //daca nu e nimic selectat golesc campurile
                 btnClear->animateClick();
                 return;
+            } else {
+                //auto *currentItem = lst->selectedItems().at(0);
+                int index = getSelectedIndex();
+                auto elements = service.getAll();
+                auto activitate = elements.at(index);
+                //Activitate activitate = currentItem.fromString(currentItem->text().toStdString());
+                Titlu->setText(QString::fromStdString(activitate.getTitlu()));
+                Descriere->setText(QString::fromStdString(activitate.getDescriere()));
+                Tip->setText(QString::fromStdString(activitate.getTip()));
+                Durata->setText(QString::fromStdString(std::to_string(activitate.getDurata())));
             }
-            /*auto *currentItem = lst->selectedItems().at(0);
-            Activitate activitate = activitate.fromString(currentItem->text().toStdString());
-            Titlu->setText(QString::fromStdString(activitate.getTitlu()));
-            Descriere->setText(QString::fromStdString(activitate.getDescriere()));
-            Tip->setText(QString::fromStdString(activitate.getTip()));
-            Durata->setText(QString::fromStdString(std::to_string(activitate.getDurata())));*/
         });
 
         //butoane CRUD
@@ -283,9 +282,14 @@ private:
             auto text = Search->text().toStdString();//.toInt();
             try{
                 Activitate l = service.findSRV(text);
-                for(int i=0; i<lst->count();++i)
-                    if(lst->item(i)->text().toStdString() == l.toString())
-                        lst->setCurrentRow(i);
+                for(int i=0; i<lst->rowCount();++i) {
+                    Activitate s = service.findSRV(lst->item(i, 0)->text().toStdString());
+                    if (s.toString() == l.toString()) {
+                        //std::cout << "HEEEI!";
+                        lst->selectRow(i);
+                    }
+                }
+
             }
             catch(Exception& me) { MsgBox(me.what()); }
         });
