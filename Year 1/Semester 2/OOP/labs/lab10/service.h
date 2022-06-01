@@ -7,7 +7,7 @@
 #include "repository.h"
 #include "validator.h"
 #include "undo.h"
-
+#include "cosActivitati.h"
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -27,12 +27,13 @@ class Service {
 private:
     Repository& repository;
     vector <Activitate> listaActivitati;
+    CosActivitati cosActivitati;
     vector<std::unique_ptr<ActiuneUndo>> undoActions;
     //const Validator
 public:
     Service()=delete;
     Service(const Service&) = delete;
-    explicit Service(Repository& repository) noexcept :repository(repository){};
+    Service(Repository& repository) noexcept :repository(repository){};
     void addSRV(const TypeTitlu &, const TypeDescriere &, const TypeTip&, const TypeDurata &);
     void removeSRV(const TypeTitlu &, const TypeDescriere &, const TypeTip &, const TypeDurata&);
     void modifySRV(const TypeTitlu & titlu, const TypeDescriere & descriere, const TypeTip& tip, const TypeDurata & durata,
@@ -53,6 +54,7 @@ public:
     long numara_activitati(int durata);
     void exportFisier(const string& fisier);
     void Undo();
+    CosActivitati& getCosActivitati();
 };
 
 

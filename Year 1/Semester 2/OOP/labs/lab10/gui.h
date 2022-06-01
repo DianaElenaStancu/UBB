@@ -3,7 +3,9 @@
 #define LAB10_GUI_H
 
 #include "service.h"
-
+#include "cosCRUDGUI.h"
+#include "cosReadOnlyGUI.h"
+#include "mainListModel.h"
 #include <QtWidgets/qwidget.h>
 #include <QtWidgets/qtablewidget.h>
 #include <QtWidgets/qboxlayout.h>
@@ -17,6 +19,7 @@
 #include <QtWidgets/qcombobox.h>
 #include <QTWidgets/qgridlayout.h>
 #include <string>
+#include <QListView>
 
 #define Connect QObject::connect
 #define MsgBox(msg) QMessageBox::information(this, "Info", msg);
@@ -26,7 +29,9 @@ private:
     Service& service;
 
    // QListWidget *lst = new QListWidget;
-    QTableWidget *lst = new QTableWidget{0, 4};
+   // QTableWidget *lst = new QTableWidget{0, 4};
+    MainListModel *lst = new MainListModel{this->service.getAll()};
+    QListView* mainListView = new QListView;
 
     QVBoxLayout *btns = new QVBoxLayout;
 
@@ -36,6 +41,8 @@ private:
     QLineEdit *Durata = new QLineEdit;
     QLineEdit *Search = new QLineEdit;
 
+    QPushButton *btnCosCRUD = new QPushButton("&Cos CRUD Button");
+    QPushButton *btnCosReadOnly = new QPushButton("&Cos Read Only Button");
     QPushButton *btnAdd = new QPushButton("&Add");
     QPushButton *btnModify = new QPushButton("&Modify");
     QPushButton *btnRemove = new QPushButton("&Remove");
@@ -84,7 +91,10 @@ private:
         setLayout(htable); /// !
 
         // panel 1
-        p1l->addWidget(lst);
+        //p1l->addWidget(lst);
+        mainListView->setModel(lst);
+        mainListView->setUniformItemSizes(true);
+        p1l->addWidget(mainListView);
         auto *buttonsL = new QHBoxLayout;
         buttonsL->addWidget(btnRemove);
         buttonsL->addWidget(btnShow);
@@ -126,6 +136,8 @@ private:
 
         //notificari
         auto *notL1 = new QHBoxLayout;
+        notL1->addWidget(btnCosReadOnly);
+        notL1->addWidget(btnCosCRUD);
         notL1->addWidget(btnNotShow);
         notL1->addWidget(btnNotAdd);
         notL1->addWidget(btnNotClear);
@@ -145,7 +157,7 @@ private:
     }
 
     void loadData(const vector <Activitate> &l){
-        lst -> clear();
+        /*lst -> clear();
         lst->setHorizontalHeaderItem(0, new QTableWidgetItem("Titlu"));
         lst->setHorizontalHeaderItem(1, new QTableWidgetItem("Descriere"));
         lst->setHorizontalHeaderItem(2, new QTableWidgetItem("Tip"));
@@ -163,7 +175,8 @@ private:
             lst->setItem(nbOfItems, 2, new QTableWidgetItem(QString::fromStdString(a.getTip())));
             lst->setItem(nbOfItems, 3, new QTableWidgetItem(QString::number(a.getDurata())));
             nbOfItems++;
-        }
+        }*/
+        lst->setActivitati(l);
     }
 
     void loadButtons() {
@@ -204,8 +217,8 @@ private:
     }
 
     int getSelectedIndex() {
-        auto currentIndex = lst->selectionModel()->currentIndex();
-        return currentIndex.row();
+       // auto currentIndex = lst->selectionModel()->currentIndex();
+        //return currentIndex.row();
     }
 
     void init_connect() {
@@ -220,7 +233,7 @@ private:
 
         // lista
         //Connect(lst, &QListWidget::itemSelectionChanged, [&]() {
-        Connect(lst, &QTableWidget::itemSelectionChanged, [&]() {
+       /* Connect(lst, &QTableWidget::itemSelectionChanged, [&]() {
             if (lst->selectedItems().isEmpty()) {
                 //daca nu e nimic selectat golesc campurile
                 btnClear->animateClick();
@@ -236,7 +249,7 @@ private:
                 Tip->setText(QString::fromStdString(activitate.getTip()));
                 Durata->setText(QString::fromStdString(std::to_string(activitate.getDurata())));
             }
-        });
+        });*/
 
         //butoane CRUD
         Connect(btnAdd, &QPushButton::clicked, [&](){
@@ -279,7 +292,7 @@ private:
         });
 
         Connect(btnSearch, &QPushButton::clicked, [&](){
-            auto text = Search->text().toStdString();//.toInt();
+            /*auto text = Search->text().toStdString();//.toInt();
             try{
                 Activitate l = service.findSRV(text);
                 for(int i=0; i<lst->rowCount();++i) {
@@ -291,7 +304,15 @@ private:
                 }
 
             }
-            catch(Exception& me) { MsgBox(me.what()); }
+            catch(Exception& me) { MsgBox(me.what()); }*/
+            try {
+                auto activitate = this->service.findSRV(this->Search->text().toStdString());
+                //this->populateTable(this->statsList, vector<Masina>(1, masina));
+                this->loadData(vector <Activitate>(1, activitate));
+            }
+            catch (const Exception& me) {
+                MsgBox(me.what());
+            }
         });
 
         Connect(btnFilter, &QPushButton::clicked, [&](){
@@ -372,6 +393,14 @@ private:
             }
             service.exportFisier(fisier);
             MsgBox("Export HTML/CSV cu succes!");
+        });
+        QObject::connect(btnCosCRUD, &QPushButton::clicked, [this]() {
+            auto cosCRUD = new CosCRUDGUI(this->service.getCosActivitati(), this->service);
+            cosCRUD->show();
+        });
+        QObject::connect(btnCosReadOnly, &QPushButton::clicked, [this]() {
+            auto cosReadOnly = new CosReadOnlyGUI(this->service.getCosActivitati());
+            cosReadOnly->show();
         });
     }
 

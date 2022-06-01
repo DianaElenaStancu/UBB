@@ -4,8 +4,6 @@
 
 #include "service.h"
 
-
-
 using namespace std;
 void Service::addSRV(const TypeTitlu & titlu, const TypeDescriere & descriere, const TypeTip& tip, const TypeDurata & durata) {
     Activitate activitate{titlu, descriere, tip, durata};
@@ -89,10 +87,12 @@ const vector<Activitate>& Service::getAll() const noexcept {
 
 void Service::golesteLista() {
     listaActivitati.clear();
+    cosActivitati.clear();
 }
 void Service::adaugaActivitate(const TypeTitlu &titlu) {
     Activitate a = findSRV(titlu);
     listaActivitati.push_back(a);
+    cosActivitati.append(a);
 }
 
 vector<Activitate> Service::getLista() {
@@ -100,6 +100,7 @@ vector<Activitate> Service::getLista() {
 }
 
 void Service::genereazaLista(int n) {
+    cosActivitati.clear();
     listaActivitati.clear();
     auto tot = repository.getAll();
     if (tot.empty())
@@ -108,10 +109,15 @@ void Service::genereazaLista(int n) {
     std::uniform_int_distribution<> dist(0, tot.size()-1);
     for (int i = 0; i < n; i++) {
         int rndNr = dist(mt);
+        //cosActivitati.append(tot[rndNr]);
         listaActivitati.push_back(tot[rndNr]);
     }
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::shuffle(listaActivitati.begin(),listaActivitati.end(), std::default_random_engine(seed));
+
+    for (auto &a: listaActivitati) {
+        cosActivitati.append(a);
+    }
 }
 
 long Service::numara_activitati(int durata) {
@@ -141,3 +147,7 @@ void Service::Undo() {
     (*undo).doUndo();
     undoActions.pop_back();
 }
+
+CosActivitati& Service::getCosActivitati(){
+    return this->cosActivitati;
+};

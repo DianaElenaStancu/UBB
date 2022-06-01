@@ -1,0 +1,3 @@
+2.TAD  Matrice-reprezentare  sub  forma  unei  matrice  rare
+(triplete  de  forma  <linie, coloană, valoare>   (valoare != 0)),
+memorate  folosind  un  ABC  reprezentat  înlănțuit,  cu  înlănțuiri reprezentate pe tablou.

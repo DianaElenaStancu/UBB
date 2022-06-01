@@ -31,6 +31,18 @@ add_executable(qt_test main.cpp
         validator.cpp
         gui.h
         gui.cpp
+        cosCRUDGUI.cpp
+        cosCRUDGUI.h
+        cosReadOnlyGUI.cpp
+        cosReadOnlyGUI.h
+        Observer.cpp
+        Observer.h
+        cosActivitati.cpp
+        cosActivitati.h
+        mainListModel.cpp
+        mainListModel.h
+        generalTableModel.cpp
+        generalTableModel.h
         )
 target_link_libraries(qt_test
         Qt::Core
