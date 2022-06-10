@@ -4,29 +4,21 @@
 
 #include <iostream>
 #include <fstream>
-#include <vector>
 #include <string>
 #include <set>
 #include <map>
 #include <algorithm>
+using namespace std;
 
-using std::cout;
-using std::vector;
-using std::string;
-using std::ifstream;
-using std::ofstream;
-using std::map;
-using std::multiset;
-
-#define thing std::pair<unsigned int, char>
-#define freq first
-#define character second
+#define pr std::pair<unsigned int, char>
+#define fr first
+#define chr second
 
 class Node {
 private:
     Node* left;
     Node* right;
-    thing info;
+    pr info;
 
     const char minChar(Node* node) const {
         if (node == NULL) {
@@ -36,39 +28,40 @@ private:
         char minLeft = minChar(node->left);
         char minRight = minChar(node->right);
 
-        return std::min(node->info.character, std::min(minLeft, minRight));
+        return std::min(node->info.chr, std::min(minLeft, minRight));
     }
 
 public:
-    Node(thing info) : left{ NULL }, right{ NULL }, info{ info } {};
-    Node(Node* left, Node* right, thing info) : left{ left }, right{ right }, info{ info }{};
-
-    const char minimChar() const {
-        return std::min(this->info.character, std::min(minChar(this->left), minChar(this->right)));
-    }
+    Node(pr info) : left{ NULL }, right{ NULL }, info{ info } {};
+    Node(Node* left, Node* right, pr info) : left{ left }, right{ right }, info{ info }{};
 
     bool operator<(const Node& ot) {
-        if (this->info.freq != ot.info.freq) {
-            return this->info.freq < ot.info.freq;
+        if (this->info.fr != ot.info.fr) {
+            return this->info.fr < ot.info.fr;
         }
 
         return this->minimChar() < ot.minimChar();
     }
 
+
+    const char minimChar() const {
+        return std::min(this->info.chr, std::min(minChar(this->left), minChar(this->right)));
+    }
+    
     friend class Huffman;
 };
 
 class Huffman {
 private:
-    string input_file;
-    string output_file;
+    string inf;
+    string outf;
     string message;
     map<char, int> diagram;
     multiset<Node *, bool(*)(Node*, Node*)> huff;
     map<char, string> encoding;
 
     void read() {
-        ifstream in(input_file);
+        ifstream in(inf);
 
         if (in.fail()) {
             return;
@@ -87,7 +80,6 @@ private:
         }
 
         for (const auto& c : diagram) {
-            //cout << c.first << " " << c.second << '\n';
             huff.insert(new Node(std::make_pair(c.second, c.first)));
         }
 
@@ -104,9 +96,7 @@ private:
             Node* right = *huff.begin();
             huff.erase(huff.begin());
 
-            cout << left->info.character << " " << left->info.freq << " " << left->minimChar() << " " << right->info.character << " " << right->info.freq << " "<< right->minimChar() << '\n';
-
-            node = new Node(left, right, std::make_pair(left->info.freq + right->info.freq, 127));
+            node = new Node(left, right, std::make_pair(left->info.fr + right->info.fr, 127));
             huff.insert(node);
         }
 
@@ -118,7 +108,7 @@ private:
             return;
         }
         if (node->left == NULL && node->right == NULL) {
-            encoding[node->info.character] = encode;
+            encoding[node->info.chr] = encode;
             return;
         }
         createEncoding(node->left, encode + "0");
@@ -132,22 +122,14 @@ private:
     }
 
 public:
-    Huffman(const string& input_file, const string& output_file) : input_file{ input_file }, output_file{ output_file }, huff([](Node* node1, Node* node2) {
-        //if (node1->info.freq != node2->info.freq) {
-        //	return node1->info.freq < node2->info.freq;
-        //}
-
-        //char min1 = node1->minimChar();
-        //char min2 = node2->minimChar();
-
-        //return min1 <= min2;
+    Huffman(const string& inf, const string& outf) : inf{ inf }, outf{ outf }, huff([](Node* node1, Node* node2) {
         return *node1 < *node2;
     }){};
 
     void print() {
         solve();
 
-        ofstream out(output_file);
+        ofstream out(outf);
 
         if (out.fail()) {
             return;
@@ -155,7 +137,7 @@ public:
 
         out << diagram.size() << '\n';
         for (const auto& c : diagram) {
-            out << c.freq << " " << c.character << '\n';
+            out << c.fr << " " << c.chr << '\n';
         }
 
         for (const auto& c : message) {
@@ -163,10 +145,6 @@ public:
         }
 
         out.close();
-    }
-
-    ~Huffman() {
-
     }
 };
 

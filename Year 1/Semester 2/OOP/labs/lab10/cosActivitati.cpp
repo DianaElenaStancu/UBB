@@ -32,12 +32,3 @@ void CosActivitati::generate(int nr)
 {
 
 }
-/*
-void CosActivitati::exportCSV(const string& fileN)
-{
-    ofstream fout(fileN);   //washRepo.getElems()
-    for (const Activitate& c : v) {
-        fout << c.getNrInmatr() << ',' << c.getProd() << ',' << c.getModel() << ',' << c.getTip() << endl;
-    }
-}
-*/

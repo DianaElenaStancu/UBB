@@ -107,7 +107,7 @@ int InaltareNod() {
 }
 int main(int argc, char** argv)
 {
-    fin.open("1-in.txt");
+    fin.open("7-in.txt");
     fout.open("out.txt");
     citire();
     init();
