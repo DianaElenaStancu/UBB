@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
     <generated />
   </component>
   <component name="CMakeSettings">
@@ -10,29 +13,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="616cf7e7-91fb-46a9-8a9d-5caaccd46d10" name="Changes" comment="lab01 oop">
-      <change afterPath="$PROJECT_DIR$/.idea/UBB2.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/.idea/lab01.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/GA/lab01/.idea/lab01.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/GA/lab01/ex01/.idea/ex01.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/GA/lab01/untitled/.idea/untitled.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/labs/lab01/problema06/.idea/problema06.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/labs/lab01/problemaa/.idea/problema.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/labs/lab02/problema06/.idea/problema06.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/labs/lab02/untitled/.idea/untitled.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/test/.idea/test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/exams/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/exams/.idea/exams.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/exams/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Year 1/Semester 2/OOP/exams/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/App.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/App.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/Colectie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/Colectie.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/Colectie.h" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/Colectie.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/IteratorColectie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/IteratorColectie.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/IteratorColectie.h" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Colectie (cu rel)/IteratorColectie.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Teste (cu relatie)/TestExtins.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Teste (cu relatie)/TestExtins.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Teste (cu relatie)/TestExtins.h" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Teste (cu relatie)/TestExtins.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Teste (cu relatie)/TestScurt.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Teste (cu relatie)/TestScurt.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Teste (cu relatie)/TestScurt.h" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/Teste (cu relatie)/TestScurt.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/interfata cu relatie.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01/interfata cu relatie.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,28 +44,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="cf.first.check.clang-format" value="false" />
-    <property name="cidr.known.project.marker" value="true" />
-    <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Year 1/Semester 2/Data Structures and Algorithms/lab01" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="nume" type="PythonConfigurationType" factoryName="Python">
@@ -126,6 +106,7 @@
       <workItem from="1646394325324" duration="24000" />
       <workItem from="1646395657241" duration="29000" />
       <workItem from="1646395727282" duration="655000" />
+      <workItem from="1656762316978" duration="197000" />
     </task>
     <task id="LOCAL-00001" summary="lab01 oop">
       <created>1646298468251</created>
