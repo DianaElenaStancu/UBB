@@ -1,11 +1,12 @@
 package Repository;
 
+import domain.Entity;
 import domain.Validator.Validator;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class InMemoryRepository<E extends HasId<ID>,ID> implements Repository<E, ID> {
+public abstract class InMemoryRepository<ID, E extends Entity<ID>> implements Repository<E, ID> {
     private Map<ID, E> entities;
     private Validator<E> validator;
 
@@ -39,6 +40,6 @@ public abstract class InMemoryRepository<E extends HasId<ID>,ID> implements Repo
 
     @Override
     public Iterable<E> findAll() {
-        return null;
+        return entities.values();
     }
 }

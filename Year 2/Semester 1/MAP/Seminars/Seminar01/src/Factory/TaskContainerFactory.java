@@ -3,15 +3,22 @@ package Factory;
 import Container.Container;
 import Container.Strategy;
 import Container.StackContainer;
+import Container.QueueContainer;
 
 public class TaskContainerFactory implements Factory{
-    public TaskContainerFactory() {} //--> singleton
+    private static TaskContainerFactory instance = null;
+    public TaskContainerFactory() {}
+
+    public static TaskContainerFactory getInstance() {
+        if (instance == null)
+            instance = new TaskContainerFactory();
+        return instance;
+    }
 
     public Container createContainer (Strategy strategy) {
-        if (strategy == Strategy.LIFO) {
-            return new StackContainer();
-        }
-        //TO DO FIFO
-        return null;
+        return switch (strategy) {
+          case LIFO -> new StackContainer();
+          case FIFO -> new QueueContainer();
+        };
     }
 }

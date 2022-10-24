@@ -2,7 +2,7 @@ package domain;
 
 import java.util.Objects;
 
-public class Student {
+public class Student extends Entity<Long>{
     private String nume;
     private float media;
 
