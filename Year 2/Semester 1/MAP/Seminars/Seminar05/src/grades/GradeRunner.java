@@ -1,13 +1,16 @@
 package grades;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class GradeRunner {
+    static Comparator<Nota2DTO> comparator = new Comparator<Nota2DTO>() {
+        @Override
+        public int compare(Nota2DTO o1, Nota2DTO o2) {
+            return Double.compare(o1.getGrade(), o2.getGrade());
+        }
+    };
     public static void main(String[] args) {
         List<Student> studentList = new ArrayList<Student>();
         Student s1 = new Student(212, "Ana");
@@ -38,7 +41,10 @@ public class GradeRunner {
         notaList.addAll(Arrays.asList(n1,n2,n3,n4));
 
         report1(notaList);
+        System.out.println("report2: ");
         report2(notaList);
+        System.out.println();
+        System.out.println(report3(notaList, "1"));
     }
 
     private static void report1(List<Nota> notaList) {
@@ -67,4 +73,28 @@ public class GradeRunner {
                     System.out.println(sum/count);
                 });
     }
+
+    private static double report3(List<Nota> notaList, String idTema) {
+        Predicate<Nota> byTema = x -> x.getTema().getId().equals(idTema);
+        Double d = notaList.stream().filter(byTema).mapToDouble(x -> x.getValue()).average().getAsDouble();
+                //.reduce(0D, (x,y) -> x + y/notaList.stream().filter(byTema).count());
+        return d;
+    }
+
+    private static void report4(List<Nota> notaList) {
+        Map<Tema, List<Nota>> map = notaList.stream().collect(Collectors.groupingBy(x -> x.getTema()));
+
+        System.out.println(map.entrySet().stream().
+                map(x -> new Nota2DTO(x.getKey().getDescriere(),report3(notaList, x.getKey().getId())))
+                .max(comparator).get());
+    }
+
+    private static void report5(List<Nota> notaList) {
+        Map<Tema, List<Nota>> map = notaList.stream().collect(Collectors.groupingBy(x -> x.getTema()));
+
+        System.out.println(map.entrySet().stream().
+                map(x -> new Nota2DTO(x.getKey().getDescriere(),report3(notaList, x.getKey().getId())))
+                .min(comparator).get());
+    }
+
 }
