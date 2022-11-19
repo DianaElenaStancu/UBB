@@ -1,3 +1,2 @@
-marius;marius;ilie;marius@gmail.com;parola1
-cristi;cristi;ilie;cristi@gmail.com;parola2
-delia;delia;ilie;delia@gmail.com;parola3
+marius;Cristi;hds;anamaria@gmail.com;Parola!2
+cristi;krisyi;pop;kristi@gm.com;GJKh&6
