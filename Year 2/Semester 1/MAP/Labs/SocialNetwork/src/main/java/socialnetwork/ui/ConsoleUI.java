@@ -10,6 +10,11 @@ import socialnetwork.service.NetworkService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import static socialnetwork.constants.DateTime.DATATIME_FORMATTER;
 
 public class ConsoleUI implements UI {
     String username;
@@ -36,7 +41,9 @@ public class ConsoleUI implements UI {
             System.out.println("2 - Remove friend");
             System.out.println("3 - Update account");
             System.out.println("4 - Delete account");
-            System.out.println("5 - Exit");
+            System.out.println("5 - Show my friends");
+            System.out.println("6 - Update friendship");
+            System.out.println("7 - Exit");
         }
 
         private void addFriend() {
@@ -109,8 +116,44 @@ public class ConsoleUI implements UI {
             } catch (Exception e) {
                 System.out.println("\u001B[31m" + e.getMessage());
             }
-    }
+        }
 
+        private void showMyFriends() {
+            Iterable<User> friends= service.showUserFriends(currentUser);
+            System.out.println("\u001B[32m");
+            for(User user : friends) {
+                System.out.println(user);
+            }
+            System.out.println();
+        }
+
+        private void updateFriendship() {
+            String username;
+            String localDateTimeString;
+            LocalDateTime localDateTime;
+
+            try {
+                System.out.print("\u001B[34mFriend's username: ");
+                username = bufferedReader.readLine();
+
+                System.out.print("\u001B[34mDate: ");
+                localDateTimeString = bufferedReader.readLine();
+                localDateTime = LocalDateTime.parse(localDateTimeString, DATATIME_FORMATTER);
+
+            } catch (IOException exception) {
+                System.out.println("\u001B[31mError reading the data");
+                return;
+            } catch (DateTimeParseException exception) {
+                System.out.println("\u001B[31mError parsing the date");
+                return;
+            }
+            try {
+                this.service.updateFriendship(currentUser.getId(), username, localDateTime);
+                System.out.println("\u001B[32mSucces");
+            } catch (Exception e) {
+                System.out.println("\u001B[31m" + e.getMessage());
+            }
+        }
         @Override
         public void run() {
             while (true) {
@@ -136,6 +179,12 @@ public class ConsoleUI implements UI {
                         case "4":
                             deleteAccount();
                         case "5":
+                            showMyFriends();
+                            break;
+                        case "6":
+                            updateFriendship();
+                            break;
+                        case "7":
                             return;
                         default:
                             System.out.println("\u001B[31mUnknown command!");

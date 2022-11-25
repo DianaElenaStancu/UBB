@@ -85,6 +85,5 @@ public interface Repository<ID, E extends Entity<ID>> {
      * Clears the repository
      */
     void clear();
-
 }
 

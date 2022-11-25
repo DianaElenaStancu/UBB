@@ -9,7 +9,9 @@ import socialnetwork.domain.validators.ValidationException;
 import socialnetwork.domain.validators.Validator;
 import socialnetwork.repository.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -89,6 +91,20 @@ public class NetworkService implements Service {
         userRepository.delete(user);
     }
 
+    public Iterable<User> showUserFriends(User user) {
+        Set<User> friends = new HashSet<>();
+        Iterable<User> users = userRepository.findAll();
+        for (User friend : users) {
+            Friendship friendship = new Friendship(friend.getId(), user.getId());
+            try {
+                friendshipRepository.findOne(friendship.getId());
+                friends.add(friend);
+            }  catch(Exception ignored){
+            }
+        }
+        return friends;
+    }
+
     /**
      * Method that creates the friendship between 2 users based on their usernames
      * @param username1 String
@@ -126,14 +142,14 @@ public class NetworkService implements Service {
      * @throws ValidationException if the given date is in the future
      * @throws EntityMissingException if at least one of the usernames does not correspond to a user
      */
-    /*public void modifyFriendshipDate(String username1, String username2, LocalDateTime friendshipDate) {
-        User user1 = userRepository.findOne(username1);
-        User user2 = userRepository.findOne(username2);
+    public void updateFriendship(String username1, String username2, LocalDateTime friendshipDate) {
+        userRepository.findOne(username1);
+        userRepository.findOne(username2);
 
         Friendship friendship = new Friendship(username1, username2, friendshipDate);
         friendshipValidator.validate(friendship);
-        friendshipRepository.modify(friendship);
-    }*/
+        friendshipRepository.update(friendship);
+    }
 
     /**
      * Method that returns the user with the given username
