@@ -91,10 +91,8 @@ public abstract class AbstractFileRepository<ID, E extends Entity<ID>> extends I
                 String entityString = this.createEntityAsString(entity);
                 bufferedWriter.write(entityString);
             }
-        } catch (FileNotFoundException fileNotFoundException) {
+        } catch (IOException fileNotFoundException) {
             fileNotFoundException.printStackTrace();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
         }
     }
 }

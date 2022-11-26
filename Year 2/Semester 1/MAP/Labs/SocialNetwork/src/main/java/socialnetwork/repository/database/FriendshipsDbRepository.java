@@ -11,15 +11,15 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class FriendshipsDbRepository implements Repository<Set<String>, Friendship> {
-    private String url;
-    private String username;
-    private String password;
+    private final String url;
+    private final String username;
+    private final String password;
 
     /**
      * creates a repository that is connected to a database
-     * @param url
-     * @param username
-     * @param password
+     * @param url the url of the database
+     * @param username for connecting to the database
+     * @param password for connecting to the database
      */
     public FriendshipsDbRepository(String url, String username, String password) {
         this.url = url;
@@ -28,12 +28,12 @@ public class FriendshipsDbRepository implements Repository<Set<String>, Friendsh
     }
 
     /**
-     * finds a frienship between user1 and user2
+     * finds a friendship between user1 and user2
      * @param usernames a set consisting of two strings username1 and username2
      *           id must not be null
      * @return Friendship
-     * @throws IllegalArgumentException
-     * @throws EntityMissingException
+     * @throws IllegalArgumentException if the username is null
+     * @throws EntityMissingException if the usernames don't exist
      */
     @Override
     public Friendship findOne(Set<String> usernames) throws IllegalArgumentException, EntityMissingException {
@@ -57,9 +57,7 @@ public class FriendshipsDbRepository implements Repository<Set<String>, Friendsh
             }
 
             LocalDateTime friendshipDate = resultSet.getTimestamp("date").toLocalDateTime();
-            Friendship friendship = new Friendship(firstUsername, secondUsername, friendshipDate);
-
-            return friendship;
+            return new Friendship(firstUsername, secondUsername, friendshipDate);
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
         }
@@ -69,11 +67,9 @@ public class FriendshipsDbRepository implements Repository<Set<String>, Friendsh
     private Friendship extractEntityFromResultSet(ResultSet resultSet) throws SQLException{
         String firstUsername = resultSet.getString("first_user");
         String secondUsername = resultSet.getString("second_user");
-        LocalDateTime frienshipDate = resultSet.getTimestamp("date").toLocalDateTime();
+        LocalDateTime friendshipDate = resultSet.getTimestamp("date").toLocalDateTime();
 
-        Friendship friendship = new Friendship(firstUsername, secondUsername, frienshipDate);
-
-        return friendship;
+        return new Friendship(firstUsername, secondUsername, friendshipDate);
     }
     /**
      * Creates an Iterable<Friendship> with all friendships from the database
@@ -129,13 +125,13 @@ public class FriendshipsDbRepository implements Repository<Set<String>, Friendsh
     }
 
     /**
-     * Adds a frienship in the database
+     * Adds a friendship in the database
      * @param friendship
      *         entity must be not null
      * @return the new created Friendship
-     * @throws ValidationException
-     * @throws IllegalArgumentException
-     * @throws EntityAlreadyExistsException
+     * @throws ValidationException if the friendship is not valid
+     * @throws IllegalArgumentException .
+     * @throws EntityAlreadyExistsException if the friendship is already in the database
      */
     @Override
     public Friendship save(Friendship friendship) throws ValidationException, IllegalArgumentException, EntityAlreadyExistsException {
@@ -161,8 +157,8 @@ public class FriendshipsDbRepository implements Repository<Set<String>, Friendsh
      * Deletes a friendship
      * @param usernames
      *      id must be not null
-     * @return
-     * @throws IllegalArgumentException
+     * @return the friendship that was deleted
+     * @throws IllegalArgumentException .
      */
     @Override
     public Friendship delete(Set<String> usernames) throws IllegalArgumentException {
@@ -194,10 +190,10 @@ public class FriendshipsDbRepository implements Repository<Set<String>, Friendsh
      * updates a friendship
      * @param friendship
      *          entity must not be null
-     * @return
-     * @throws IllegalArgumentException
-     * @throws ValidationException
-     * @throws EntityMissingException
+     * @return the updated friendship
+     * @throws IllegalArgumentException .
+     * @throws ValidationException if the new updated friendship is not valid
+     * @throws EntityMissingException if the friendship is not valid
      */
     @Override
     public Friendship update(Friendship friendship) throws IllegalArgumentException, ValidationException, EntityMissingException {

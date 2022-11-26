@@ -16,10 +16,10 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class NetworkService implements Service {
-    private Repository<String, User> userRepository;
-    private Repository<Set<String>, Friendship> friendshipRepository;
-    private Validator userValidator;
-    private Validator friendshipValidator;
+    private final Repository<String, User> userRepository;
+    private final Repository<Set<String>, Friendship> friendshipRepository;
+    private final Validator<User> userValidator;
+    private final Validator<Friendship> friendshipValidator;
 
     /**
      * Constructor for creating a service for users
@@ -28,8 +28,8 @@ public class NetworkService implements Service {
      * @param  friendshipRepository - a repository of friendships
      * @param friendshipValidator - a validator for users
      */
-    public NetworkService(Repository userRepository, Validator userValidator,
-                          Repository friendshipRepository, Validator friendshipValidator) {
+    public NetworkService(Repository<String, User> userRepository, Validator<User> userValidator,
+                          Repository<Set<String>, Friendship> friendshipRepository, Validator<Friendship> friendshipValidator) {
         this.userRepository = userRepository;
         this.userValidator = userValidator;
         this.friendshipRepository = friendshipRepository;
@@ -129,8 +129,6 @@ public class NetworkService implements Service {
      * @throws EntityMissingException if at least one of the usernames does not correspond to a user
      */
     public void removeFriendship(String username1, String username2) {
-        User user1 = userRepository.findOne(username1);
-        User user2 = userRepository.findOne(username2);
         friendshipRepository.delete(new TreeSet<>(Arrays.asList(username1, username2)));
     }
 
@@ -155,7 +153,7 @@ public class NetworkService implements Service {
      * Method that returns the user with the given username
      * @param username String
      * @return User
-     * @throws EntityMissingException if there is not user with the given username
+     * @throws EntityMissingException if there is no user with the given username
      */
     public User findUser(String username) {
         return this.userRepository.findOne(username);
@@ -177,7 +175,7 @@ public class NetworkService implements Service {
      * @return Integer
      */
     public Integer numberOfCommunities() {
-        Network network = new Network(this.userRepository.findAllMap(), this.friendshipRepository.findAll());
+        Network network = new Network(this.userRepository, this.friendshipRepository);
         return network.numberOfCommunities();
     }
 
@@ -186,7 +184,7 @@ public class NetworkService implements Service {
      * @return Network
      */
     public Network mostSocialCommunity() {
-        Network network = new Network(this.userRepository.findAllMap(), this.friendshipRepository.findAll());
+        Network network = new Network(this.userRepository, this.friendshipRepository);
         return network.mostSocialCommunity();
     }
 

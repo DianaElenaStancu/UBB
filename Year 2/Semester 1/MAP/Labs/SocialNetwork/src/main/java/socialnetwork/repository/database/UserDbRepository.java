@@ -13,9 +13,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class UserDbRepository implements Repository<String, User> {
-    private String url;
-    private String username;
-    private String password;
+    private final  String url;
+    private final String username;
+    private final String password;
 
     /**
      * creates a user repository
@@ -33,7 +33,7 @@ public class UserDbRepository implements Repository<String, User> {
      * extracts a user form a resultSet
      * @param resultSet - result of a query
      * @return the User from the resultSet
-     * @throws SQLException
+     * @throws SQLException if the result cannot be converted to entity
      */
     private User extractEntityFromResultSet(ResultSet resultSet) throws SQLException {
         String username = resultSet.getString("username");
@@ -49,9 +49,9 @@ public class UserDbRepository implements Repository<String, User> {
      * Searches for a user
      * @param username the id of the entity to be returned
      *           id must not be null
-     * @return
-     * @throws IllegalArgumentException
-     * @throws EntityMissingException
+     * @return User the user that was found
+     * @throws IllegalArgumentException if the username is null
+     * @throws EntityMissingException if the user doesn't exist
      */
     @Override
     public User findOne(String username) throws IllegalArgumentException, EntityMissingException {
@@ -146,9 +146,9 @@ public class UserDbRepository implements Repository<String, User> {
      * @param user
      *         entity must be not null
      * @return user that was added
-     * @throws ValidationException
-     * @throws IllegalArgumentException
-     * @throws EntityAlreadyExistsException
+     * @throws ValidationException if the user is not valid
+     * @throws IllegalArgumentException .
+     * @throws EntityAlreadyExistsException if the entity is already in the database
      */
     @Override
     public User save(User user) throws ValidationException, IllegalArgumentException, EntityAlreadyExistsException {
@@ -178,7 +178,7 @@ public class UserDbRepository implements Repository<String, User> {
      * @param username
      *      id must be not null
      * @return user with the given username
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException .
      */
     @Override
     public User delete(String username) throws IllegalArgumentException {
@@ -204,9 +204,9 @@ public class UserDbRepository implements Repository<String, User> {
      * @param user
      *          entity must not be null
      * @return User the user updated
-     * @throws IllegalArgumentException
-     * @throws ValidationException
-     * @throws EntityMissingException
+     * @throws IllegalArgumentException .
+     * @throws ValidationException .
+     * @throws EntityMissingException if the user that wants to be updated is not in the database.
      */
     @Override
     public User update(User user) throws IllegalArgumentException, ValidationException, EntityMissingException {

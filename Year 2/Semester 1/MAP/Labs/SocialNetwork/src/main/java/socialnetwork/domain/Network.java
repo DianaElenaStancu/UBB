@@ -1,37 +1,40 @@
 package socialnetwork.domain;
-
-import socialnetwork.domain.exceptions.FriendshipAlreadyExistsException;
-import socialnetwork.domain.exceptions.FriendshipMissingException;
-import socialnetwork.domain.exceptions.UserAlreadyExistsException;
 import socialnetwork.domain.exceptions.UserMissingException;
+import socialnetwork.repository.Repository;
 
 import java.util.*;
 
 public class Network {
     private Map<User, Set<User>> network;
+    private Repository<Set<String>, Friendship> friendshipRepository;
+    private Repository<String, User> userRepository;
 
-    public Network(Map<String, User> userMap, Iterable<Friendship> friendships) {
-        this();
-        for(Map.Entry<String, User> entry : userMap.entrySet()) {
-            this.addUser(entry.getValue());
-        }
-        for(Friendship friendship : friendships) {
-            this.createFriendship(userMap.get(friendship.getUser1()), userMap.get(friendship.getUser2()));
-        }
+    public Network(Repository<String, User> userRepository, Repository<Set<String>, Friendship> friendshipRepository) {
+        this.friendshipRepository = friendshipRepository;
+        this.userRepository = userRepository;
+        initializeNetwork();
     }
-
     public Network() {
         this.network = new HashMap<>();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == this) {
-            return true;
+    private void initializeNetwork() {
+        this.network = new HashMap<>();
+
+        Map<String, User> users = userRepository.findAllMap();
+        for(Map.Entry<String, User> user : users.entrySet()) {
+            network.put(user.getValue(), new HashSet<>());
         }
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        return Objects.equals(this.network, ((Network) obj).network);
+
+
+        Iterable<Friendship> friendships = friendshipRepository.findAll();
+        for(Friendship friendship : friendships) {
+            User user1 = users.get(friendship.getUser1());
+            User user2 = users.get(friendship.getUser2());
+            network.get(user1).add(user2);
+            network.get(user2).add(user1);
+        }
+
     }
 
     @Override
@@ -40,107 +43,22 @@ public class Network {
             return "Empty network!";
         }
 
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for(Map.Entry<User, Set<User>> entry : network.entrySet()) {
-            result += entry.getKey().getId() + " ";
+            result.append(entry.getKey().getId()).append(" ");
             if(entry.getValue().size() > 0) {
-                result += "is friend with ";
+                result.append("is friend with ");
                 for (User friend : entry.getValue()) {
-                    result += friend.getId() + " ";
+                    result.append(friend.getId()).append(" ");
                 }
             }
             else {
-                result += "does not have friends ";
+                result.append("does not have friends ");
             }
-            result += "\n";
+            result.append("\n");
         }
 
-        return result;
-    }
-
-    /**
-     * Removes a user from the network
-     * @param user  User
-     * @throws UserAlreadyExistsException if the user already exists
-     */
-    public void addUser(User user) {
-        if (!network.containsKey(user)) {
-            network.put(user, new HashSet<>());
-            return;
-        }
-        throw new UserAlreadyExistsException(user.getId() + "already exists.");
-    }
-
-
-    /**
-     * Removes a user from the network
-     * @param user  User
-     * @throws UserMissingException if the user doesn't exist
-     */
-    public void removeUser(User user) {
-        if (network.containsKey(user)) {
-            network.remove(user);
-            for(Map.Entry<User, Set<User>> entries : network.entrySet()) {
-                entries.getValue().remove(user);
-            }
-            return;
-        }
-        throw new UserMissingException(user.getId() + "doesn't exist.");
-    }
-
-    /**
-     * Creates a friendship in the network
-     * @param user1  User
-     * @param user2  User
-     * @throws UserMissingException if one of the users doesn't exist
-     * @throws FriendshipAlreadyExistsException if user1 and user2 are already friends
-     */
-    public void createFriendship(User user1, User user2) {
-        if (user1.equals(user2))
-            return;
-        if (!network.containsKey(user1)) {
-            throw new UserMissingException(user1.getId() + "doesn't exist.");
-        }
-        if (!network.containsKey(user2)) {
-            throw new UserMissingException(user2.getId() + "doesn't exist.");
-        }
-        if (areFriends(user1, user2)) {
-            throw new FriendshipAlreadyExistsException(user1.getId() + "is already friend with" + user2.getId());
-        }
-
-        network.get(user1).add(user2);
-        network.get(user2).add(user1);
-    }
-
-    /**
-     * Destroys a friendship in the network
-     * @param user1  User
-     * @param user2  User
-     * @throws UserMissingException if one of the users doesn't exist
-     * @throws FriendshipMissingException if user1 and user2 are not friends
-     */
-    public void destroyFriendship(User user1, User user2) {
-        if (!existUser(user1)) {
-            throw new UserMissingException(user1.getId() + "doesn't exist.");
-        }
-        if (!existUser(user2)) {
-            throw new UserMissingException(user2.getId() + "doesn't exist.");
-        }
-        if (!areFriends(user1, user2)) {
-            throw new FriendshipMissingException(user1.getId() + "is not a friend with" + user2.getId());
-        }
-
-        network.get(user1).remove(user2);
-        network.get(user2).remove(user1);
-    }
-
-    /**
-     * Verifies if a user exists
-     * @param user User
-     * @return true if the user exists
-     */
-    public boolean existUser(User user) {
-        return network.containsKey(user);
+        return result.toString();
     }
 
     /**
@@ -151,9 +69,9 @@ public class Network {
      * @return true if user1 and user2 are friends
      */
     public boolean areFriends(User user1, User user2) {
-        if(!existUser(user1))
+        if(!network.containsKey(user1))
             throw new UserMissingException(user1.getId() + "doesn't exist.");
-        if(!existUser(user2))
+        if(!network.containsKey(user2))
             throw new UserMissingException(user2.getId() + "doesn't exist");
         return network.get(user1).contains(user2);
     }
@@ -197,7 +115,7 @@ public class Network {
      * @return Integer
      */
     private static Integer numberOfFriendships(Network network) {
-        Integer friendships = 0;
+        int friendships = 0;
         for(User user : network.network.keySet()) {
             friendships += network.network.get(user).size();
         }
@@ -213,13 +131,14 @@ public class Network {
         Network generatedNetwork = new Network();
         for(User user : users) {
             try{
-                generatedNetwork.addUser(user);
+                generatedNetwork.network.put(user, new HashSet<>());
                 for(User friend : network.get(user)) {
                     if(!generatedNetwork.areFriends(user, friend)) {
-                        generatedNetwork.createFriendship(user, friend);
+                        generatedNetwork.network.get(user).add(friend);
+                        generatedNetwork.network.get(friend).add(user);
                     }
                 }
-            }catch (Exception exception){};
+            }catch (Exception ignored){}
         }
 
         return generatedNetwork;
@@ -246,9 +165,5 @@ public class Network {
         }
 
         return mostSocialCommunity;
-    }
-
-    public void clear() {
-        network.clear();
     }
 }

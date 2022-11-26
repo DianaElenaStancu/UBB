@@ -27,8 +27,7 @@ public class FriendshipFileRepository extends AbstractFileRepository<Set<String>
      */
     @Override
     public Friendship extractEntity(List<String> attributes) {
-        Friendship friendship = new Friendship(attributes.get(0), attributes.get(1), LocalDateTime.parse(attributes.get(2), DATATIME_FORMATTER));
-        return friendship;
+        return new Friendship(attributes.get(0), attributes.get(1), LocalDateTime.parse(attributes.get(2), DATATIME_FORMATTER));
     }
 
     /**

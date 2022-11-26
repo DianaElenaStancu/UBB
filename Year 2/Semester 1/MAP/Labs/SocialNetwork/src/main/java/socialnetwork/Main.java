@@ -7,8 +7,8 @@ import socialnetwork.domain.validators.UserValidator;
 import socialnetwork.repository.Repository;
 import socialnetwork.repository.database.FriendshipsDbRepository;
 import socialnetwork.repository.database.UserDbRepository;
-import socialnetwork.repository.file.FriendshipFileRepository;
-import socialnetwork.repository.file.UserFileRepository;
+//import socialnetwork.repository.file.FriendshipFileRepository;
+//import socialnetwork.repository.file.UserFileRepository;
 import socialnetwork.service.NetworkService;
 import socialnetwork.ui.ConsoleUI;
 
@@ -38,5 +38,8 @@ public class Main {
 Operatii CRUD implementate
 User: show all, save, delete, update, find, clear
 Friendship: show all, create, destroy, find, clear
+ */
+/*
+ * md5 hash
  */
 
