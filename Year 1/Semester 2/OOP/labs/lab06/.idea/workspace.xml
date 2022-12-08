@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="lab06" targetName="lab06" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug-Coverage" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_CXX_FLAGS=&quot;-fprofile-instr-generate -fcoverage-mapping&quot; -DCMAKE_C_FLAGS=&quot;-fprofile-instr-generate -fcoverage-mapping&quot;" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="06a0e369-b11b-43b9-b079-b50e3779ee17" name="Changes" comment="lab06 oop">
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/UBB2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic_array.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dynamic_array.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/App.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/App.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/Dictionar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/Dictionar.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab01/problemaa/.idea/problema.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/repository.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/repository.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/repository.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/service.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service.h" beforeDir="false" afterPath="$PROJECT_DIR$/service.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests.h" beforeDir="false" afterPath="$PROJECT_DIR$/tests.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../test/.idea/test.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-Coverage" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2021" />
+    <option name="minorVersion" value="3.3" />
+  </component>
+  <component name="ProjectId" id="26yiomZ0yQUTR8mZH32IgQz4r7Y" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="language.cpp.clangd" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="lab06" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab06" TARGET_NAME="lab06" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="lab06" RUN_TARGET_NAME="lab06">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="06a0e369-b11b-43b9-b079-b50e3779ee17" name="Changes" comment="" />
+      <created>1648402404585</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648402404585</updated>
+      <workItem from="1648402405743" duration="8666000" />
+      <workItem from="1648535393457" duration="14418000" />
+      <workItem from="1648634722018" duration="4600000" />
+      <workItem from="1648671593478" duration="17179000" />
+      <workItem from="1649248897244" duration="1775000" />
+    </task>
+    <task id="LOCAL-00001" summary="lab06 oop">
+      <created>1648711397824</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1648711397824</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="lab06 oop" />
+    <option name="LAST_COMMIT_MESSAGE" value="lab06 oop" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="../../../../Desktop/facultate/GIT/UBB/Year 1/Semester 2/OOP/labs/lab06/cmake-build-debug-coverage" NAME="lab06 Coverage Results" MODIFIED="1648584848304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="gcov/llvm" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="lab05" targetName="lab05" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Debug-Coverage" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_CXX_FLAGS=&quot;-fprofile-instr-generate -fcoverage-mapping&quot; -DCMAKE_C_FLAGS=&quot;-fprofile-instr-generate -fcoverage-mapping&quot;" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="14ee3e06-6421-4dab-8304-1576875cf630" name="Changes" comment="lab05 oop">
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/UBB2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/App.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/App.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/Dictionar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/Dictionar.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/Dictionar.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/Dictionar.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/IteratorDictionar.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/IteratorDictionar.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/IteratorDictionar.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Proiect C++/IteratorDictionar.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Teste/TestExtins.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab04/Teste/TestExtins.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab01/problemaa/.idea/problema.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../test/.idea/test.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-Coverage" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2021" />
+    <option name="minorVersion" value="3.3" />
+  </component>
+  <component name="ProjectId" id="26vnNztuMa40tQSzdTP2s9aGrwB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="dynamic.analysis.tools.valgrind" />
+  </component>
+  <component name="RunManager">
+    <configuration name="lab05" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab05" TARGET_NAME="lab05" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="lab05" RUN_TARGET_NAME="lab05">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="14ee3e06-6421-4dab-8304-1576875cf630" name="Changes" comment="" />
+      <created>1648312892467</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648312892467</updated>
+      <workItem from="1648312893845" duration="20467000" />
+      <workItem from="1648390857407" duration="811000" />
+      <workItem from="1648466300155" duration="1078000" />
+      <workItem from="1648467440489" duration="9957000" />
+      <workItem from="1648634757197" duration="1703000" />
+      <workItem from="1648675282712" duration="5911000" />
+      <workItem from="1649576163600" duration="991000" />
+    </task>
+    <task id="LOCAL-00001" summary="lab05 oop">
+      <created>1648482734656</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1648482734656</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="lab05 oop" />
+    <option name="LAST_COMMIT_MESSAGE" value="lab05 oop" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="../../../../Desktop/facultate/GIT/UBB/Year 1/Semester 2/OOP/labs/lab05/cmake-build-debug-coverage" NAME="lab05 Coverage Results" MODIFIED="1648374261660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="gcov/llvm" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

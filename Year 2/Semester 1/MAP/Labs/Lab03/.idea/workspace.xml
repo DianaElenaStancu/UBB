@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2a21e72f-9675-42c6-9e6b-3585dde513df" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config/ApplicationContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config/Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/config/config.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/Network.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/exceptions/EntityAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/exceptions/EntityMissingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/exceptions/FriendshipAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/exceptions/FriendshipMissingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/exceptions/UserAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/exceptions/UserMissingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/validators/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/validators/ValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/validators/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/Repository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/database/friendshipsStorage" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/database/usersStorage" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/file/AbstractFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/file/NetworkFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/file/UserFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/memory/InMemoryNetworkRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/memory/InMemoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/ConsoleUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ui/UI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/data/friendshipsStorage.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/data/usersStorage.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/config/ApplicationContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/config/Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/Entity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/Network.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/exceptions/EntityAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/exceptions/EntityMissingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/exceptions/FriendshipAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/exceptions/FriendshipMissingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/exceptions/UserAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/exceptions/UserMissingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/validators/UserValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/validators/ValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/domain/validators/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/repository/Repository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/repository/file/AbstractFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/repository/file/NetworkFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/repository/file/UserFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/repository/memory/InMemoryNetworkRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/repository/memory/InMemoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/service/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/ui/ConsoleUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/java/diana/ui/UI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../SocialNetwork/src/main/resources/config.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Gzcx7N6zFF56oJtjUuRi0ze4Q8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/dianastancu/Desktop/facultate/GIT/UBB/Year 2/Semester 1/MAP/Labs/Lab03/src&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2a21e72f-9675-42c6-9e6b-3585dde513df" name="Changes" comment="" />
+      <created>1667395100282</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667395100282</updated>
+      <workItem from="1667395101871" duration="299000" />
+      <workItem from="1667460095541" duration="23785000" />
+      <workItem from="1667578723579" duration="898000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="problema02" targetName="problema02" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="544d1267-aa2b-4543-853b-793101751c02" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../../../.idea/UBB2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/Proiect C++/App.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/Proiect C++/Matrice.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/Proiect C++/Matrice.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/Teste/TestExtins.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/Teste/TestExtins.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/Teste/TestScurt.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/Teste/TestScurt.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/enunt.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Data Structures and Algorithms/lab07/interfata.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/Observer.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/Observer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/cosActivitati.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/cosActivitati.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/cosCRUDGUI.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/cosCRUDGUI.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/cosReadOnlyGUI.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/cosReadOnlyGUI.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../problema01/cmake-build-debug/graf.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../problema01/cmake-build-debug/graf.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../OOP/labs/lab10/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../OOP/labs/lab10/gui.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/gui.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../OOP/labs/lab10/service.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/service.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../OOP/labs/lab10/service.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../../OOP/labs/lab10/service.h" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2021" />
+    <option name="minorVersion" value="3.3" />
+  </component>
+  <component name="ProjectId" id="26YLBqVyGWrGbRsR3K30cWAJ4Ev" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="problema02" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="problema02" TARGET_NAME="problema02" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="problema02" RUN_TARGET_NAME="problema02">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="544d1267-aa2b-4543-853b-793101751c02" name="Changes" comment="" />
+      <created>1647595440190</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1647595440190</updated>
+      <workItem from="1647595441549" duration="1271000" />
+      <workItem from="1647601393676" duration="2395000" />
+      <workItem from="1653756846673" duration="691000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

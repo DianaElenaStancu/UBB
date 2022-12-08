@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="lab01" targetName="lab01" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9bbd6812-a44c-4dfd-beb1-605415c07f5d" name="Changes" comment="week 4">
+      <change afterPath="$PROJECT_DIR$/../../../../.idea/UBB2.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../GA/lab02/problema0405/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Colectie (cu rel)/Colectie.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Colectie (cu rel)/Colectie.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab03/Multime/App.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../lab03/Multime/App.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab03/Multime/Multime.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../lab03/Multime/Multime.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab03/Multime/Multime.h" beforeDir="false" afterPath="$PROJECT_DIR$/../lab03/Multime/Multime.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OOP/labs/lab01/problemaa/.idea/problema.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OOP/labs/lab02/problema06/.idea/problema06.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../OOP/test/.idea/test.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2021" />
+    <option name="minorVersion" value="3.3" />
+  </component>
+  <component name="ProjectId" id="25v9AA6M3aM9SdfUxANVeIO8n6G" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="lab01" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab01" TARGET_NAME="lab01" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="lab01" RUN_TARGET_NAME="lab01">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9bbd6812-a44c-4dfd-beb1-605415c07f5d" name="Changes" comment="" />
+      <created>1646396546829</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1646396546829</updated>
+      <workItem from="1646396547913" duration="18000" />
+      <workItem from="1646396676381" duration="369000" />
+      <workItem from="1646426433792" duration="1781000" />
+      <workItem from="1646996675366" duration="5485000" />
+      <workItem from="1647686743591" duration="11151000" />
+      <workItem from="1648068155731" duration="6333000" />
+      <workItem from="1648203744672" duration="2109000" />
+    </task>
+    <task id="LOCAL-00001" summary="week 4">
+      <created>1647755538773</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1647755538773</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="week 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="week 4" />
+  </component>
+</project>

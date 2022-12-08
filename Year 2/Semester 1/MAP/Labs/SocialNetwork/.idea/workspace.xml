@@ -1,19 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
   <component name="ChangeListManager">
     <list default="true" id="99bb1ac8-9c67-4706-9df7-a607a8aeccca" name="Changes" comment="" />
+=======
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5bf870c7-d3ce-405d-90ef-90a15f41b0d7" name="Changes" comment="Social Network Lab 05 MAP UPDATE" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< Updated upstream
+=======
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+>>>>>>> Stashed changes
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../.." />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectId" id="2Icrgy2tREzqVylotmkjrOH4XJa" />
+=======
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2H5Duaf8JlF35Iv9EyC2QHzMrGE" />
+>>>>>>> Stashed changes
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -21,6 +51,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+<<<<<<< Updated upstream
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
@@ -37,14 +68,58 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="SocialNetwork" />
       <option name="filePath" />
+=======
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/dianastancu/Desktop/facultate/GIT/UBB/Year 2/Semester 1/MAP/Labs/SocialNetwork/data&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data" />
+      <recent name="$PROJECT_DIR$/src/main/java/diana" />
+      <recent name="$PROJECT_DIR$/src/main/java" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="socialnetwork.Main" />
+      <module name="SocialNetwork.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="socialnetwork.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+>>>>>>> Stashed changes
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< Updated upstream
+=======
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+>>>>>>> Stashed changes
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< Updated upstream
       <changelist id="99bb1ac8-9c67-4706-9df7-a607a8aeccca" name="Changes" comment="" />
       <created>1670491834674</created>
       <option name="number" value="Default" />
@@ -58,6 +133,51 @@
       <workItem from="1670492710673" duration="190000" />
       <workItem from="1670519620998" duration="1028000" />
     </task>
+=======
+      <changelist id="5bf870c7-d3ce-405d-90ef-90a15f41b0d7" name="Changes" comment="" />
+      <created>1667566278601</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667566278601</updated>
+      <workItem from="1667566283105" duration="6808000" />
+      <workItem from="1667578567133" duration="2831000" />
+      <workItem from="1668602787620" duration="19185000" />
+      <workItem from="1668781810111" duration="1049000" />
+      <workItem from="1668844272040" duration="238000" />
+      <workItem from="1669221307639" duration="15137000" />
+      <workItem from="1669372483713" duration="12999000" />
+      <workItem from="1669453024647" duration="165000" />
+    </task>
+    <task id="LOCAL-00001" summary="Social Network Lab 03 MAP">
+      <created>1667747151611</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1667747151611</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Social Network Lab 04 MAP">
+      <created>1668844345766</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668844345766</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Social Network Lab 05 MAP">
+      <created>1669373573759</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1669373573759</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Social Network Lab 05 MAP UPDATE">
+      <created>1669453109489</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1669453109489</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+>>>>>>> Stashed changes
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -74,4 +194,14 @@
       </map>
     </option>
   </component>
+<<<<<<< Updated upstream
+=======
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Social Network Lab 03 MAP" />
+    <MESSAGE value="Social Network Lab 04 MAP" />
+    <MESSAGE value="Social Network Lab 05 MAP" />
+    <MESSAGE value="Social Network Lab 05 MAP UPDATE" />
+    <option name="LAST_COMMIT_MESSAGE" value="Social Network Lab 05 MAP UPDATE" />
+  </component>
+>>>>>>> Stashed changes
 </project>
