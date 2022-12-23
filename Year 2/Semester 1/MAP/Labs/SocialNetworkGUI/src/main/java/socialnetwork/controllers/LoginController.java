@@ -10,6 +10,7 @@ import socialnetwork.service.NetworkService;
 import java.io.IOException;
 import java.net.URL;
 
+import static socialnetwork.constants.Strings.*;
 import static socialnetwork.gui_utils.GUIUtils.*;
 
 
@@ -44,7 +45,7 @@ public class LoginController implements Controller{
             try {
                 User user = this.networkService.findUser(username);
                 if (!this.networkService.verifyCredentials(user, password)) {
-                    showInformationAlert("Login failed", "Wrong password or username", "");
+                    showInformationAlert(LOG_IN_INFO, OPERATION_FAILED, WRONG_PASSWORD_OR_USERNAME);
                     return;
                 }
 
@@ -55,7 +56,7 @@ public class LoginController implements Controller{
                 closePage((Stage) loginButton.getScene().getWindow());
 
             } catch (EntityMissingException entityMissingException) {
-                showInformationAlert("Login Failed", "Invalid Credentials", entityMissingException.getMessage());
+                showInformationAlert(LOG_IN_FAILED, INVALID_CREDENTIALS, entityMissingException.getMessage());
             }
         }
     }
@@ -64,8 +65,7 @@ public class LoginController implements Controller{
     @FXML
     protected void registerHyperlinkClicked() throws IOException {
         URL location = getClass().getResource("/socialnetwork/register.fxml");
-        String title = "Register";
-        loadPage(this.networkService, null, location, title, 320, 520);
+        loadPage(this.networkService, null, location, REGISTER, 320, 520);
 
         closePage((Stage) loginButton.getScene().getWindow());
     }

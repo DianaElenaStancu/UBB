@@ -23,6 +23,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import static socialnetwork.constants.Strings.*;
 import static socialnetwork.gui_utils.GUIUtils.*;
 
 public class HomeController implements Controller{
@@ -51,7 +52,7 @@ public class HomeController implements Controller{
 
     public void setService(NetworkService networkService) {
         this.networkService = networkService;
-        usersModel.setAll(getFriendships("accepted"));
+        usersModel.setAll(getFriendships(ACCEPTED));
     }
 
     public void setUser(User user) {
@@ -78,7 +79,7 @@ public class HomeController implements Controller{
         Predicate<UserDTO> predicate = x -> x.getId().startsWith(searchUserTextField.getText());
 
         if (requestsCheckBox.isSelected()) {
-            usersModel.setAll(getFriendships("pending")
+            usersModel.setAll(getFriendships(PENDING)
                     .stream()
                     .filter(predicate)
                     .collect(Collectors.toList()));
@@ -88,7 +89,7 @@ public class HomeController implements Controller{
                     .filter(predicate)
                     .collect(Collectors.toList()));
         } else {
-            usersModel.setAll(getFriendships("accepted")
+            usersModel.setAll(getFriendships(ACCEPTED)
                     .stream()
                     .filter(predicate)
                     .collect(Collectors.toList()));
@@ -100,12 +101,12 @@ public class HomeController implements Controller{
     @FXML
     protected void requestsCheckBoxClicked() {
         if (requestsCheckBox.isSelected()) {
-            usersModel.setAll(getFriendships("pending"));
+            usersModel.setAll(getFriendships(PENDING));
             allUsersCheckBox.setSelected(false);
             addButton.setDisable(false);
             removeButton.setDisable(false);
         } else {
-            usersModel.setAll(getFriendships("accepted"));
+            usersModel.setAll(getFriendships(ACCEPTED));
             removeButton.setDisable(false);
             addButton.setDisable(true);
         }
@@ -113,11 +114,11 @@ public class HomeController implements Controller{
 
     private void update() {
         if (requestsCheckBox.isSelected()) {
-            usersModel.setAll(getFriendships("pending"));
+            usersModel.setAll(getFriendships(PENDING));
         } else if (allUsersCheckBox.isSelected()){
             usersModel.setAll(getAllUsers());
         } else {
-            usersModel.setAll(getFriendships("accepted"));
+            usersModel.setAll(getFriendships(ACCEPTED));
         }
     }
 
@@ -142,24 +143,24 @@ public class HomeController implements Controller{
         if (userDTO != null) {
             try {
                 Friendship friendship = this.networkService.findFriendship(this.currentUser.getId(), userDTO.getId());
-                if(Objects.equals(friendship.getStatus(), "pending") && Objects.equals(friendship.getUser2(), this.currentUser.getId())) {
-                    this.networkService.updateFriendship(this.currentUser.getId(), userDTO.getId(), LocalDateTime.now(), "accepted");
-                    showInformationAlert("Success", "Operation finished successfully", "Friend request accepted");
-                } else if (Objects.equals(friendship.getStatus(), "accepted") ) {
-                    showInformationAlert("Friendship Info", "Friendship already exists", "You are already friends!");
+                if(Objects.equals(friendship.getStatus(), PENDING) && Objects.equals(friendship.getUser2(), this.currentUser.getId())) {
+                    this.networkService.updateFriendship(this.currentUser.getId(), userDTO.getId(), LocalDateTime.now(), ACCEPTED);
+                    showInformationAlert(SUCCESS, OPERATION_FINISHED_SUCCESSFULLY, EMPTY);
+                } else if (Objects.equals(friendship.getStatus(), ACCEPTED) ) {
+                    showInformationAlert(FRIENDSHIP_INFO, OPERATION_FAILED, ALREADY_FRIENDS);
                 }
                 else {
-                    showInformationAlert("Request Info", "Pending request", "You have to wait for " + userDTO.getId() + " to accept your request");
+                    showInformationAlert(REQUEST_INFO, OPERATION_FINISHED_SUCCESSFULLY, YOU_HAVE_TO_WAIT_FOR_USER_TO_ACCEPT_REQUEST(userDTO));
                 }
             } catch(FriendshipWithYourselfException friendshipWithYourselfException) {
-                showInformationAlert("Request Info", "You can't send this request!", "You can't be friend with yourself!");
+                showInformationAlert(REQUEST_INFO, OPERATION_FAILED, CANT_BE_FRIEND_WITH_YOURSELF);
             }
             catch (EntityMissingException entityMissingException){
-                this.networkService.addFriendship(this.currentUser.getId(), userDTO.getId(), "pending");
-                showInformationAlert("Request Info", "Friend request was sent!", "You have to wait for " + userDTO.getId() + " to accept your request");
+                this.networkService.addFriendship(this.currentUser.getId(), userDTO.getId(), PENDING);
+                showInformationAlert(REQUEST_INFO, OPERATION_FINISHED_SUCCESSFULLY, YOU_HAVE_TO_WAIT_FOR_USER_TO_ACCEPT_REQUEST(userDTO));
 
             } catch (Exception exception) {
-                showInformationAlert("Add user failed", "Something went wrong", exception.getMessage());
+                showInformationAlert(REQUEST_INFO, OPERATION_FAILED, exception.getMessage());
             }
         }
         update();
@@ -172,10 +173,10 @@ public class HomeController implements Controller{
         if (userDTO != null) {
             try {
                 this.networkService.removeFriendship(this.currentUser.getId(), userDTO.getId());
-                showInformationAlert("Removed successfully", "Removed successfully", "");
+                showInformationAlert(REMOVE_INFO, OPERATION_FINISHED_SUCCESSFULLY, EMPTY);
 
             } catch (Exception exception) {
-                showInformationAlert("Remove user failed", "Something went wrong", exception.getMessage());
+                showInformationAlert(REMOVE_INFO, OPERATION_FAILED, exception.getMessage());
             }
         }
         update();
@@ -189,7 +190,7 @@ public class HomeController implements Controller{
             removeButton.setDisable(true);
             addButton.setDisable(false);
         } else {
-            usersModel.setAll(getFriendships("accepted"));
+            usersModel.setAll(getFriendships(ACCEPTED));
             removeButton.setDisable(false);
             addButton.setDisable(true);
         }

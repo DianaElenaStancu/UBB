@@ -60,7 +60,7 @@ public class RegisterController implements Controller{
 
             closePage((Stage) signUpButton.getScene().getWindow());
         } catch (Exception exception) {
-            showInformationAlert(FAIL, SIGN_UP_FAIL, exception.getMessage());
+            showInformationAlert(SIGN_UP_INFO, OPERATION_FAILED, exception.getMessage());
         }
 
     }

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
+import static socialnetwork.constants.Strings.*;
 import static socialnetwork.gui_utils.GUIUtils.*;
 
 public class AccountSettingsController implements Controller{
@@ -51,14 +52,14 @@ public class AccountSettingsController implements Controller{
         passwordAgain = passwordSecondTextField.getText();
 
         if (!passwordAgain.isEmpty() && !Objects.equals(password, passwordAgain)) {
-            showInformationAlert("Reset failed", "Incorrect password", "Please add the same password");
+            showInformationAlert(RESET_INFO, OPERATION_FAILED, ADD_THE_SAME_PASSWORD);
         }
         try {
             this.networkService.updateUser(currentUser.getId(), firstName, lastName, email, password);
             currentUser = this.networkService.findUser(currentUser.getId());
-            showInformationAlert("Reset successfully", "", "");
+            showInformationAlert(RESET_INFO, OPERATION_FINISHED_SUCCESSFULLY, EMPTY);
         } catch(Exception exception) {
-            showInformationAlert("Reset failed", "Something went wrong", exception.getMessage());
+            showInformationAlert(RESET_INFO, OPERATION_FINISHED_SUCCESSFULLY, exception.getMessage());
         }
 
     }
