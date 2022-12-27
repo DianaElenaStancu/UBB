@@ -11,10 +11,9 @@ import java.io.IOException;
 import java.net.URL;
 
 import static socialnetwork.constants.Strings.*;
-import static socialnetwork.gui_utils.GUIUtils.*;
 
 
-public class LoginController implements Controller{
+public class LoginController extends AbstractController{
     private NetworkService networkService;
     @FXML
     Button loginButton;

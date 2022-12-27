@@ -12,9 +12,8 @@ import java.net.URL;
 import java.util.Objects;
 
 import static socialnetwork.constants.Strings.*;
-import static socialnetwork.gui_utils.GUIUtils.*;
 
-public class AccountSettingsController implements Controller{
+public class AccountSettingsController extends AbstractController{
 
     User currentUser;
     NetworkService networkService;

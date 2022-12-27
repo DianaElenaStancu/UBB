@@ -45,6 +45,7 @@
                <children>
                   <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" text="Add" />
                   <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButtonClicked" text="Remove" />
+                  <Button fx:id="chatButton" mnemonicParsing="false" onAction="#chatButtonClicked" text="Chat" />
                </children>
             </HBox>
          </children>

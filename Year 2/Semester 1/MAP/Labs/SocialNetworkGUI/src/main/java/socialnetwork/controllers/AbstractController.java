@@ -1,18 +1,30 @@
-package socialnetwork.gui_utils;
+package socialnetwork.controllers;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import socialnetwork.controllers.Controller;
 import socialnetwork.domain.User;
 import socialnetwork.service.NetworkService;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class GUIUtils {
+public abstract class AbstractController implements Controller {
+    private NetworkService networkService;
+    private User user;
+
+    @Override
+    public void setService(NetworkService networkService) {
+        this.networkService = networkService;
+    }
+
+    @Override
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     /**
      * Loads a stage
      * @param networkService every stage has a NetworkService object for rendering data
@@ -65,6 +77,4 @@ public class GUIUtils {
         alert.setContentText(contentText);
         alert.show();
     }
-
-
 }

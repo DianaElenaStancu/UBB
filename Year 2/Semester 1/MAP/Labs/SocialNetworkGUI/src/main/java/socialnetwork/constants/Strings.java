@@ -21,9 +21,18 @@ public class Strings {
     public static final String LOG_IN_FAILED = "Sign up failed";
     public static final String WRONG_PASSWORD_OR_USERNAME = "Wrong password or username";
     public static final String INVALID_CREDENTIALS = "Invalid Credentials";
-    public static final String ACCEPTED = "Accepted";
-    public static final String PENDING = "Pending";
+    public static final String ACCEPTED = "accepted";
+    public static final String PENDING = "pending";
     public static String YOU_HAVE_TO_WAIT_FOR_USER_TO_ACCEPT_REQUEST(UserDTO user) {
         return "You have to wait for " + user.getId() + " to accept your request";
     }
+
+    public static final String ID = "id";
+    public static final String FIRST_NAME = "firstName";
+    public static final String LAST_NAME = "lastName";
+    public static final String EMAIL = "email";
+    public static final String FRIENDS_FROM = "friendsFrom";
+    public static final String STATUS = "status";
+    public static final String CHAT = "chat";
+
 }

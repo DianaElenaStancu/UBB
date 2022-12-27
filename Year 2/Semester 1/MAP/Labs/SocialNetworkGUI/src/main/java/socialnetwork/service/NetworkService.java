@@ -1,6 +1,7 @@
 package socialnetwork.service;
 
 import socialnetwork.domain.Friendship;
+import socialnetwork.domain.Message;
 import socialnetwork.domain.User;
 import socialnetwork.domain.exceptions.EntityAlreadyExistsException;
 import socialnetwork.domain.exceptions.EntityMissingException;
@@ -8,6 +9,7 @@ import socialnetwork.domain.exceptions.FriendshipWithYourselfException;
 import socialnetwork.domain.validators.ValidationException;
 import socialnetwork.domain.validators.Validator;
 import socialnetwork.repository.Repository;
+import socialnetwork.repository.database.MessagesDbRepository;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -15,6 +17,9 @@ import java.util.*;
 public class NetworkService implements Service {
     private final Repository<String, User> userRepository;
     private final Repository<Set<String>, Friendship> friendshipRepository;
+
+    //private final Repository<String, Message> messagesDbRepository;
+    private final MessagesDbRepository messagesDbRepository;
     private final Validator<User> userValidator;
     private final Validator<Friendship> friendshipValidator;
 
@@ -26,11 +31,12 @@ public class NetworkService implements Service {
      * @param friendshipValidator - a validator for users
      */
     public NetworkService(Repository<String, User> userRepository, Validator<User> userValidator,
-                          Repository<Set<String>, Friendship> friendshipRepository, Validator<Friendship> friendshipValidator) {
+                          Repository<Set<String>, Friendship> friendshipRepository, Validator<Friendship> friendshipValidator, MessagesDbRepository messagesDbRepository) {
         this.userRepository = userRepository;
         this.userValidator = userValidator;
         this.friendshipRepository = friendshipRepository;
         this.friendshipValidator = friendshipValidator;
+        this.messagesDbRepository = messagesDbRepository;
     }
 
     /**
@@ -215,6 +221,26 @@ public class NetworkService implements Service {
         return Objects.equals(user.getPassword(), password);
     }
 
+    /**
+     *
+     * @param text
+     * @param sender
+     * @param receiver
+     * @return
+     */
+    public Message saveMessage(String text, String sender, String receiver){
+        return this.messagesDbRepository.save(new Message(text, LocalDateTime.now(), sender, receiver));
+    }
+
+    /**
+     *
+     * @param sender
+     * @param receiver
+     * @return
+     */
+    public Iterable<Message> findAllMessages(String sender, String receiver) {
+        return this.messagesDbRepository.findAllByUsers(sender, receiver);
+    }
 
     /**
      * Clears the data from the database

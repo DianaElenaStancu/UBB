@@ -66,6 +66,12 @@ public class FriendshipsDbRepository implements Repository<Set<String>, Friendsh
         return null;
     }
 
+    /**
+     *
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
     private Friendship extractEntityFromResultSet(ResultSet resultSet) throws SQLException{
         String firstUsername = resultSet.getString("first_user");
         String secondUsername = resultSet.getString("second_user");

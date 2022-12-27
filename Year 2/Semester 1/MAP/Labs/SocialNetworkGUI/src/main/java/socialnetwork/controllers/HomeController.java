@@ -24,9 +24,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static socialnetwork.constants.Strings.*;
-import static socialnetwork.gui_utils.GUIUtils.*;
 
-public class HomeController implements Controller{
+public class HomeController extends AbstractController{
 
     ObservableList<UserDTO> usersModel = FXCollections.observableArrayList();
     private NetworkService networkService;
@@ -44,7 +43,7 @@ public class HomeController implements Controller{
     CheckBox requestsCheckBox, allUsersCheckBox;
 
     @FXML
-    Button removeButton, addButton, accountSettingsButton, logOutButton;
+    Button removeButton, addButton, accountSettingsButton, logOutButton, chatButton;
 
     @FXML
     TextField searchUserTextField;
@@ -61,12 +60,12 @@ public class HomeController implements Controller{
 
     @FXML
     public void initialize() {
-        usernameTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        emailTableColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        dateTableColumn.setCellValueFactory(new PropertyValueFactory<>("friendsFrom"));
-        statusTableColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        usernameTableColumn.setCellValueFactory(new PropertyValueFactory<>(ID));
+        firstNameTableColumn.setCellValueFactory(new PropertyValueFactory<>(FIRST_NAME));
+        lastNameTableColumn.setCellValueFactory(new PropertyValueFactory<>(LAST_NAME));
+        emailTableColumn.setCellValueFactory(new PropertyValueFactory<>(EMAIL));
+        dateTableColumn.setCellValueFactory(new PropertyValueFactory<>(FRIENDS_FROM));
+        statusTableColumn.setCellValueFactory(new PropertyValueFactory<>(STATUS));
 
 
         usersTableView.setItems(usersModel);
@@ -105,10 +104,12 @@ public class HomeController implements Controller{
             allUsersCheckBox.setSelected(false);
             addButton.setDisable(false);
             removeButton.setDisable(false);
+            chatButton.setDisable(true);
         } else {
             usersModel.setAll(getFriendships(ACCEPTED));
             removeButton.setDisable(false);
             addButton.setDisable(true);
+            chatButton.setDisable(false);
         }
     }
 
@@ -125,16 +126,14 @@ public class HomeController implements Controller{
     @FXML
     protected void logOutButtonClicked() throws IOException {
         URL location = getClass().getResource("/socialnetwork/log-in.fxml");
-        String title = "Login";
-        loadPage(this.networkService, null, location, title, 320, 340);
+        loadPage(this.networkService, null, location, LOG_IN, 320, 340);
         closePage((Stage) logOutButton.getScene().getWindow());
     }
 
     @FXML
     protected void accountSettingsButtonClicked() throws IOException {
         URL location = getClass().getResource("/socialnetwork/account-settings.fxml");
-        String title = "Login";
-        loadPage(this.networkService, this.currentUser, location, title, 320, 400);
+        loadPage(this.networkService, this.currentUser, location, LOG_IN, 320, 400);
         closePage((Stage) accountSettingsButton.getScene().getWindow());
     }
     @FXML
@@ -189,12 +188,24 @@ public class HomeController implements Controller{
             requestsCheckBox.setSelected(false);
             removeButton.setDisable(true);
             addButton.setDisable(false);
+            chatButton.setDisable(true);
         } else {
             usersModel.setAll(getFriendships(ACCEPTED));
             removeButton.setDisable(false);
             addButton.setDisable(true);
+            chatButton.setDisable(false);
         }
     }
+
+    @FXML
+    protected void chatButtonClicked() throws IOException{
+        UserDTO userDTO = usersTableView.getSelectionModel().getSelectedItem();
+        if (userDTO != null) {
+            URL location = getClass().getResource("/socialnetwork/chat.fxml");
+            loadPage(this.networkService, this.currentUser, location, userDTO.getId(), 600, 425);
+        }
+    }
+
     private List<UserDTO> getFriendships(String status) {
         Iterable<User> friendsIterable = this.networkService.showUserFriends(currentUser.getId());
         List<User> friendsList =

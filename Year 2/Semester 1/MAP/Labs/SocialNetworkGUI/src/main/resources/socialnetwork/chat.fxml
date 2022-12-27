@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="425.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="socialnetwork.controllers.ChatController">
+   <children>
+      <VBox prefHeight="425.0" prefWidth="600.0" spacing="5.0">
+         <children>
+            <HBox prefHeight="345.0" prefWidth="600.0">
+               <children>
+                  <ListView fx:id="messagesListView" prefHeight="342.0" prefWidth="600.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="71.0" prefWidth="600.0" spacing="5.0">
+               <children>
+                  <TextField fx:id="messageTextField" prefHeight="97.0" prefWidth="531.0" promptText="send a message..." />
+                  <Button fx:id="sendMessageButton" mnemonicParsing="false" text="Send" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+   </padding>
+</AnchorPane>
