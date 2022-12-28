@@ -29,11 +29,13 @@ public class AccountSettingsController extends AbstractController{
         resetButton.setDefaultButton(true);
     }
 
-    public void setService(NetworkService networkService) {
+    public void setService(NetworkService networkService){
         this.networkService = networkService;
     }
 
-    public void setUser(User user) {
+    public void setPairedUser(User user){}
+
+    public void setUser(User user){
         this.currentUser = user;
         firstNameTextField.setPromptText(currentUser.getFirstName());
         lastNameTextField.setPromptText(currentUser.getLastName());
@@ -70,7 +72,7 @@ public class AccountSettingsController extends AbstractController{
 
         URL location = getClass().getResource("/socialnetwork/log-in.fxml");
         String title = "Login";
-        loadPage(this.networkService, null, location, title, 320, 340);
+        loadPage(this.networkService, null, null, location, title, 320, 340);
 
         closePage((Stage) deleteButton.getScene().getWindow());
     }
@@ -80,7 +82,7 @@ public class AccountSettingsController extends AbstractController{
 
         URL location = getClass().getResource("/socialnetwork/home.fxml");
         String title = "Welcome, " + currentUser.getId();
-        loadPage(this.networkService, this.currentUser, location, title, 1000, 500);
+        loadPage(this.networkService, this.currentUser, null, location, title, 1000, 500);
 
         closePage((Stage) resetButton.getScene().getWindow());
     }

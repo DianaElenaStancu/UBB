@@ -35,6 +35,10 @@ public class LoginController extends AbstractController{
     @Override
     public void setUser(User user) {}
 
+    @Override
+    public void setPairedUser(User user){}
+
+
     @FXML
     protected void loginButtonClicked() throws IOException{
         String username = usernameTextField.getText();
@@ -50,7 +54,7 @@ public class LoginController extends AbstractController{
 
                 URL location = getClass().getResource("/socialnetwork/home.fxml");
                 String title = "Welcome, " + user.getFirstName();
-                loadPage(this.networkService, user, location, title, 1000, 500);
+                loadPage(this.networkService, user, null, location, title, 1000, 500);
 
                 closePage((Stage) loginButton.getScene().getWindow());
 
@@ -64,7 +68,7 @@ public class LoginController extends AbstractController{
     @FXML
     protected void registerHyperlinkClicked() throws IOException {
         URL location = getClass().getResource("/socialnetwork/register.fxml");
-        loadPage(this.networkService, null, location, REGISTER, 320, 520);
+        loadPage(this.networkService, null, null, location, REGISTER, 320, 520);
 
         closePage((Stage) loginButton.getScene().getWindow());
     }

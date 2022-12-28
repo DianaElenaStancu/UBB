@@ -2,6 +2,8 @@ package socialnetwork.domain;
 
 import java.time.LocalDateTime;
 
+import static socialnetwork.constants.DateTime.DATATIME_FORMATTER_NO_YEAR;
+
 public class Message extends Entity<String>{
     private String receiver;
     private String sender;
@@ -57,11 +59,8 @@ public class Message extends Entity<String>{
 
     @Override
     public String toString() {
-        return "Message{" +
-                "receiver='" + receiver + '\'' +
-                ", sender='" + sender + '\'' +
-                ", text='" + text + '\'' +
-                ", date=" + date +
-                '}';
+        return sender +
+                ": " + text + "       " +
+                '(' + date.format(DATATIME_FORMATTER_NO_YEAR) + ')';
     }
 }

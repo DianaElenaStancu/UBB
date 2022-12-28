@@ -1,16 +1,13 @@
 package socialnetwork.repository.database;
 
 import socialnetwork.domain.Message;
-import socialnetwork.domain.exceptions.EntityAlreadyExistsException;
 import socialnetwork.domain.exceptions.EntityMissingException;
 import socialnetwork.domain.validators.ValidationException;
 import socialnetwork.repository.Repository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class MessagesDbRepository implements Repository<String, Message> {
     private final String url;
@@ -29,8 +26,36 @@ public class MessagesDbRepository implements Repository<String, Message> {
         this.password = password;
     }
 
+    /**
+     * finds the message with a given id
+     * @param id the id of the entity to be returned
+     *           id must not be null
+     * @return the message if exists, null otherwise
+     * @throws IllegalArgumentException if username is null
+     * @throws EntityMissingException if message with the given id doesn't exist
+     */
     @Override
-    public Message findOne(String s) throws IllegalArgumentException, EntityMissingException {
+    public Message findOne(String id) throws IllegalArgumentException, EntityMissingException {
+        if (username == null) {
+            throw new IllegalArgumentException("Username cannot be null");
+        }
+
+        String sql = "select * from messages where id = ?";
+
+        try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, Integer.parseInt(id));
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                throw new EntityMissingException("message with id: " + id + "doesn't exist");
+            }
+
+            return extractEntityFromResultSet(resultSet);
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
         return null;
     }
 
@@ -45,15 +70,12 @@ public class MessagesDbRepository implements Repository<String, Message> {
     }
 
     /**
-     *
-     * @param message
-     * @return
-     * @throws ValidationException
-     * @throws IllegalArgumentException
-     * @throws EntityAlreadyExistsException
+     * saves a message in the database
+     * @param message Message
+     * @return the saved message
      */
     @Override
-    public Message save(Message message) throws ValidationException, IllegalArgumentException, EntityAlreadyExistsException {
+    public Message save(Message message){
         String sql = "insert into  messages(text, timestamp, sender, receiver) values(?, ?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -70,21 +92,58 @@ public class MessagesDbRepository implements Repository<String, Message> {
         return message;
     }
 
-    @Override
-    public Message delete(String s) throws IllegalArgumentException {
-        return null;
+    /**
+     * verifies if a Message with a given id exists
+     * @param id the id of a Message
+     * @return 1 if the entity exists, 0 otherwise
+     */
+    private boolean exists(String id) {
+        try {
+            findOne(id);
+        } catch (EntityMissingException e) {
+            return false;
+        }
+        return true;
     }
 
+    /**
+     * deletes a Messages with a given id
+     * @param id
+     *      id must be not null
+     * @return the deleted Message
+     */
+    @Override
+    public Message delete(String id) {
+
+        if(!exists(id)) {
+            return null;
+        }
+        Message message = findOne(id);
+        String sql = "delete from messages where id = ?";
+
+        try (Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, Integer.parseInt(id));
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+        return message;
+    }
+
+    //TODO
     @Override
     public Message update(Message entity) throws IllegalArgumentException, ValidationException, EntityMissingException {
         return null;
     }
 
     /**
-     *
-     * @param resultSet
-     * @return
-     * @throws SQLException
+     * extracts the entity from a Result Set
+     * @param resultSet the resultSet obtained after a sql statement is executed
+     * @return Message
+     * @throws SQLException if the extraction is not finished successfully
      */
     private Message extractEntityFromResultSet(ResultSet resultSet) throws SQLException{
         String id = resultSet.getString("id");
@@ -97,14 +156,14 @@ public class MessagesDbRepository implements Repository<String, Message> {
     }
 
     /**
-     *
-     * @param sender
-     * @param receiver
-     * @return
+     * finds the conversation of two users
+     * @param sender the person who sent messages
+     * @param receiver the person who received messages
+     * @return Iterable of Messages
      */
     public Iterable<Message> findAllByUsers(String sender, String receiver) {
         Set<Message> messageSet = new LinkedHashSet<>();
-        String sql = "select * from users where (sender = ? and receiver = ?) or (sender = ? and receiver = ?)";
+        String sql = "select * from messages where (sender = ? and receiver = ?) or (sender = ? and receiver = ?)";
         try(Connection connection = DriverManager.getConnection(this.url, this.username, this.password);
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
@@ -125,7 +184,7 @@ public class MessagesDbRepository implements Repository<String, Message> {
     }
 
     /**
-     *
+     * clear the table messages from database
      */
     public void clear() {
         String sql = "delete from messages";

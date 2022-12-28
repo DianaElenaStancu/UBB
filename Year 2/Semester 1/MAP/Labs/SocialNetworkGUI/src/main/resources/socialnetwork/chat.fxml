@@ -21,7 +21,7 @@
             <HBox alignment="CENTER" prefHeight="71.0" prefWidth="600.0" spacing="5.0">
                <children>
                   <TextField fx:id="messageTextField" prefHeight="97.0" prefWidth="531.0" promptText="send a message..." />
-                  <Button fx:id="sendMessageButton" mnemonicParsing="false" text="Send" />
+                  <Button fx:id="sendMessageButton" mnemonicParsing="false" onAction="#sendMessageButtonClicked" text="Send" />
                </children>
             </HBox>
          </children>

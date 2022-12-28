@@ -12,18 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 
 public abstract class AbstractController implements Controller {
-    private NetworkService networkService;
-    private User user;
-
-    @Override
-    public void setService(NetworkService networkService) {
-        this.networkService = networkService;
-    }
-
-    @Override
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     /**
      * Loads a stage
@@ -35,7 +23,7 @@ public abstract class AbstractController implements Controller {
      * @param height defines the height of the page
      * @throws IOException if an error occurs during loading the root
      */
-    public static void loadPage(NetworkService networkService, User user, URL location, String title, Integer width, Integer height) throws IOException {
+    public void loadPage(NetworkService networkService, User user, User pairedUser, URL location, String title, Integer width, Integer height) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(location);
         AnchorPane root = loader.load();
@@ -44,6 +32,10 @@ public abstract class AbstractController implements Controller {
 
         if (user != null) {
             ctrl.setUser(user);
+        }
+
+        if (pairedUser != null) {
+            ctrl.setPairedUser(pairedUser);
         }
 
         if(networkService != null) {
@@ -60,7 +52,7 @@ public abstract class AbstractController implements Controller {
      * closes a stage
      * @param stage of type Stage
      */
-    public static void closePage(Stage stage) {
+    public void closePage(Stage stage) {
         stage.close();
     }
 
@@ -70,7 +62,7 @@ public abstract class AbstractController implements Controller {
      * @param headerText defines the header text of the alert
      * @param contentText defines the conent text of the alert
      */
-    public static void showInformationAlert(String title, String headerText, String contentText) {
+    public void showInformationAlert(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

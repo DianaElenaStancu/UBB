@@ -58,6 +58,9 @@ public class HomeController extends AbstractController{
         this.currentUser = user;
     }
 
+    public void setPairedUser(User user){}
+
+
     @FXML
     public void initialize() {
         usernameTableColumn.setCellValueFactory(new PropertyValueFactory<>(ID));
@@ -126,14 +129,14 @@ public class HomeController extends AbstractController{
     @FXML
     protected void logOutButtonClicked() throws IOException {
         URL location = getClass().getResource("/socialnetwork/log-in.fxml");
-        loadPage(this.networkService, null, location, LOG_IN, 320, 340);
+        loadPage(this.networkService, null, null, location, LOG_IN, 320, 340);
         closePage((Stage) logOutButton.getScene().getWindow());
     }
 
     @FXML
     protected void accountSettingsButtonClicked() throws IOException {
         URL location = getClass().getResource("/socialnetwork/account-settings.fxml");
-        loadPage(this.networkService, this.currentUser, location, LOG_IN, 320, 400);
+        loadPage(this.networkService, this.currentUser, null, location, LOG_IN, 320, 400);
         closePage((Stage) accountSettingsButton.getScene().getWindow());
     }
     @FXML
@@ -197,12 +200,13 @@ public class HomeController extends AbstractController{
         }
     }
 
+
     @FXML
     protected void chatButtonClicked() throws IOException{
         UserDTO userDTO = usersTableView.getSelectionModel().getSelectedItem();
         if (userDTO != null) {
             URL location = getClass().getResource("/socialnetwork/chat.fxml");
-            loadPage(this.networkService, this.currentUser, location, userDTO.getId(), 600, 425);
+            loadPage(this.networkService, this.currentUser, this.networkService.findUser(userDTO.getId()), location, userDTO.getId(), 600, 425);
         }
     }
 

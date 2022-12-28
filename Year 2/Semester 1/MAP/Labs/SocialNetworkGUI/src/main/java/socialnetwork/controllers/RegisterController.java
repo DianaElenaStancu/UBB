@@ -32,10 +32,12 @@ public class RegisterController extends AbstractController{
 
     public void setUser(User user) {}
 
+    public void setPairedUser(User user){}
+
     @FXML
     protected void loginHyperlinkClicked() throws IOException {
         URL location = getClass().getResource("/socialnetwork/log-in.fxml");
-        loadPage(this.networkService, null, location, LOG_IN, 320, 340);
+        loadPage(this.networkService, null, null, location, LOG_IN, 320, 340);
 
         closePage((Stage) signUpButton.getScene().getWindow());
     }
@@ -55,7 +57,7 @@ public class RegisterController extends AbstractController{
             URL location = getClass().getResource("/socialnetwork/home.fxml");
             String title = "Welcome, " + username;
             User user = new User(username, firstName, lastName, email, password);
-            loadPage(this.networkService, user, location, title, 1000, 500);
+            loadPage(this.networkService, user, null, location, title, 1000, 500);
 
             closePage((Stage) signUpButton.getScene().getWindow());
         } catch (Exception exception) {

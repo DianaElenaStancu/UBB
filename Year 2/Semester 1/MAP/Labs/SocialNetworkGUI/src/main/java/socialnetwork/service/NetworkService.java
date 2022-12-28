@@ -81,6 +81,7 @@ public class NetworkService implements Service {
      */
     public void removeUser(String user) throws EntityMissingException{
         userRepository.findOne(user);
+        deleteMessagesOfUser(user);
 
         Iterable<User> users = userRepository.findAll();
         for (User friend : users) {
@@ -137,6 +138,7 @@ public class NetworkService implements Service {
      * @throws EntityMissingException if at least one of the usernames does not correspond to a user
      */
     public void removeFriendship(String username1, String username2) throws  EntityMissingException{
+        deleteMessagesOfTwoUsers(username1, username2);
         friendshipRepository.delete(new TreeSet<>(Arrays.asList(username1, username2)));
     }
 
@@ -222,24 +224,47 @@ public class NetworkService implements Service {
     }
 
     /**
-     *
-     * @param text
-     * @param sender
-     * @param receiver
-     * @return
+     * saves a message in database
+     * @param text String
+     * @param sender User, the user who sent the message
+     * @param receiver User, the user who received the message
+     * @return Message
      */
     public Message saveMessage(String text, String sender, String receiver){
         return this.messagesDbRepository.save(new Message(text, LocalDateTime.now(), sender, receiver));
     }
 
     /**
-     *
-     * @param sender
-     * @param receiver
-     * @return
+     * finds all the messages between two users
+     * @param sender User
+     * @param receiver User
+     * @return Iterable<Message> all messages
      */
     public Iterable<Message> findAllMessages(String sender, String receiver) {
         return this.messagesDbRepository.findAllByUsers(sender, receiver);
+    }
+
+    /**
+     * deletes all the sent/received messages of a given User
+     * @param username User's id
+     */
+    public void deleteMessagesOfUser(String username) {
+        Iterable<User> friends = showUserFriends(username);
+        for(User friend : friends) {
+            deleteMessagesOfTwoUsers(username, friend.getId());
+        }
+    }
+
+    /**
+     * deletes the conversation between two users
+     * @param username1 first user's id
+     * @param username2 second user's id
+     */
+    public void deleteMessagesOfTwoUsers(String username1, String username2) {
+        Iterable<Message> messages = messagesDbRepository.findAllByUsers(username1, username2);
+        for (Message message : messages) {
+            messagesDbRepository.delete(message.getId());
+        }
     }
 
     /**
