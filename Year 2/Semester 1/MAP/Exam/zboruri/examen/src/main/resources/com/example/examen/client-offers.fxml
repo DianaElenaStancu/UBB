@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.examen.controller.ClientOfferController">
+   <children>
+      <TableView fx:id="tableViewId" layoutX="2.0" layoutY="53.0" prefHeight="273.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="hotelCol" prefWidth="110.0" text="nume hotel" />
+          <TableColumn fx:id="locateCol" prefWidth="141.0" text="nume locatie" />
+            <TableColumn fx:id="startCol" prefWidth="156.0" text="startDate" />
+            <TableColumn fx:id="endCol" prefWidth="177.0" text="endDate" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.restaurante.controller.StaffController"
+            prefHeight="400.0" prefWidth="600.0"
+            maxHeight="Infinity" maxWidth="Infinity">
+    <center>
+        <VBox fx:id="centerPane" alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity">
+            <VBox maxHeight="Infinity" maxWidth="Infinity">
+                <Label text="Placed orders" />
+                <TableView fx:id="placedOrdersTableView" maxHeight="Infinity" maxWidth="Infinity">
+                    <columns>
+                        <TableColumn text="Table">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="tableId" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Items">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="itemsOrder" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Date">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="date" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Prepare" fx:id="prepareColumn" />
+                    </columns>
+                </TableView>
+            </VBox>
+            <VBox maxHeight="Infinity" maxWidth="Infinity">
+                <Label text="Preparing orders" />
+                <TableView fx:id="preparingOrdersTableView" maxHeight="Infinity" maxWidth="Infinity">
+                    <columns>
+                        <TableColumn text="Table">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="tableId" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Items">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="itemsOrder" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Date">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="date" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Deliver" fx:id="deliverColumn" />
+                    </columns>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>

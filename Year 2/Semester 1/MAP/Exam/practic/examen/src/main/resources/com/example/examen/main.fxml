@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.examen.controller.MainController">
+   <children>
+      <ComboBox fx:id="departureCityId" layoutX="66.0" layoutY="29.0" onAction="#departureCityOnAction" prefWidth="150.0" promptText="departure city" />
+      <ComboBox fx:id="destinationCityId" layoutX="241.0" layoutY="29.0" onAction="#destinationCityOnAction" prefWidth="150.0" promptText="destination city" />
+      <CheckBox fx:id="routeCheckId" layoutX="441.0" layoutY="33.0" mnemonicParsing="false" onAction="#routeCheckOnAction" text="direct route only" />
+      <Button fx:id="searchButtonId" layoutX="515.0" layoutY="350.0" mnemonicParsing="false" onAction="#searchButtonOnAction" text="Search" />
+      <ListView fx:id="routesListId" layoutX="31.0" layoutY="100.0" onEditStart="#routesListOnAction" prefHeight="200.0" prefWidth="544.0" />
+      <Label fx:id="notificationId" layoutX="86.0" layoutY="66.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.templateexamen.Ui.Example.DynamicAddedButtonExampleController">
+   <children>
+      <TableView fx:id="exampleTableView" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="554.0">
+        <columns>
+          <TableColumn fx:id="exampleTableColumnName" prefWidth="150.4000244140625" text="Name" />
+          <TableColumn fx:id="exampleTableColumnButton" minWidth="0.0" prefWidth="272.0" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

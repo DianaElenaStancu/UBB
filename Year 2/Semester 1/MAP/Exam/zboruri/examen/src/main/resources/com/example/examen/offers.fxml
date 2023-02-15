@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.examen.controller.OffersController">
+   <children>
+      <ListView fx:id="listViewId" layoutY="-1.0" prefHeight="267.0" prefWidth="600.0" />
+      <DatePicker fx:id="startId" layoutX="74.0" layoutY="300.0" onAction="#startAction" promptText="start" />
+      <DatePicker fx:id="endId" layoutX="347.0" layoutY="300.0" onAction="#endAction" promptText="end" />
+      <Button fx:id="rezervaId" layoutX="260.0" layoutY="342.0" mnemonicParsing="false" onAction="#rezervaClicked" text="Rezerva" />
+   </children>
+</AnchorPane>

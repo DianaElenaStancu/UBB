@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.examen.controller.ClientOfferController">
+   <children>
+      <TableView fx:id="ofertaTableView" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="hotelCol" prefWidth="148.0" text="numeHotel" />
+          <TableColumn fx:id="locatieCol" prefWidth="140.0" text="numeLocatie" />
+            <TableColumn fx:id="startCol" prefWidth="140.0" text="startDate" />
+            <TableColumn fx:id="endCol" prefWidth="169.0" text="endDate" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
