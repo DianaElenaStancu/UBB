@@ -21,14 +21,14 @@
                         <Insets right="150.0" />
                      </HBox.margin>
                   </TextField>
-                  <CheckBox fx:id="requestsCheckBox" mnemonicParsing="false" onAction="#requestsCheckBoxClicked" text="Requests" />
-                  <CheckBox fx:id="allUsersCheckBox" mnemonicParsing="false" onAction="#allUsersCheckBoxClicked" text="All users" />
-                  <Button fx:id="accountSettingsButton" mnemonicParsing="false" onAction="#accountSettingsButtonClicked" text="Account Settings">
+                  <CheckBox fx:id="requestsCheckBox" mnemonicParsing="false" onAction="#requestsCheckBoxClicked" text="Requests" textFill="#e40fc4" />
+                  <CheckBox fx:id="allUsersCheckBox" mnemonicParsing="false" onAction="#allUsersCheckBoxClicked" text="All users" textFill="#e40fc4" />
+                  <Button fx:id="accountSettingsButton" mnemonicParsing="false" onAction="#accountSettingsButtonClicked" text="Account Settings" textFill="#e40fc4">
                      <HBox.margin>
                         <Insets left="150.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" text="Log out" />
+                  <Button fx:id="logOutButton" mnemonicParsing="false" onAction="#logOutButtonClicked" text="Log out" textFill="#e40fc4" />
                </children>
             </HBox>
             <TableView fx:id="usersTableView" prefHeight="386.0" prefWidth="966.0">
@@ -43,9 +43,9 @@
             </TableView>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" text="Add" />
-                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButtonClicked" text="Remove" />
-                  <Button fx:id="chatButton" mnemonicParsing="false" onAction="#chatButtonClicked" text="Chat" />
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonClicked" text="Add" textFill="#e40fc4" />
+                  <Button fx:id="removeButton" mnemonicParsing="false" onAction="#removeButtonClicked" text="Remove" textFill="#e40fc4" />
+                  <Button fx:id="chatButton" mnemonicParsing="false" onAction="#chatButtonClicked" text="Chat" textFill="#e40fc4" />
                </children>
             </HBox>
          </children>

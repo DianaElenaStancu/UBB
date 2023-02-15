@@ -15,7 +15,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="340.0" prefWidth="320.0" spacing="30.0">
          <children>
-            <Label text="Hello!">
+            <Label text="Hello!" textFill="#e40fc4">
                <font>
                   <Font size="36.0" />
                </font>
