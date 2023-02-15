@@ -15,3 +15,12 @@ Here is my work for university: assignments, labs, seminars, optional activities
     - Data Structures and Algorithms - C/C++
     - Operating Systems
     - Dynamic Systems
+
+### Year 2
+
+##### Semester 3:
+    - Logical and Functional Programming - Prolog and Lisp
+    - Advanced Programming Methods - Java, JavaFX, PostgreSQL
+    - Probability and Statistics - Octave
+    - Databases - SQL, MySQL
+    - Computer Networks - C++, Java, Cisco Packet Tracer
