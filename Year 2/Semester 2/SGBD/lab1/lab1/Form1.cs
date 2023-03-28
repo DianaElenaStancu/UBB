@@ -18,6 +18,9 @@ namespace lab1
         DataSet dsAutori = new DataSet();
         SqlDataAdapter adapterDataCarti = new SqlDataAdapter();
         DataSet dsCarti = new DataSet();
+        DataSet dataSet = new DataSet();
+        BindingSource bindingSourceCarti = new BindingSource();
+        BindingSource bindingSourceAutori = new BindingSource();
         public Form1()
         {
             InitializeComponent();
@@ -27,15 +30,28 @@ namespace lab1
         {
             try
             {
+                /*
                 adapterDataAutori.SelectCommand = new SqlCommand("select * from Authors", connection);
                 dsAutori.Clear();
                 adapterDataAutori.Fill(dsAutori);
-                dataGridViewAutori.DataSource = dsAutori.Tables[0];
-
-                buttonAdaugaCarte.Enabled = false;
+                dataGridViewAutori.DataSource = dsAutori.Tables[0];*/
+                connection.Open();
+                adapterDataAutori.SelectCommand = new SqlCommand("select * from Authors", connection);
+                adapterDataCarti.SelectCommand = new SqlCommand("select * from Books", connection);
+                adapterDataAutori.Fill(dataSet, "Authors");
+                adapterDataCarti.Fill(dataSet, "Books");
+                bindingSourceAutori.DataSource = dataSet.Tables["Authors"];
+                dataGridViewAutori.DataSource = bindingSourceAutori;
+                DataColumn columnAutori = dataSet.Tables["Authors"].Columns["id"];
+                DataColumn columnCarti = dataSet.Tables["Books"].Columns["author"];
+                DataRelation relation = new DataRelation("FK_Authors_Books", columnAutori, columnCarti);
+                dataSet.Relations.Add(relation);
+                bindingSourceCarti.DataSource = bindingSourceAutori;
+                bindingSourceCarti.DataMember = "FK_Authors_Books";
+                dataGridViewCarti.DataSource = bindingSourceCarti;
+                
                 buttonStergeCarte.Enabled = false;
                 buttonActualizeazaCarte.Enabled = false;
-
             } catch (Exception exception)
             {
                 MessageBox.Show(exception.Message, "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -89,9 +105,10 @@ namespace lab1
         {
             try
             {
-                if (dataGridViewAutori.SelectedRows[0].Cells["id"].FormattedValue != null)
+                if (dataGridViewAutori.CurrentCell != null)
                 {
-                    string idCarte = dataGridViewAutori.SelectedRows[0].Cells["id"].FormattedValue.ToString();
+                    int index = dataGridViewAutori.CurrentCell.RowIndex;
+                    string idCarte = dataGridViewAutori.Rows[index].Cells["id"].FormattedValue.ToString();
                     Form formAdaugareCarte = new FormAdaugareCarte(idCarte);
                     formAdaugareCarte.ShowDialog();
                     dsCarti.Clear();
@@ -110,7 +127,8 @@ namespace lab1
         {
             try
             {
-                string carteId = dataGridViewCarti.SelectedRows[0].Cells["id"].FormattedValue.ToString();
+                int index = dataGridViewCarti.CurrentCell.RowIndex;
+                string carteId = dataGridViewCarti.Rows[index].Cells["id"].FormattedValue.ToString();
                 DialogResult dialogResult = MessageBox.Show("Sigur doriti sa stergeti inregistrarea cu id " + carteId + "?", "Confirmare stergere", MessageBoxButtons.OKCancel);
                 if (dialogResult == DialogResult.OK)
                 {
@@ -135,19 +153,21 @@ namespace lab1
         {
             try
             {
-                if (dataGridViewCarti.SelectedRows[0].Cells != null)
+                if (dataGridViewCarti.CurrentCell != null)
                 {
-                    int id = (int)dataGridViewCarti.SelectedRows[0].Cells["id"].Value;
-                    string ISBN = dataGridViewCarti.SelectedRows[0].Cells["ISBN"].FormattedValue.ToString().ToUpper();
-                    string titlu = dataGridViewCarti.SelectedRows[0].Cells["title"].FormattedValue.ToString();
-                    int autor = (int)dataGridViewCarti.SelectedRows[0].Cells["author"].Value;
-                    int limbaId = (int)dataGridViewCarti.SelectedRows[0].Cells["language_id"].Value;
-                    int subdepartmentId = (int)dataGridViewCarti.SelectedRows[0].Cells["subdepartment_id"].Value;
-                    int edituraId = (int)dataGridViewCarti.SelectedRows[0].Cells["subdepartment_id"].Value;
-                    bool activ = (bool)dataGridViewCarti.SelectedRows[0].Cells["active"].Value;
-                    string conditii = dataGridViewCarti.SelectedRows[0].Cells["conditions"].FormattedValue.ToString();
-                    DateTime dataPublicarii = (DateTime)dataGridViewCarti.SelectedRows[0].Cells["publication_date"].Value;
-                    string mentiuni = dataGridViewCarti.SelectedRows[0].Cells["mentions"].FormattedValue.ToString();
+                    int index = dataGridViewCarti.CurrentCell.RowIndex;
+
+                    int id = (int)dataGridViewCarti.Rows[index].Cells["id"].Value;
+                    string ISBN = dataGridViewCarti.Rows[index].Cells["ISBN"].FormattedValue.ToString().ToUpper();
+                    string titlu = dataGridViewCarti.Rows[index].Cells["title"].FormattedValue.ToString();
+                    int autor = (int)dataGridViewCarti.Rows[index].Cells["author"].Value;
+                    int limbaId = (int)dataGridViewCarti.Rows[index].Cells["language_id"].Value;
+                    int subdepartmentId = (int)dataGridViewCarti.Rows[index].Cells["subdepartment_id"].Value;
+                    int edituraId = (int)dataGridViewCarti.Rows[index].Cells["subdepartment_id"].Value;
+                    bool activ = (bool)dataGridViewCarti.Rows[index].Cells["active"].Value;
+                    string conditii = dataGridViewCarti.Rows[index].Cells["conditions"].FormattedValue.ToString();
+                    DateTime dataPublicarii = (DateTime)dataGridViewCarti.Rows[index].Cells["publication_date"].Value;
+                    string mentiuni = dataGridViewCarti.Rows[index].Cells["mentions"].FormattedValue.ToString();
 
                     string confirmare = "Doriti sa schimbati linia selectata (cartea cu id: " + id +  ") in:\n" +
                         "ISBN: " + ISBN + "\n" +

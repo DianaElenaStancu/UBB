@@ -43,25 +43,27 @@
             // dataGridViewAutori
             // 
             this.dataGridViewAutori.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAutori.Location = new System.Drawing.Point(12, 62);
+            this.dataGridViewAutori.Location = new System.Drawing.Point(26, 61);
             this.dataGridViewAutori.Name = "dataGridViewAutori";
-            this.dataGridViewAutori.Size = new System.Drawing.Size(728, 477);
+            this.dataGridViewAutori.RowHeadersWidth = 51;
+            this.dataGridViewAutori.Size = new System.Drawing.Size(862, 190);
             this.dataGridViewAutori.TabIndex = 0;
             this.dataGridViewAutori.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewAutoriCellClicked);
             // 
             // dataGridViewCarti
             // 
             this.dataGridViewCarti.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCarti.Location = new System.Drawing.Point(775, 62);
+            this.dataGridViewCarti.Location = new System.Drawing.Point(26, 336);
             this.dataGridViewCarti.Name = "dataGridViewCarti";
-            this.dataGridViewCarti.Size = new System.Drawing.Size(728, 477);
+            this.dataGridViewCarti.RowHeadersWidth = 51;
+            this.dataGridViewCarti.Size = new System.Drawing.Size(1150, 190);
             this.dataGridViewCarti.TabIndex = 1;
             this.dataGridViewCarti.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewCellCartiClicked);
             // 
             // labelAutori
             // 
             this.labelAutori.AutoSize = true;
-            this.labelAutori.Location = new System.Drawing.Point(24, 24);
+            this.labelAutori.Location = new System.Drawing.Point(24, 30);
             this.labelAutori.Name = "labelAutori";
             this.labelAutori.Size = new System.Drawing.Size(34, 13);
             this.labelAutori.TabIndex = 2;
@@ -70,7 +72,7 @@
             // labelCarti
             // 
             this.labelCarti.AutoSize = true;
-            this.labelCarti.Location = new System.Drawing.Point(772, 24);
+            this.labelCarti.Location = new System.Drawing.Point(24, 310);
             this.labelCarti.Name = "labelCarti";
             this.labelCarti.Size = new System.Drawing.Size(28, 13);
             this.labelCarti.TabIndex = 3;
@@ -86,7 +88,7 @@
             // 
             // buttonAdaugaCarte
             // 
-            this.buttonAdaugaCarte.Location = new System.Drawing.Point(12, 562);
+            this.buttonAdaugaCarte.Location = new System.Drawing.Point(985, 141);
             this.buttonAdaugaCarte.Name = "buttonAdaugaCarte";
             this.buttonAdaugaCarte.Size = new System.Drawing.Size(192, 23);
             this.buttonAdaugaCarte.TabIndex = 5;
@@ -96,7 +98,7 @@
             // 
             // buttonStergeCarte
             // 
-            this.buttonStergeCarte.Location = new System.Drawing.Point(775, 562);
+            this.buttonStergeCarte.Location = new System.Drawing.Point(356, 542);
             this.buttonStergeCarte.Name = "buttonStergeCarte";
             this.buttonStergeCarte.Size = new System.Drawing.Size(182, 23);
             this.buttonStergeCarte.TabIndex = 6;
@@ -106,7 +108,7 @@
             // 
             // buttonActualizeazaCarte
             // 
-            this.buttonActualizeazaCarte.Location = new System.Drawing.Point(1100, 562);
+            this.buttonActualizeazaCarte.Location = new System.Drawing.Point(722, 542);
             this.buttonActualizeazaCarte.Name = "buttonActualizeazaCarte";
             this.buttonActualizeazaCarte.Size = new System.Drawing.Size(190, 23);
             this.buttonActualizeazaCarte.TabIndex = 7;
@@ -118,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1515, 617);
+            this.ClientSize = new System.Drawing.Size(1206, 596);
             this.Controls.Add(this.buttonActualizeazaCarte);
             this.Controls.Add(this.buttonStergeCarte);
             this.Controls.Add(this.buttonAdaugaCarte);
