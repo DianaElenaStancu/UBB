@@ -1,0 +1,12 @@
+D:\Projects\lab1\lab1\bin\Debug\lab1.exe.config
+D:\Projects\lab1\lab1\bin\Debug\lab1.exe
+D:\Projects\lab1\lab1\bin\Debug\lab1.pdb
+D:\Projects\lab1\lab1\obj\Debug\lab1.csproj.AssemblyReference.cache
+D:\Projects\lab1\lab1\obj\Debug\lab1.csproj.SuggestedBindingRedirects.cache
+D:\Projects\lab1\lab1\obj\Debug\lab1.Properties.Resources.resources
+D:\Projects\lab1\lab1\obj\Debug\lab1.csproj.GenerateResource.cache
+D:\Projects\lab1\lab1\obj\Debug\lab1.csproj.CoreCompileInputs.cache
+D:\Projects\lab1\lab1\obj\Debug\lab1.exe
+D:\Projects\lab1\lab1\obj\Debug\lab1.pdb
+D:\Projects\lab1\lab1\obj\Debug\lab1.FormAdaugare.resources
+D:\Projects\lab1\lab1\obj\Debug\lab1.Home.resources
