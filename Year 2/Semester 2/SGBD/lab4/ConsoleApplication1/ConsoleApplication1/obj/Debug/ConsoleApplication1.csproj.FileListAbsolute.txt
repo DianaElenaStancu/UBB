@@ -1,0 +1,14 @@
+C:\Users\Bejan Andrei\Desktop\An2Sem2\MPP\ConcursDeInot\Csharp\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Users\Bejan Andrei\Desktop\An2Sem2\MPP\ConcursDeInot\Csharp\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Users\Bejan Andrei\Desktop\An2Sem2\MPP\ConcursDeInot\Csharp\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.AssemblyReference.cache
+C:\Users\Bejan Andrei\Desktop\An2Sem2\MPP\ConcursDeInot\Csharp\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.SuggestedBindingRedirects.cache
+C:\Users\Bejan Andrei\Desktop\An2Sem2\MPP\ConcursDeInot\Csharp\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.CoreCompileInputs.cache
+C:\Users\Bejan Andrei\Desktop\An2Sem2\MPP\ConcursDeInot\Csharp\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\Bejan Andrei\Desktop\An2Sem2\MPP\ConcursDeInot\Csharp\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
+C:\Users\User\Desktop\laboratorul 4\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.exe
+C:\Users\User\Desktop\laboratorul 4\ConsoleApplication1\ConsoleApplication1\bin\Debug\ConsoleApplication1.pdb
+C:\Users\User\Desktop\laboratorul 4\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\laboratorul 4\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.SuggestedBindingRedirects.cache
+C:\Users\User\Desktop\laboratorul 4\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\laboratorul 4\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.exe
+C:\Users\User\Desktop\laboratorul 4\ConsoleApplication1\ConsoleApplication1\obj\Debug\ConsoleApplication1.pdb
