@@ -1,0 +1,126 @@
+#include <iostream> using namespace std; int main() Keyword 21
+{ Separator 5
+int Keyword 24
+radius Id 0
+; Separator 2
+cin Keyword 28
+>> Separator 8
+radius Id 0
+; Separator 2
+float Keyword 23
+pi Id 0
+; Separator 2
+pi Id 0
+= AlgebricOperator 14
+3.1415926 Const 1
+; Separator 2
+pi Id 0
+= AlgebricOperator 14
+0b101101 Const 1
+; Separator 2
+pi Id 0
+= AlgebricOperator 14
+0xAB65 Const 1
+; Separator 2
+float Keyword 23
+perim Id 0
+; Separator 2
+float Keyword 23
+area Id 0
+; Separator 2
+perim Id 0
+= AlgebricOperator 14
+2 Const 1
+* AlgebricOperator 11
+pi Id 0
+* AlgebricOperator 11
+radius Id 0
+; Separator 2
+area Id 0
+= AlgebricOperator 14
+pi Id 0
+* AlgebricOperator 11
+radius Id 0
+* AlgebricOperator 11
+radius Id 0
+; Separator 2
+cout Keyword 29
+<< Separator 7
+perim Id 0
+; Separator 2
+cout Keyword 29
+<< Separator 7
+endl Keyword 30
+; Separator 2
+cout Keyword 29
+<< Separator 7
+area Id 0
+; Separator 2
+return Keyword 22
+0 Const 1
+; Separator 2
+} Separator 6
+FIP
+Atom Code | TS Position
+21 0x0 
+5 0x0 
+24 0x0 
+0 0x6000015a8570 radius
+2 0x0 
+28 0x0 
+8 0x0 
+0 0x6000015a8570 radius
+2 0x0 
+23 0x0 
+0 0x6000015a85a0 pi
+2 0x0 
+0 0x6000015a85a0 pi
+14 0x0 
+1 0x6000015a85d0 3.1415926
+2 0x0 
+0 0x6000015a85a0 pi
+14 0x0 
+1 0x6000015a8600 0b101101
+2 0x0 
+0 0x6000015a85a0 pi
+14 0x0 
+1 0x6000015a8630 0xAB65
+2 0x0 
+23 0x0 
+0 0x6000015a8660 perim
+2 0x0 
+23 0x0 
+0 0x6000015a8690 area
+2 0x0 
+0 0x6000015a8660 perim
+14 0x0 
+1 0x6000015a86c0 2
+11 0x0 
+0 0x6000015a85a0 pi
+11 0x0 
+0 0x6000015a8570 radius
+2 0x0 
+0 0x6000015a8690 area
+14 0x0 
+0 0x6000015a85a0 pi
+11 0x0 
+0 0x6000015a8570 radius
+11 0x0 
+0 0x6000015a8570 radius
+2 0x0 
+29 0x0 
+7 0x0 
+0 0x6000015a8660 perim
+2 0x0 
+29 0x0 
+7 0x0 
+30 0x0 
+2 0x0 
+29 0x0 
+7 0x0 
+0 0x6000015a8690 area
+2 0x0 
+22 0x0 
+1 0x6000015a86f0 0
+2 0x0 
+6 0x0 

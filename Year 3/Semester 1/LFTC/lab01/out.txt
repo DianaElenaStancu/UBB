@@ -1,0 +1,1 @@
+#include<iostream>usingnamespacestd;intmain(){intradius;cin>>radius;floatpi;pi=3.1415926;floatperimeter;floatarea;perimeter=2*pi*radius;area=pi*radius*radius;cout<<perimeter;cout<<"";cout<<area;return0;}
