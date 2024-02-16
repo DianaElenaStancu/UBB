@@ -1,0 +1,34 @@
+<program> ::= <antet> "(" <data_segment> <code_segment> ")"
+
+<antet> ::= "#include <iostream> using namespace std;"
+
+<data_segment> ::= <instr_decl> | <data_segment> <instr_decl> 
+
+<instr_decl> ::= "int" <id> ";"
+
+<code_segment> ::= <instr_list> <return>
+
+<return> ::= "return 0;"
+
+<instr_list>::= <instr> | <instr_list> <instr>
+
+<instr>::= <instr_cin> | <instr_cout>  | <instr_assign>
+
+
+<instr_cin>::= "cin >>" <id> ";"
+
+<instr_cout>::= "cout <<" <id> ";"                      
+				
+<instr_assign>    ::= <id> "=" <expression> ";"
+
+
+<expression>      ::= <term> | <expression> "+" <term> | <expression> "-" <term>
+
+<term> ::= <factor> | <term> "*" <factor> | <term> "/" <factor>
+
+<factor>            ::= <const> | <id> | "(" <expression> ")" 
+
+<digit_0> ::= 1..9
+<digit> ::=   0..9
+<const> ::= 0|<digit_0><digit>*
+<id>   ::=   [a...zA...Z]+_*[a...zA...Z0...9_]*
